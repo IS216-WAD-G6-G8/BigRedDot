@@ -41,6 +41,6 @@ export default {
 
     <button id="loadData" v-on:click="getBusinessData(firebaseUrl)">Load Data</button>
 
-    <p>{{ businessData }}</p>
+    <p v-for="business of businessData">{{ business }}</p>
 
 </template>
