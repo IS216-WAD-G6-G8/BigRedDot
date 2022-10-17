@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,10 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FirebaseService = void 0;
-const axios_1 = require("axios");
-class FirebaseService {
+import axios from 'axios';
+export class FirebaseService {
     constructor() {
         this.baseUrl =
             'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/businesses.json';
@@ -19,7 +16,7 @@ class FirebaseService {
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let res = yield axios_1.default.get(this.baseUrl);
+                let res = yield axios.get(this.baseUrl);
                 let data = res.data;
                 return data;
             }
@@ -32,7 +29,7 @@ class FirebaseService {
         return __awaiter(this, void 0, void 0, function* () {
             var matchCategories = Object.values(categories);
             try {
-                let res = yield axios_1.default.get(this.baseUrl);
+                let res = yield axios.get(this.baseUrl);
                 let data = res.data;
                 let retData = data.filter((business) => {
                     return matchCategories.includes(business.category);
@@ -45,4 +42,3 @@ class FirebaseService {
         });
     }
 }
-exports.FirebaseService = FirebaseService;
