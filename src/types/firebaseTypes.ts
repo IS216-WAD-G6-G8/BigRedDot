@@ -1,4 +1,4 @@
-enum CategoryEnum {
+export enum CategoryEnum {
     services = 'Services',
     foodandbeverage = 'Food and Beverage',
     fashion = 'Fashion',
@@ -6,7 +6,7 @@ enum CategoryEnum {
     experiences = 'Experiences',
 }
 
-enum ModeEnum {
+export enum ModeEnum {
     physical = 'Physical',
     online = 'Online Order',
     both = 'Physical, Online Order',

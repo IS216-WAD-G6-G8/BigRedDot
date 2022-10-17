@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Business } from '../types/firebaseTypes'
+import { Business, CategoryEnum } from '../types/firebaseTypes'
 
 export class FirebaseService {
     baseUrl: string
@@ -14,6 +14,24 @@ export class FirebaseService {
             let res = await axios.get(this.baseUrl)
             let data = res.data
             return data
+        } catch (err) {
+            throw err
+        }
+    }
+
+    async getDataByCategory(
+        categories: CategoryEnum[]
+    ): Promise<void | Business[]> {
+        var matchCategories = Object.values(categories)
+
+        try {
+            let res = await axios.get(this.baseUrl)
+            let data = res.data
+
+            let retData = data.filter((business: Business) => {
+                return matchCategories.includes(business.category)
+            })
+            return retData
         } catch (err) {
             throw err
         }

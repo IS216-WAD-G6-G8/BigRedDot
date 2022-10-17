@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Business } from "../types/firebaseTypes"
+import { Business, CategoryEnum } from "../types/firebaseTypes"
 import { FirebaseService } from "../services/firebaseService"
 
 const firebaseService = new FirebaseService
@@ -8,6 +8,7 @@ export default {
     name: 'FirebaseTest',
     data() {
         return {
+            CategoryEnum,
             businessData: null as Business[] | null
         }
     },
@@ -15,6 +16,10 @@ export default {
     methods: {
         getAllData: async function () {
             this.businessData = await firebaseService.getAll()
+        },
+        
+        getByCategory: async function (categories: CategoryEnum[]) {
+            this.businessData = await firebaseService.getDataByCategory(categories)
         }
     }
 }
@@ -24,6 +29,9 @@ export default {
 <template>
 
     <button id="loadData" v-on:click="getAllData()">Load Data</button>
+
+    <!-- for testing filter purposes -->
+    <button id="loadServices" v-on:click="getByCategory([CategoryEnum.services])">Load Services Data</button>
 
     <p v-for="business of businessData">{{ business }}</p>
 
