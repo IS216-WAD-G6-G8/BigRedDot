@@ -3,8 +3,8 @@
         "target": "ES6",
         "module": "CommonJS",
         "moduleResolution": "node",
-        "skipLibCheck": true,
-        "lib": ["ES2017"]
+        "lib": ["ES2017"],
+        "skipLibCheck": true
     },
     "exclude": ["node_modules"]
 }
