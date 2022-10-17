@@ -1,37 +1,26 @@
 <script lang="ts">
-import axios from 'axios'
+import { Business, CategoryEnum } from "../types/firebaseTypes"
+import { FirebaseService } from "../services/firebaseService"
 
-// to be modified
-interface Business {
-    category: string,
-    contact: {
-        facebook: string,
-        instagram: string,
-        whatsapp: string,
-    },
-    description: string,
-    location: string,
-    rating: number,
-}
+const firebaseService = new FirebaseService
 
 export default {
     name: 'FirebaseTest',
     data() {
         return {
-            firebaseUrl: "https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/businesses.json" as string,
+            CategoryEnum,
             businessData: null as Business[] | null
         }
     },
 
     methods: {
-        getBusinessData: async function (url: string): Promise<void> {
-            try {
-                await axios.get(url)
-                    .then(response => this.businessData = response.data)
-            } catch (err) {
-                console.error(err)
-            }
+        getAllData: async function () {
+            this.businessData = await firebaseService.getAll()
         },
+        
+        getByCategory: async function (categories: CategoryEnum[]) {
+            this.businessData = await firebaseService.getDataByCategory(categories)
+        }
     }
 }
 
@@ -39,7 +28,10 @@ export default {
 
 <template>
 
-    <button id="loadData" v-on:click="getBusinessData(firebaseUrl)">Load Data</button>
+    <button id="loadData" v-on:click="getAllData()">Load Data</button>
+
+    <!-- for testing filter purposes -->
+    <button id="loadServices" v-on:click="getByCategory([CategoryEnum.services])">Load Services Data</button>
 
     <p v-for="business of businessData">{{ business }}</p>
 
