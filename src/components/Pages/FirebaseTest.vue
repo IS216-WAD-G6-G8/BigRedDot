@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Business, CategoryEnum } from "../types/firebaseTypes"
-import { FirebaseService } from "../services/firebaseService"
+import { Business, CategoryEnum } from "../../types/firebaseTypes"
+import { FirebaseService } from "../../services/firebaseService"
 
 const firebaseService = new FirebaseService
 
