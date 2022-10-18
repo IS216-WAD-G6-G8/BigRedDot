@@ -1,27 +1,27 @@
 <script lang="ts">
 import { Business, CategoryEnum } from "../../types/firebaseTypes"
 import { FirebaseService } from "../../services/firebaseService"
+import BusinessCard from "../Reusables/BusinessCard.vue"
 
 const firebaseService = new FirebaseService
 
 export default {
-    name: 'FirebaseTest',
+    name: "FirebaseTest",
     data() {
         return {
             CategoryEnum,
             businessData: null as Business[] | null
-        }
+        };
     },
-
     methods: {
         getAllData: async function () {
-            this.businessData = await firebaseService.getAll()
+            this.businessData = await firebaseService.getAll();
         },
-        
         getByCategory: async function (categories: CategoryEnum[]) {
-            this.businessData = await firebaseService.getDataByCategory(categories)
+            this.businessData = await firebaseService.getDataByCategory(categories);
         }
-    }
+    },
+    components: { BusinessCard }
 }
 
 </script>
@@ -33,6 +33,8 @@ export default {
     <!-- for testing filter purposes -->
     <button id="loadServices" v-on:click="getByCategory([CategoryEnum.services])">Load Services Data</button>
 
-    <p v-for="business of businessData">{{ business }}</p>
+    <div v-for="business of businessData">
+        <BusinessCard :data="business"></BusinessCard>
+    </div>
 
 </template>
