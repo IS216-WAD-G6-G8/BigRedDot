@@ -7,7 +7,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "slay": "tsc & vite build & firebase deploy",
-    "ratio": "tsc & vite"
+    "ratio": "tsc & vite build"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
