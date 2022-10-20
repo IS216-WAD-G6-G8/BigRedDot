@@ -5,3 +5,8 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+
+## how to run project
+
+- npm run ratio: to compile and run locally.
+- npm run slay: compiles and deploys to firebase, use https://is216-bigreddot.web.app/ to access.
