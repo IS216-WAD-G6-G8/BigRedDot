@@ -2,7 +2,12 @@
 import { PropType } from 'vue'
 import { Business } from '../../types/firebaseTypes'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
 import 'swiper/swiper.min.css'
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+SwiperCore.use([Navigation, Pagination, A11y])
 
 export default {
     name: 'BusinessCard',
@@ -13,6 +18,10 @@ export default {
                 '/assets/services.jpg',
                 '/assets/crafts.jpg',
             ],
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'bullets',
+            },
         }
     },
     props: {
@@ -22,6 +31,14 @@ export default {
         Swiper,
         SwiperSlide,
     },
+    methods: {
+    onSwiper(swiper) {
+      // console.log(swiper)
+    },
+    onSlideChange() {
+      // console.log('slide change')
+    },
+  },
 }
 </script>
 
@@ -29,7 +46,7 @@ export default {
     <div
         class="md:max-w-xs flex justify-center mx-auto bg-white rounded-lg border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
-            <div class="w-80 h-80">
+            <div class="w-72 h-72">
                 <!-- <img
                     src="https://twinfinite.net/wp-content/uploads/2020/01/The-Idolmaster-Starlit-Season-2-1.jpg"
                     class="card-img-top rounded-2xl object-none w-80 h-80"
@@ -37,11 +54,15 @@ export default {
                 <swiper
                     :slides-per-view="1"
                     :space-between="30"
+                    :pagination="{ clickable: true } as any"
+                    @swiper="onSwiper"
+                    @slideChange="onSlideChange"
                     class="default-slider rounded-2xl">
                     <swiper-slide v-for="card in cards" :key="card">
                         <img
-                            class="object-fill w-80 h-80"
-                            :src="card" /> </swiper-slide
+                            class="rounded-2xl object-fill w-72 h-72"
+                            :src="card" />
+                        <div class="swiper-pagination"></div></swiper-slide
                 ></swiper>
             </div>
             <div class="flex flex-col">
