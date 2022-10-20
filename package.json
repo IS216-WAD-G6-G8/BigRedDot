@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build & firebase deploy",
+    "build": "vite build",
     "preview": "vite preview",
-    "start": "tsc & vite"
+    "slay": "tsc & vite build & firebase deploy",
+    "ratio": "tsc & vite"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
