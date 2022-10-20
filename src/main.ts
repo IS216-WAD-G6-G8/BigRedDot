@@ -5,6 +5,6 @@ import router from './router'
 
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
-import 'fireebaseui/dist/firebaseui.css'
+// import 'fireebaseui/dist/firebaseui.css'
 
 createApp(App).use(router).mount('#app')
