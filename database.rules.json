@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "businesses": {
+      ".read": true,
+      ".write": false
+    },
+    "reviews": {
+      ".read": true,
+      "$uid": {
+        ".write": "auth !== null && auth.uid === $uid"
+      }
+    }
+  }
+}
