@@ -1,7 +1,7 @@
 export var CategoryEnum;
 (function (CategoryEnum) {
     CategoryEnum["services"] = "Services";
-    CategoryEnum["foodandbeverage"] = "Food and Beverage";
+    CategoryEnum["fnb"] = "Food and Beverage";
     CategoryEnum["fashion"] = "Fashion";
     CategoryEnum["crafts"] = "Crafts";
     CategoryEnum["experiences"] = "Experiences";

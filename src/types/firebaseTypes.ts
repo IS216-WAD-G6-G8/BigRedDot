@@ -1,6 +1,6 @@
 export enum CategoryEnum {
     services = 'Services',
-    foodandbeverage = 'Food and Beverage',
+    fnb = 'Food and Beverage',
     fashion = 'Fashion',
     crafts = 'Crafts',
     experiences = 'Experiences',

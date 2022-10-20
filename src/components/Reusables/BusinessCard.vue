@@ -1,6 +1,5 @@
 <script lang="ts">
 import { PropType } from "vue"
-import bootstrap from "bootstrap"
 import { Business } from "../../types/firebaseTypes"
 
 export default {

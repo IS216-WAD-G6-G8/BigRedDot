@@ -5,7 +5,7 @@ export default {
         return {
             categories: [
             {name:"services", url:"/assets/services.jpg"},
-            {name:"f&b", url:"/assets/f&b.jpg"},
+            {name:"fnb", url:"/assets/f&b.jpg"},
             {name:"fashion", url:"/assets/fashion.jpg"},
             {name:"crafts", url:"/assets/crafts.jpg"},
             {name:"experiences", url:"/assets/experiences.jpeg"},
