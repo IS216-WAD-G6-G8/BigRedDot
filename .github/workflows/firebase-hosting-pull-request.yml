@@ -10,11 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install vite
-      - run: npm run build > dist
+      - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          name: dist
-          path: dist/
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_IS216_BIGREDDOT }}'
           projectId: is216-bigreddot
