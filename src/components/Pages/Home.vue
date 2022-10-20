@@ -41,7 +41,7 @@ export default {
 <template>
     <NavBar></NavBar>
     <!-- Build filter section -->
-    <div class="bg-[#A4CAFE2E] px-20 w-full flex justify-between">
+    <div class="bg-[#A4CAFE2E] px-8 md:px-20 w-full flex justify-between">
         <div class="container overflow-scroll flex justify-between mx-auto">
             <div id="cat" v-for="category in categories">
                 <button
@@ -57,7 +57,7 @@ export default {
     <!-- Build card component -->
 
     <div
-        class="px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        class="px-8 md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         <div v-for="business of businessData">
             <BusinessCard :data="business"></BusinessCard>
         </div>
