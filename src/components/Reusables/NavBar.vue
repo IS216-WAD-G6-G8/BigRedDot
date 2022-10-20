@@ -30,7 +30,8 @@ export default {
         <nav
             class="bg-white border-gray-200 w-full my-2 rounded px-5 dark:bg-gray-900">
             <div class="container flex flex-wrap justify-between mx-auto">
-                <a href="https://flowbite.com/" class="flex items-center px-3">
+                <router-link to="/" class="flex">
+                    <a class="flex items-center px-3">
                     <img
                         src="https://flowbite.com/docs/images/logo.svg"
                         class="mr-3 h-6 sm:h-9"
@@ -40,6 +41,7 @@ export default {
                         BigRedDot
                     </span>
                 </a>
+                </router-link>
                 <button
                     @click="toggle"
                     data-collapse-toggle="navbar-default"

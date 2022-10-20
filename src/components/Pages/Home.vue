@@ -21,6 +21,9 @@ export default {
             businessData: null as Business[] | null,
         }
     },
+    beforeMount() {
+        this.getAllData()
+    },
     methods: {
         getAllData: async function () {
             this.businessData = await firebaseService.getAll()
@@ -38,10 +41,13 @@ export default {
 <template>
     <NavBar></NavBar>
     <!-- Build filter section -->
-    <div class="bg-[#A4CAFE2E] px-5 w-full flex justify-between">
+    <div class="bg-[#A4CAFE2E] px-20 w-full flex justify-between">
         <div class="container overflow-scroll flex justify-between mx-auto">
             <div id="cat" v-for="category in categories">
-                <button id="cat_button" v-on:click="getByCategory([CategoryEnum[category.name]])" class="bg-[#a4cafe00] px-3 py-3 mr-7 md:mr-0 flex flex-col items-center">
+                <button
+                    id="cat_button"
+                    v-on:click="getByCategory([CategoryEnum[category.name]])"
+                    class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center">
                     <img id="icon" :src="category.url" class="w-6 h-6 mb-2" />
                     <span class="text-xs md:text-sm">{{ category.name }}</span>
                 </button>
@@ -49,29 +55,32 @@ export default {
         </div>
     </div>
     <!-- Build card component -->
-    <div v-for="business of businessData">
-        <BusinessCard :data="business"></BusinessCard>
+
+    <div
+        class="px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div v-for="business of businessData">
+            <BusinessCard :data="business"></BusinessCard>
+        </div>
     </div>
 </template>
 
 <style scoped>
-
 #cat_button {
     position: relative;
     border-radius: unset;
 }
 
 #cat_button:hover {
-  border-color: transparent;
+    border-color: transparent;
 }
 
 #cat_button:focus {
-  outline: none;
+    outline: none;
 }
 
 #cat_button:focus:after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
 
 #cat_button:after {
