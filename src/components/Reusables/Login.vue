@@ -33,9 +33,9 @@ export default {
         })
     },
     methods: {
-        signOut(e) {
-            e.stopPropagation()
+        signOut() {
             firebase.auth().signOut()
+            this.user = null
             this.$router.push({
                 name: "/"
             })
@@ -56,7 +56,7 @@ export default {
     <li v-show="user" class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
         <button
             class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto"
-            v-on:click="signOut(user)">
+            v-on:click="signOut()">
             Log Out
         </button>
     </li>
