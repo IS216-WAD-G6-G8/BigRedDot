@@ -44,8 +44,8 @@ export default {
 
 <template>
     <div
-        class="md:max-w-xs flex justify-center mx-auto bg-white rounded-lg border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
+        class="md:max-w-xs h-full flex justify-center mx-auto bg-white rounded-2xl border-gray-20 dark:bg-white">
+        <a href="#" class="flex flex-col items-center ">
             <div class="w-72 h-72">
                 <!-- <img
                     src="https://twinfinite.net/wp-content/uploads/2020/01/The-Idolmaster-Starlit-Season-2-1.jpg"
@@ -60,15 +60,15 @@ export default {
                     class="default-slider rounded-2xl">
                     <swiper-slide v-for="card in cards" :key="card">
                         <img
-                            class="rounded-2xl object-fill w-72 h-72"
+                            class="rounded-2xl object-fill w-[17rem] h-[17rem]"
                             :src="card" />
                         <div class="swiper-pagination"></div></swiper-slide
                 ></swiper>
             </div>
             <div class="flex flex-col">
-                <div class="py-5">
+                <div class="py-5 px-5 flex flex-col">
                     <div
-                        class="mb-4 flex justify-between text-l text-left font-bold tracking-tight text-gray-900 dark:text-white">
+                        class="mb-4 flex justify-between text-l text-left font-bold tracking-tight text-gray-900">
                         <span>{{ this.data.name }}</span>
                         <span class="text-right">
                             <img src="/assets/star.svg" />
