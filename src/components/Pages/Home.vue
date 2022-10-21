@@ -55,7 +55,7 @@ export default {
                             id="icon"
                             :src="category.url"
                             class="w-6 h-6 mb-2" />
-                        <span class="text-xs md:text-sm">{{
+                        <span class="text-xs text-gray-700 md:text-sm">{{
                             category.name
                         }}</span>
                     </button>
@@ -65,7 +65,7 @@ export default {
         <!-- Build card component -->
 
         <div
-            class="px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-gray-900">
+            class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-gray-900">
             <div v-for="business of businessData">
                 <BusinessCard :data="business"></BusinessCard>
             </div>

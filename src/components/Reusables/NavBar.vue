@@ -28,7 +28,7 @@ export default {
 <template>
     <div id="app">
         <nav
-            class="bg-white border-gray-200 w-full py-2 rounded px-5 dark:bg-gray-900">
+            class="bg-white border-gray-200 w-full py-2 px-5 dark:bg-gray-900">
             <div class="container flex flex-wrap justify-between mx-auto">
                 <router-link to="/" class="flex">
                     <a class="flex items-center px-3">
