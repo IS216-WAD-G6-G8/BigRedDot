@@ -19,7 +19,7 @@ export default {
             ui = new firebaseui.auth.AuthUI(firebase.auth())
         }
         var uiConfig = {
-            signInSuccessUrl: "/Landing",
+            signInSuccessUrl: "/", // edit redirect here
             signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID, firebase.auth.EmailAuthProvider.PROVIDER_ID]
         }
         ui.start("#firebaseui-auth-container", uiConfig)
@@ -35,6 +35,9 @@ export default {
     methods: {
         signOut() {
             firebase.auth().signOut()
+            this.$router.push({
+                name: "/"
+            })
         }
     }
 }
