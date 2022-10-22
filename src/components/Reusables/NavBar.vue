@@ -119,7 +119,7 @@ export default {
                                             : { filter: 'none' },
                                     ]"
                                     class="w-5 h-5 hidden md:block"
-                                    src="assets/dark_mode.svg" />
+                                    src="/assets/dark_mode.svg" />
                             </button>
                         </li>
                         <li class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
