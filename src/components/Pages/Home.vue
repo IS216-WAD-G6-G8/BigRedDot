@@ -3,6 +3,8 @@ import NavBar from '../Reusables/NavBar.vue'
 import { Business, CategoryEnum } from '../../types/firebaseTypes'
 import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
+import { get } from 'https'
+
 
 const firebaseService = new FirebaseService()
 
@@ -19,11 +21,15 @@ export default {
             ],
             CategoryEnum,
             businessData: null as Business[] | null,
-            darkmode: false
+            darkmode: false,
         }
     },
     beforeMount() {
-        this.getAllData()
+        if(this.$store.getters.getCat != ''){
+            this.getByCategory([CategoryEnum[this.$store.getters.getCat]])
+        }else{
+            this.getAllData()
+        }
     },
     methods: {
         getAllData: async function () {
@@ -34,9 +40,9 @@ export default {
                 categories
             )
         },
-        onDarkSwitch(){
+        onDarkSwitch() {
             this.darkmode = !this.darkmode
-        }
+        },
     },
     components: { NavBar, BusinessCard },
 }
