@@ -31,14 +31,7 @@ export default {
         Swiper,
         SwiperSlide,
     },
-    methods: {
-    onSwiper(swiper) {
-      // console.log(swiper)
-    },
-    onSlideChange() {
-      // console.log('slide change')
-    },
-  },
+    methods: {},
 }
 </script>
 
@@ -55,8 +48,6 @@ export default {
                     :slides-per-view="1"
                     :space-between="30"
                     :pagination="{ clickable: true } as any"
-                    @swiper="onSwiper"
-                    @slideChange="onSlideChange"
                     class="default-slider rounded-2xl">
                     <swiper-slide v-for="card in cards" :key="card">
                         <img
