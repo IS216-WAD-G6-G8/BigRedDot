@@ -47,6 +47,22 @@ export default {
                         </span>
                     </a>
                 </router-link>
+                <div class="flex">
+                    <button
+                    id="mode_button"
+                    class="bg-transparent p-0"
+                    @click="toggleMode()">
+                    <img
+                        :style="[
+                            dark_mode
+                                ? {
+                                      filter: 'brightness(0) saturate(100%) invert(98%) sepia(98%) saturate(6%) hue-rotate(127deg) brightness(102%) contrast(103%)',
+                                  }
+                                : { filter: 'none' },
+                        ]"
+                        class="w-5 h-5 block md:hidden"
+                        src="/assets/dark_mode.svg" />
+                </button>
                 <button
                     @click="toggle"
                     data-collapse-toggle="navbar-default"
@@ -66,6 +82,7 @@ export default {
                             clip-rule="evenodd"></path>
                     </svg>
                 </button>
+                </div>
                 <div
                     v-on:scroll.native="handleScroll"
                     :class="open ? 'block' : 'hidden'"
@@ -104,8 +121,7 @@ export default {
                                 </a>
                             </router-link>
                         </li>
-                        <li
-                            class="w-full md:w-auto h-0 md:h-auto">
+                        <li class="w-full md:w-auto h-0 md:h-auto">
                             <button
                                 id="mode_button"
                                 class="bg-transparent p-0"
