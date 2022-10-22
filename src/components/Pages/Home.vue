@@ -43,7 +43,7 @@ export default {
         <NavBar></NavBar>
         <!-- Build filter section -->
         <div class="bg-[#d4e6ff] px-8 md:px-20 w-full flex justify-between">
-            <div class="container overflow-scroll flex justify-between mx-auto">
+            <div class="container overflow-auto flex justify-between mx-auto">
                 <div id="cat" v-for="category in categories">
                     <button
                         id="cat_button"
