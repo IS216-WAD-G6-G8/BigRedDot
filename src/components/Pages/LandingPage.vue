@@ -23,10 +23,10 @@ export default {
 <template>
     <div class="carousel_container">
         <div v-for="category of categories" class="carousel_box">
-            <button
+            <button 
                 @click="
-                    this.$store.dispatch('commitCat', category.name);
-                    routePage()
+                    this.$store.dispatch('commitCat', category.name),
+                        routePage()
                 ">
                 <p class="carousel_text">{{ category.name }}</p>
                 <img class="carousel_img" :src="category.url" />
@@ -45,6 +45,7 @@ button {
     height: 100vh;
 }
 .carousel_text {
+    font-size: 30px;
     font-weight: bold;
     position: absolute;
     top: 50%;
@@ -70,5 +71,21 @@ button {
 }
 .carousel_box:hover {
     flex: 4;
+}
+
+@media screen and (max-width: 480px) {
+    .carousel_container {
+        display: flex;
+        flex-direction: column;
+    }
+   
+    .carousel_text {
+        min-width: 200px;
+        visibility: visible;
+        color: #0087ca;
+        padding: 20px;
+        border-radius: 24px;
+        background-color: rgba(255, 255, 255, 0.658);
+    }
 }
 </style>
