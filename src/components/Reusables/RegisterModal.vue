@@ -57,10 +57,10 @@ export default {
                     <button class="bg-transparent" @click="close()">
                         <img class="w-4" src="/assets/cross.svg"/>
                     </button>
-                    <h3 class="text-lg font-semibold">Log in or Sign up</h3>
+                    <h3 class="text-lg pl-1 font-semibold text-gray-700">Log in or Sign up</h3>
                 </div>
                 <div class="relative px-6 pb-6 flex-auto">
-                    <h2 class="text-xl pt-6 pb-7 font-semibold">Welcome to BigRedDot</h2>
+                    <h2 class="text-xl pt-6 pb-7 font-semibold text-gray-700">Welcome to BigRedDot</h2>
                     <section id="firebaseui-auth-container"></section>
                 </div>
             </div>

@@ -59,7 +59,7 @@ export default {
             </div>
         </div>
         <div
-            class="bg-white px-5 py-4 h-[93vh] w-full flex flex-col items-center dark:bg-slate-900">
+            class="bg-white px-5 py-4 h-screen w-full flex flex-col items-center dark:bg-slate-900">
             <div class="grid grid-cols-2 gap-6 dark:bg-slate-900">
                 <div
                     v-for="n in 5"
