@@ -1,17 +1,29 @@
 <script lang="ts">
 import { PropType } from 'vue'
 import { Business } from '../../types/firebaseTypes'
+import { InstagramService } from '../../services/instagramScraper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
 import 'swiper/swiper.min.css'
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+const instagramService = new InstagramService()
+
 SwiperCore.use([Navigation, Pagination, A11y])
 
 export default {
     name: 'BusinessCard',
+    props: {
+        data: Object as PropType<Business>,
+    },
     data() {
+        let instagramLink = this.data.socialmedia.instagram
+        let instagramUsername = instagramLink.split('/')[3]
+        
+        const imagesArray = instagramService.getPostsByUsername(instagramUsername)
+        console.log(imagesArray)
+
         return {
             cards: [
                 '/assets/fashion.jpg',
@@ -22,23 +34,21 @@ export default {
                 el: '.swiper-pagination',
                 type: 'bullets',
             },
+            images: []
         }
-    },
-    props: {
-        data: Object as PropType<Business>,
     },
     components: {
         Swiper,
         SwiperSlide,
     },
     methods: {
-    onSwiper(swiper) {
-      // console.log(swiper)
+        onSwiper(swiper) {
+            // console.log(swiper)
+        },
+        onSlideChange() {
+            // console.log('slide change')
+        },
     },
-    onSlideChange() {
-      // console.log('slide change')
-    },
-  },
 }
 </script>
 
