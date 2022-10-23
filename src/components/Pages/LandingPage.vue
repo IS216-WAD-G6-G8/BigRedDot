@@ -1,37 +1,28 @@
 <script lang="ts">
+import LandingCategoryMobile from './LandingCategoryMobile.vue';
+import LandingCategory from './LandingCategory.vue';
 export default {
-    name: 'LandingPage',
-    data() {
-        return {
-            categories: [
-                { name: 'services', url: '/assets/services.jpg' },
-                { name: 'fnb', url: '/assets/f&b.jpg' },
-                { name: 'fashion', url: '/assets/fashion.jpg' },
-                { name: 'crafts', url: '/assets/crafts.jpg' },
-                { name: 'experiences', url: '/assets/experiences.jpeg' },
-            ],
-        }
-    },
+    name: "LandingPage",
     methods: {
-        routePage() {
-            this.$router.push('/')
+        isMobile() {
+            if (screen.width <= 760) {
+                return true;
+            }
+            else {
+                return false;
+            }
         },
     },
+    components: { LandingCategoryMobile, LandingCategory }
 }
 </script>
 
 <template>
-    <div class="carousel_container">
-        <div v-for="category of categories" class="carousel_box">
-            <button 
-                @click="
-                    this.$store.dispatch('commitCat', category.name),
-                        routePage()
-                ">
-                <p class="carousel_text">{{ category.name }}</p>
-                <img class="carousel_img" :src="category.url" />
-            </button>
-        </div>
+    <div v-if="isMobile()">
+        <LandingCategoryMobile></LandingCategoryMobile>
+    </div>
+    <div v-else>
+        <LandingCategory></LandingCategory>
     </div>
 </template>
 
@@ -78,7 +69,7 @@ button {
         display: flex;
         flex-direction: column;
     }
-   
+
     .carousel_text {
         min-width: 200px;
         visibility: visible;
