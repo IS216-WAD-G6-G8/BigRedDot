@@ -1,4 +1,6 @@
 <script lang="ts">
+import RegisterModal from './RegisterModal.vue'
+
 export default {
     name: 'NavBar',
     el: '#app',
@@ -7,6 +9,7 @@ export default {
             open: false,
             hide: false,
             dark_mode: false,
+            modal_visible: false,
         }
     },
     created() {
@@ -26,7 +29,11 @@ export default {
             this.$emit('dark-switch')
             this.dark_mode = !this.dark_mode
         },
+        showModal() {
+            this.modal_visible = !this.modal_visible
+        },
     },
+    components: { RegisterModal },
 }
 </script>
 
@@ -140,15 +147,11 @@ export default {
                         </li>
                         <li class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
                             <button
+                                @click="showModal()"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
-                                Log In
+                                Sign Up / Log In
                             </button>
-                        </li>
-                        <li class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
-                            <button
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
-                                Sign Up
-                            </button>
+                            <RegisterModal v-if="modal_visible" @close="showModal()"></RegisterModal>
                         </li>
                     </ul>
                 </div>
