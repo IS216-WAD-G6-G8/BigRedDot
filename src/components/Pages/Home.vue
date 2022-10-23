@@ -3,8 +3,6 @@ import NavBar from '../Reusables/NavBar.vue'
 import { Business, CategoryEnum } from '../../types/firebaseTypes'
 import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
-import { get } from 'https'
-
 
 const firebaseService = new FirebaseService()
 
