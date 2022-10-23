@@ -1,0 +1,13 @@
+diff --git a/node_modules/instagram-scraper-api/vars.js b/node_modules/instagram-scraper-api/vars.js
+index e903b6c..21cb208 100644
+--- a/node_modules/instagram-scraper-api/vars.js
++++ b/node_modules/instagram-scraper-api/vars.js
+@@ -1,6 +1,7 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.userDataRegex = exports.userUrl = void 0;
+-const userUrl = (user) => `https://www.instagram.com/${encodeURIComponent(user)}`;
++const userUrl = (user) => `https://cors-anywhere.herokuapp.com/https://www.instagram.com/${encodeURIComponent(user)}`;
++console.log(userUrl)
+ exports.userUrl = userUrl;
+ exports.userDataRegex = /window\._sharedData\s?=\s?({.+);\s?<\/script>/;
