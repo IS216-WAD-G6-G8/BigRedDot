@@ -6,11 +6,11 @@ import About from './components/Pages/About.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/Home',
     component: Home,
   },
   {
-    path: '/Landing',
+    path: '/',
     component: LandingPage,
   },
   {
