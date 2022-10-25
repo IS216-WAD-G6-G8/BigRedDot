@@ -36,4 +36,20 @@ export class FirebaseService {
             throw err
         }
     }
+
+    async getDataByID(
+        id: Number
+    ): Promise<void | Business[]> {
+        try {
+            let res = await axios.get(this.baseUrl)
+            let data = res.data
+            let retData = data.filter((business: Business) => {
+                return business.id == id
+            })
+            return retData
+        } catch (err) {
+            throw err
+        }
+    }
+
 }

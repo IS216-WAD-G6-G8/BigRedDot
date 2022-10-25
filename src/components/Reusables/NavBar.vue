@@ -40,7 +40,7 @@ export default {
 <template>
     <div id="app">
         <nav
-            class="bg-white border-gray-200 w-full py-2 px-5 dark:bg-slate-900">
+            class="bg-white w-full py-2 px-5 dark:bg-slate-900">
             <div class="container flex flex-wrap justify-between mx-auto">
                 <router-link to="/Home" class="flex">
                     <a class="flex items-center md:px-3">

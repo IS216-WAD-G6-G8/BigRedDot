@@ -41,4 +41,19 @@ export class FirebaseService {
             }
         });
     }
+    getDataByID(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let res = yield axios.get(this.baseUrl);
+                let data = res.data;
+                let retData = data.filter((business) => {
+                    return business.id == id;
+                });
+                return retData;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
 }

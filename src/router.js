@@ -3,6 +3,7 @@ import Home from './components/Pages/Home.vue';
 import LandingPage from './components/Pages/LandingPage.vue';
 import FireBaseTest from './components/Pages/FirebaseTest.vue';
 import About from './components/Pages/About.vue';
+import BusinessDetail from './components/Reusables/BusinessDetail.vue';
 const routes = [
     {
         path: '/Home',
@@ -20,6 +21,12 @@ const routes = [
         path: '/About',
         component: About
     },
+    {
+        path: '/BusinessDetail/:business_id',
+        name: 'BusinessDetail',
+        component: BusinessDetail,
+        props: true
+    }
 ];
 export default createRouter({
     history: createWebHistory(), routes
