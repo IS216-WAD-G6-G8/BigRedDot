@@ -20,7 +20,6 @@ export default defineComponent({
     data() {
         return {
             businesses: [] as Business[],
-            darkmode: false,
             cards: [
                 '/assets/fashion.jpg',
                 '/assets/services.jpg',
@@ -37,9 +36,6 @@ export default defineComponent({
                 Number(business_id)
             )
         },
-        onDarkSwitch() {
-            this.darkmode = !this.darkmode
-        },
         isMobile() {
             if (screen.width <= 760) {
                 return true
@@ -53,8 +49,8 @@ export default defineComponent({
 </script>
 
 <template>
-    <div :class="{ dark: darkmode }">
-        <NavBar @dark-switch="onDarkSwitch"></NavBar>
+    <div :class="{ dark: this.$store.getters.getDarkMode }">
+        <NavBar></NavBar>
         <div class="bg-white pt-6 dark:bg-slate-900 h-screen px-10 lg:px-14">
             <div>
                 <div v-if="!isMobile()">
