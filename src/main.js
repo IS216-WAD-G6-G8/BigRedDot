@@ -1,4 +1,3 @@
-import firebase from 'firebase/compat/app';
 import { createApp } from 'vue';
 import './style.css';
 import App from './App.vue';
@@ -17,4 +16,8 @@ const firebaseConfig = {
     measurementId: 'G-ZJ0T3NYPCM',
 };
 firebase.initializeApp(firebaseConfig);
-createApp(App).component('Login', RegisterModal).use(router).use(store).mount('#app');
+createApp(App)
+    .component('Login', RegisterModal)
+    .use(router)
+    .use(store)
+    .mount('#app');

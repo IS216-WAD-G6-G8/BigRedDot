@@ -128,7 +128,7 @@ export default {
                                 </a>
                             </router-link>
                         </li>
-                        <Login></Login>>
+                        <Login></Login>
                         <li class="w-full md:w-auto h-0 md:h-auto">
                             <button
                                 id="mode_button"
