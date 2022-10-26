@@ -36,13 +36,6 @@ export default defineComponent({
                 Number(business_id)
             )
         },
-        isMobile() {
-            if (screen.width <= 760) {
-                return true
-            } else {
-                return false
-            }
-        },
     },
     components: { NavBar, Swiper, SwiperSlide },
 })
@@ -51,9 +44,9 @@ export default defineComponent({
 <template>
     <div :class="{ dark: this.$store.getters.getDarkMode }">
         <NavBar></NavBar>
-        <div class="bg-white pt-6 dark:bg-slate-900 h-screen px-10 lg:px-14">
+        <div class="bg-white pt-5 dark:bg-slate-900 h-screen">
             <div>
-                <div v-if="!isMobile()">
+                <div class="hidden md:block px-10 lg:px-14">
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div>
                             <img class="rounded-xl" src="/assets/fashion.jpg" />
@@ -66,7 +59,7 @@ export default defineComponent({
                         </div>
                     </div>
                 </div>
-                <div v-else>
+                <div class="block md:hidden">
                     <swiper
                         :slides-per-view="1"
                         :space-between="30"
@@ -78,9 +71,38 @@ export default defineComponent({
                     ></swiper>
                 </div>
             </div>
-            <h1 class="text-gray-900 dark:text-white text-left pt-8">
-                {{ businesses[0].name }}
-            </h1>
+            <div class="flex mt-6 pb-10 gap-12 px-10 lg:px-14">
+                <div class="w-3/4 flex flex-col items-start">
+                    <h1 class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl mb-2">
+                        {{ businesses[0].name }}
+                    </h1>
+                    <div class="text-gray-900 dark:text-white text-sm lg:text-lg text-left">
+                        {{ businesses[0].description }}
+                    </div>
+                </div>
+                <div class="hidden md:block w-1/4 ml-4">
+                    <div class="max-w-sm rounded-lg border overflow-hidden shadow-lg">
+                        <div class="px-6 py-4">
+                            <p class="text-gray-900 dark:text-white text-base">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipisicing elit. Voluptatibus quia, nulla!
+                                Maiores et perferendis eaque, exercitationem
+                                praesentium nihil.
+                            </p>
+                        </div>
+                        <div class="px-6 pt-4 pb-2">
+                            <span
+                                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                                >#photography</span
+                            >
+                            <span
+                                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                                >#travel</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
