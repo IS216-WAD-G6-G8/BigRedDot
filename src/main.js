@@ -3,7 +3,9 @@ import { createApp } from 'vue';
 import './style.css';
 import App from './App.vue';
 import router from './router';
-import Login from './components/Reusables/Login.vue';
+import store from './store';
+import firebase from 'firebase/compat/app';
+import RegisterModal from './components/Reusables/RegisterModal.vue';
 const firebaseConfig = {
     apiKey: 'AIzaSyAipvvlbfDtRMXnN_UDeHl67l-XbgWc_CU',
     authDomain: 'is216-bigreddot.firebaseapp.com',
@@ -15,6 +17,4 @@ const firebaseConfig = {
     measurementId: 'G-ZJ0T3NYPCM',
 };
 firebase.initializeApp(firebaseConfig);
-const app = createApp(App);
-app.component('Login', Login);
-app.use(router).mount('#app');
+createApp(App).component('Login', RegisterModal).use(router).use(store).mount('#app');
