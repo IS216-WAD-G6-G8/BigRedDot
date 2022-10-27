@@ -3,6 +3,7 @@ import NavBar from '../Reusables/NavBar.vue'
 import { Business, CategoryEnum } from '../../types/firebaseTypes'
 import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
+import Filter from '../Reusables/Filter.vue'
 
 const firebaseService = new FirebaseService()
 
@@ -19,6 +20,7 @@ export default {
             ],
             CategoryEnum,
             businessData: null as Business[] | null,
+            filterVisible: false
         }
     },
     beforeMount() {
@@ -39,9 +41,15 @@ export default {
         },
         getMode(){
             console.log(this.$store.getters.getDarkMode)
-        }
+        },
+        showFilter(){
+            this.filterVisible = true
+        },
+        closeFilter(){
+            this.filterVisible = false
+        },
     },
-    components: { NavBar, BusinessCard },
+    components: { NavBar, BusinessCard, Filter },
 }
 </script>
 
@@ -66,8 +74,15 @@ export default {
                         }}</span>
                     </button>
                 </div>
+                <div>
+                    <button id="filterBtn" @click="showFilter" class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center h-full">
+                        <img class="w-6 h-6 my-auto" src="assets/filter.png">
+                    </button>
+                </div>
             </div>
         </div>
+
+        <Filter @close="closeFilter" v-if="filterVisible"></Filter>
 
         <div
             class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
@@ -84,11 +99,11 @@ export default {
     border-radius: unset;
 }
 
-#cat_button:hover {
+#cat_button:hover, #filterBtn:hover {
     border-color: transparent;
 }
 
-#cat_button:focus {
+#cat_button:focus, #filterBtn:hover {
     outline: none;
 }
 
@@ -113,5 +128,9 @@ export default {
 #cat_button:hover:after {
     transform: scaleX(1);
     transform-origin: bottom left;
+}
+#filterBtn:focus  {
+    border-color: transparent;
+    outline: none;
 }
 </style>
