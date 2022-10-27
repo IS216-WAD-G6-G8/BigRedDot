@@ -15,7 +15,7 @@ export class UserService {
             uid: user.uid,
             name: user.displayName,
         }
-        const createUserUrl = this.baseUrl + user.displayName + '.json'
+        const createUserUrl = this.baseUrl + user.uid + '.json'
         try {
             let res = await axios.put(createUserUrl, { tempUserEntity })
             console.log(res)
