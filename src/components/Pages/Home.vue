@@ -11,7 +11,6 @@ export default {
     name: 'Home',
     data() {
         return {
-            isLoggedIn: false,
             categories: [
                 { name: 'services', url: '/assets/services.svg' },
                 { name: 'fnb', url: '/assets/f&b.svg' },
@@ -21,16 +20,6 @@ export default {
             ],
             CategoryEnum,
             businessData: null as Business[] | null,
-        }
-    },
-    computed: {
-        checkUser () {
-            if (this.$store.getters.getUser) {
-                this.isLoggedIn = true
-            } else {
-                this.isLoggedIn = false
-            }
-            return this.$store.getters.getUser
         }
     },
     beforeMount() {
@@ -51,11 +40,6 @@ export default {
         },
         getMode(){
             console.log(this.$store.getters.getDarkMode)
-        }
-    },
-    watch: {
-        checkUser (newUser) {
-            console.log(newUser)
         }
     },
     components: { NavBar, BusinessCard },
