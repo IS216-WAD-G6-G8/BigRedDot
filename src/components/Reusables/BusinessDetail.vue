@@ -194,7 +194,7 @@ export default defineComponent({
                         </div>
                         <div class="flex pt-4">
                             <h1
-                                class="pl-4 md:pl-4 text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
+                                class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
                                 Reviews (100)
                             </h1>
                         </div>

@@ -38,7 +38,7 @@ export default {
 </script>
 
 <template>
-    <div id="app">
+    <div :class="{ dark: this.$store.getters.getDarkMode }" id="app">
         <nav class="bg-white w-full py-2 px-5 dark:bg-slate-900">
             <div class="container flex flex-wrap justify-between mx-auto">
                 <router-link to="/Home" class="flex">
@@ -60,7 +60,7 @@ export default {
                         @click="toggleMode()">
                         <img
                             :style="[
-                                dark_mode
+                                this.$store.getters.getDarkMode
                                     ? {
                                           filter: 'brightness(0) saturate(100%) invert(98%) sepia(98%) saturate(6%) hue-rotate(127deg) brightness(102%) contrast(103%)',
                                       }
@@ -134,7 +134,7 @@ export default {
                                 @click="toggleMode()">
                                 <img
                                     :style="[
-                                        dark_mode
+                                        this.$store.getters.getDarkMode
                                             ? {
                                                   filter: 'brightness(0) saturate(100%) invert(98%) sepia(98%) saturate(6%) hue-rotate(127deg) brightness(102%) contrast(103%)',
                                               }
