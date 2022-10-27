@@ -49,7 +49,7 @@ export default {
 </script>
 
 <template>
-    <div v-if="!user"
+    <div v-show="!user"
         class="fixed inset-0 z-50 justify-center items-center flex bg-slate-500/60">
         <div class="relative w-auto my-6 mx-auto max-w-6xl">
             <div class="border-0 md:rounded-lg shadow-lg relative flex flex-col h-screen w-screen md:w-full md:h-full bg-white md:min-w-[400px] md:min-h-[380px]">
