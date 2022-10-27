@@ -18,7 +18,7 @@ export default {
         }
         var uiConfig = {
             callbacks: {
-                signInSuccessWithAuthResult: function(authResult) {
+                signInSuccessWithAuthResult: (authResult) => {
                     console.log(authResult)
                     this.$store.dispatch('commitUser')
                     return true
