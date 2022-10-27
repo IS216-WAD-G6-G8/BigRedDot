@@ -13,7 +13,7 @@ export default createStore({
         updateDarkMode(state, user_mode) {
             state.dark = user_mode
         },
-        updateUser(state, user_state) {
+        updateIsLoggedIn(state, user_state) {
             state.isLoggedIn = user_state
         },
     },
