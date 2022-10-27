@@ -2,12 +2,13 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
+
 export default {
     name: 'Login',
     el: '#app',
     data() {
         return {
-            user: null,
+            // user: this.$store.user,
         }
     },
     mounted() {
@@ -16,31 +17,21 @@ export default {
             ui = new firebaseui.auth.AuthUI(firebase.auth())
         }
         var uiConfig = {
-            signInSuccessUrl: '/', // edit redirect here
+            callbacks: {
+                signInSuccessWithAuthResult: (authResult) => {
+                    console.log(authResult)
+                    return true
+                }
+            },
+            signInSuccessUrl: '/Home', // edit redirect here
             signInOptions: [
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                firebase.auth.EmailAuthProvider.PROVIDER_ID,
             ],
         }
         ui.start('#firebaseui-auth-container', uiConfig)
     },
-    created() {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.user = user
-                console.log(user)
-            }
-        })
-    },
     methods: {
-        signOut() {
-            firebase.auth().signOut()
-            this.user = null
-            this.$router.push({
-                name: '/',
-            })
-        },
         close() {
             this.$emit('close')
         },
