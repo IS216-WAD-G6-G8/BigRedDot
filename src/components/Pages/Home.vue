@@ -22,9 +22,9 @@ export default {
         }
     },
     beforeMount() {
-        if(this.$store.getters.getCat != ''){
+        if (this.$store.getters.getCat != '') {
             this.getByCategory([CategoryEnum[this.$store.getters.getCat]])
-        }else{
+        } else {
             this.getAllData()
         }
     },
@@ -37,9 +37,9 @@ export default {
                 categories
             )
         },
-        getMode(){
+        getMode() {
             console.log(this.$store.getters.getDarkMode)
-        }
+        },
     },
     components: { NavBar, BusinessCard },
 }
@@ -50,6 +50,18 @@ export default {
         <NavBar></NavBar>
         <div class="bg-[#d4e6ff] px-8 md:px-20 w-full flex justify-between">
             <div class="container overflow-auto flex justify-between mx-auto">
+                <button
+                    id="cat_button"
+                    v-on:click="getAllData()"
+                    class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center">
+                    <img
+                        id="icon"
+                        class="w-6 h-6 mb-2"
+                        src="/assets/all.svg" />
+                    <span class="text-xs text-gray-700 md:text-sm">
+                        all
+                    </span>
+                </button>
                 <div id="cat" v-for="category in categories">
                     <button
                         id="cat_button"
