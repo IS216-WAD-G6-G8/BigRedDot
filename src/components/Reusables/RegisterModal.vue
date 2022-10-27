@@ -17,7 +17,7 @@ export default {
             ui = new firebaseui.auth.AuthUI(firebase.auth())
         }
         var uiConfig = {
-            //signInSuccessUrl: '/', // edit redirect here
+            signInSuccessUrl: '/Home', // edit redirect here
             signInOptions: [
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -30,18 +30,9 @@ export default {
             if (user) {
                 this.$store.dispatch('commitUser', user)
             }
-            console.log(this.$store.getters.getUser)
         })
     },
     methods: {
-        signOut() {
-            firebase.auth().signOut()
-            this.$store.dispatch('commitUser', null)
-            console.log(this.$store.getters.getUser)
-            // this.$router.push({
-            //     name: '/',
-            // })
-        },
         close() {
             this.$emit('close')
         },
