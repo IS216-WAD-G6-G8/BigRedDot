@@ -2,12 +2,15 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
+import store from '../../store'
+
 export default {
     name: 'Login',
     el: '#app',
     data() {
         return {
-            user: null,
+            store,
+            user: store.user,
         }
     },
     mounted() {
@@ -20,12 +23,12 @@ export default {
             signInOptions: [
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                firebase.auth.EmailAuthProvider.PROVIDER_ID,
             ],
         }
         ui.start('#firebaseui-auth-container', uiConfig)
     },
     created() {
+        console.log(this.user)
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.user = user
