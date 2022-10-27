@@ -20,7 +20,6 @@ export default {
             callbacks: {
                 signInSuccessWithAuthResult: (authResult) => {
                     console.log(authResult)
-                    this.$store.dispatch('commitUser')
                     return true
                 }
             },
@@ -32,13 +31,6 @@ export default {
         }
         ui.start('#firebaseui-auth-container', uiConfig)
     },
-    // created() {
-    //     firebase.auth().onAuthStateChanged((user) => {
-    //         if (user) {
-    //             this.$store.dispatch('commitUser')
-    //         }
-    //     })
-    // },
     methods: {
         close() {
             this.$emit('close')

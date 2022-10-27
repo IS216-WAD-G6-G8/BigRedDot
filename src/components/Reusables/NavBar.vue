@@ -16,6 +16,11 @@ export default {
     },
     created() {
         window.addEventListener('scroll', this.handleScroll)
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.$store.dispatch('commitUser')
+            }
+        })
     },
     destroyed() {
         window.removeEventListener('scroll', this.handleScroll)
