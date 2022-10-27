@@ -17,7 +17,14 @@ export default {
             ui = new firebaseui.auth.AuthUI(firebase.auth())
         }
         var uiConfig = {
-            // signInSuccessUrl: '/Home', // edit redirect here
+            callbacks: {
+                signInSuccessWithAuthResult: function(authResult) {
+                    console.log(authResult)
+                    this.$store.dispatch('commitUser')
+                    return true
+                }
+            },
+            signInSuccessUrl: '/Home', // edit redirect here
             signInOptions: [
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -25,11 +32,13 @@ export default {
         }
         ui.start('#firebaseui-auth-container', uiConfig)
     },
-    created() {
-        firebase.auth().onAuthStateChanged((user) => {
-            this.$store.dispatch('commitUser')
-        })
-    },
+    // created() {
+    //     firebase.auth().onAuthStateChanged((user) => {
+    //         if (user) {
+    //             this.$store.dispatch('commitUser')
+    //         }
+    //     })
+    // },
     methods: {
         close() {
             this.$emit('close')
