@@ -1,5 +1,6 @@
 <script lang="ts">
 import RegisterModal from './RegisterModal.vue'
+import firebase from 'firebase/compat/app'
 
 export default {
     name: 'NavBar',
@@ -32,6 +33,11 @@ export default {
         showModal() {
             this.modal_visible = !this.modal_visible
         },
+        logout() {
+            firebase.auth().signOut()
+            this.$store.dispatch('commitUser', null)
+            alert('You have been logged out')
+        }
     },
     components: { RegisterModal },
 }
@@ -153,6 +159,13 @@ export default {
                             <RegisterModal
                                 v-if="modal_visible"
                                 @close="showModal()"></RegisterModal>
+                        </li>
+                        <li class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
+                            <button
+                                @click="logout()"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
+                                Log Out
+                            </button>
                         </li>
                     </ul>
                 </div>

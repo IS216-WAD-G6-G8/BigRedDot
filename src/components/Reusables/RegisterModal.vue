@@ -8,7 +8,7 @@ export default {
     el: '#app',
     data() {
         return {
-            user: this.$store.user,
+            // user: this.$store.user,
         }
     },
     mounted() {
@@ -17,7 +17,7 @@ export default {
             ui = new firebaseui.auth.AuthUI(firebase.auth())
         }
         var uiConfig = {
-            signInSuccessUrl: '/', // edit redirect here
+            //signInSuccessUrl: '/', // edit redirect here
             signInOptions: [
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
