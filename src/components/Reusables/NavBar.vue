@@ -27,7 +27,7 @@ export default {
                     return true
                 }
             },
-            signInSuccessUrl: '/Home', // edit redirect here
+            //signInSuccessUrl: '/Home', // edit redirect here
             signInOptions: [
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
