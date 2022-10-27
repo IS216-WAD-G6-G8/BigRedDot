@@ -7,15 +7,19 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { onMounted } from 'vue'
 import gsap from 'gsap'
-import ScrollTrigger from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import ScrollTrigger from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
 SwiperCore.use([Navigation, Pagination, A11y, Autoplay])
 
 export default {
     name: 'Home',
     setup() {
         onMounted(() => {
-            gsap.to(".purpose-heading", { scrollTrigger: ".purpose-heading", y: 20, duration: 3 });
+            gsap.to('.purpose', {
+                scrollTrigger: '.purpose',
+                y: 50,
+                duration: 2,
+            })
         })
     },
     data() {
@@ -24,6 +28,11 @@ export default {
                 '/assets/fashion.jpg',
                 '/assets/services.jpg',
                 '/assets/crafts.jpg',
+            ],
+            purposes: [
+                { url: '/assets/crafts.jpg', title: 'Promote', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
+                { url: '/assets/crafts.jpg', title: 'Improve', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
+                { url: '/assets/crafts.jpg', title: 'Encourage', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
             ],
         }
     },
@@ -75,16 +84,38 @@ export default {
             </div>
         </div>
         <!-- Content - Purpose -->
-        <div class="bg-white dark:bg-slate-900 pt-12 h-screen">
-            <div class="purpose-heading">
+        <div class="bg-white dark:bg-slate-900 h-screen px-10 pt-2 lg:px-14">
+            <div class="purpose">
                 <h1
                     class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
                     Purpose
                 </h1>
                 <div
-                    class="text-gray-900 dark:text-white text-sm pb-4 w-full lg:text-lg">
+                    class="text-gray-900 dark:text-white text-sm pb-6 w-full lg:text-lg">
                     We use an agile approach to test assumptions and connect
                     with the needs of your audience early and often.
+                </div>
+                <div class="flex flex-wrap justify-evenly gap-10">
+                    <div v-for="purpose in purposes"
+                        class="max-w-xs bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        <a href="#">
+                            <img
+                                class="rounded-t-lg"
+                                :src="purpose.url"/>
+                        </a>
+                        <div class="p-5">
+                            <a href="#">
+                                <h5
+                                    class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    {{purpose.title}}
+                                </h5>
+                            </a>
+                            <p
+                                class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                {{purpose.desc}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
