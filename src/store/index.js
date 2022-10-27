@@ -3,7 +3,7 @@ export default createStore({
     state: {
         cat: '',
         dark: false,
-        user: null,
+        isLoggedIn: false,
     },
     mutations: {
         updateCat(state, user_cat) {
@@ -12,8 +12,8 @@ export default createStore({
         updateDarkMode(state, user_mode) {
             state.dark = user_mode;
         },
-        updateUser(state, user) {
-            state.user = user;
+        updateUser(state, user_state) {
+            state.isLoggedIn = user_state;
         },
     },
     actions: {
@@ -23,8 +23,8 @@ export default createStore({
         commitDarkMode({ commit }, input) {
             commit('updateDarkMode', input);
         },
-        commitUser({ commit }, input) {
-            commit('updateUser', input);
+        commitIsLoggedIn({ commit }, input) {
+            commit('updateIsLoggedIn', input);
         },
     },
     getters: {
@@ -34,8 +34,8 @@ export default createStore({
         getDarkMode: function (state) {
             return state.dark;
         },
-        getUser: function (state) {
-            return state.user;
+        getIsLoggedIn: function (state) {
+            return state.isLoggedIn;
         },
     },
 });
