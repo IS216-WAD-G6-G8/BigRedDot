@@ -26,8 +26,8 @@ export default {
             this.open = false
         },
         toggleMode() {
-            this.$emit('dark-switch')
             this.dark_mode = !this.dark_mode
+            this.$store.dispatch('commitDarkMode', this.dark_mode)
         },
         showModal() {
             this.modal_visible = !this.modal_visible
@@ -39,8 +39,7 @@ export default {
 
 <template>
     <div id="app">
-        <nav
-            class="bg-white border-gray-200 w-full py-2 px-5 dark:bg-slate-900">
+        <nav class="bg-white w-full py-2 px-5 dark:bg-slate-900">
             <div class="container flex flex-wrap justify-between mx-auto">
                 <router-link to="/Home" class="flex">
                     <a class="flex items-center md:px-3">
@@ -102,7 +101,7 @@ export default {
                             <div>
                                 <router-link to="/Home">
                                     <a
-                                        class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                        class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                                         aria-current="page">
                                         Listing
                                     </a>
@@ -152,7 +151,9 @@ export default {
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
                                 Sign Up / Log In
                             </button>
-                            <RegisterModal v-if="modal_visible" @close="showModal()"></RegisterModal>
+                            <RegisterModal
+                                v-if="modal_visible"
+                                @close="showModal()"></RegisterModal>
                         </li>
                     </ul>
                 </div>
