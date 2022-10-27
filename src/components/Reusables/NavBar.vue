@@ -1,6 +1,7 @@
 <script lang="ts">
 import RegisterModal from './RegisterModal.vue'
 import firebase from 'firebase/compat/app'
+import { getAuth, signOut } from "firebase/auth"
 
 export default {
     name: 'NavBar',
@@ -34,14 +35,15 @@ export default {
             this.modal_visible = !this.modal_visible
         },
         logout() {
-            firebase.auth().signOut().then(function() {
+            const auth = getAuth()
+            
+            signOut(auth).then(() => {
                 alert('You have been logged out')
                 this.$store.dispatch('commitIsLoggedIn', false)
                 location.reload()
-            }, function(error) {
+            }).catch((error) => {
                 alert(`Sign Out Error: ${error}`)
             })
-            
         }
     },
     components: { RegisterModal },
