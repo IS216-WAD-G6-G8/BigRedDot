@@ -1,10 +1,11 @@
 import { createStore } from 'vuex'
+import firebase from 'firebase/compat/app'
 
 export default createStore({
     state: {
         cat: '',
         dark: false,
-        isLoggedIn: false,
+        user: null,
     },
     mutations: {
         updateCat(state, user_cat) {
@@ -13,8 +14,8 @@ export default createStore({
         updateDarkMode(state, user_mode) {
             state.dark = user_mode
         },
-        updateIsLoggedIn(state, user_state) {
-            state.isLoggedIn = user_state
+        setUser(state) {
+            state.user = firebase.auth().currentUser
         },
     },
     actions: {
@@ -24,9 +25,9 @@ export default createStore({
         commitDarkMode({ commit }, input) {
             commit('updateDarkMode', input)
         },
-        commitIsLoggedIn({ commit }, input) {
-            commit('updateIsLoggedIn', input)
-        },
+        // commitUser({ commit }, input) {
+        //     commit('updateUser', input)
+        // }, might not be necessary
     },
     getters: {
         getCat: function (state) {
@@ -35,8 +36,8 @@ export default createStore({
         getDarkMode: function (state) {
             return state.dark
         },
-        getIsLoggedIn: function (state) {
-            return state.isLoggedIn
+        getUser: function (state) {
+            return state.user
         },
     },
 })
