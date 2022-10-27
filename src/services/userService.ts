@@ -16,7 +16,9 @@ export class UserService {
             name: user.displayName,
         }
         try {
-            let res = await axios.put(this.baseUrl, tempUserEntity)
+            let res = await axios.put(this.baseUrl, {
+                name: tempUserEntity,
+            })
             console.log(res)
         } catch (err) {
             throw err
