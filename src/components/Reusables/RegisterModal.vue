@@ -27,7 +27,7 @@ export default {
     },
     created() {
         firebase.auth().onAuthStateChanged((user) => {
-            // this.$store.dispatch('commitIsLoggedIn', true)
+            this.$store.dispatch('commitUser')
         })
     },
     methods: {

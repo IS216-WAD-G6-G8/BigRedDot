@@ -14,7 +14,7 @@ export default createStore({
         updateDarkMode(state, user_mode) {
             state.dark = user_mode
         },
-        setUser(state) {
+        updateUser(state) {
             state.user = firebase.auth().currentUser
         },
     },
@@ -25,9 +25,9 @@ export default createStore({
         commitDarkMode({ commit }, input) {
             commit('updateDarkMode', input)
         },
-        // commitUser({ commit }, input) {
-        //     commit('updateUser', input)
-        // }, might not be necessary
+        commitUser({ commit }) {
+            commit('updateUser')
+        },
     },
     getters: {
         getCat: function (state) {
