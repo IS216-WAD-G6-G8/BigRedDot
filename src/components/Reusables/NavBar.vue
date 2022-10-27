@@ -34,9 +34,14 @@ export default {
             this.modal_visible = !this.modal_visible
         },
         logout() {
-            firebase.auth().signOut()
-            this.$store.dispatch('commitIsLoggedIn', false)
-            alert('You have been logged out')
+            firebase.auth().signOut().then(function() {
+                alert('You have been logged out')
+                this.$store.dispatch('commitIsLoggedIn', false)
+                location.reload()
+            }, function(error) {
+                alert(`Sign Out Error: ${error}`)
+            })
+            
         }
     },
     components: { RegisterModal },
