@@ -1,5 +1,8 @@
 <script lang="ts">
-import RegisterModal from './RegisterModal.vue'
+import firebase from 'firebase/compat/app'
+import * as firebaseui from 'firebaseui'
+import 'firebaseui/dist/firebaseui.css'
+import { getAuth, signOut } from "firebase/auth"
 
 export default {
     name: 'NavBar',
@@ -12,8 +15,33 @@ export default {
             modal_visible: false,
         }
     },
+    mounted() {
+        let ui = firebaseui.auth.AuthUI.getInstance()
+        if (!ui) {
+            ui = new firebaseui.auth.AuthUI(firebase.auth())
+        }
+        var uiConfig = {
+            callbacks: {
+                signInSuccessWithAuthResult: (authResult) => {
+                    console.log(authResult)
+                    return true
+                }
+            },
+            //signInSuccessUrl: '/Home', // edit redirect here
+            signInOptions: [
+                firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            ],
+        }
+        ui.start('#firebaseui-auth-container', uiConfig)
+    },
     created() {
         window.addEventListener('scroll', this.handleScroll)
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.$store.dispatch('commitUser')
+            }
+        })
     },
     destroyed() {
         window.removeEventListener('scroll', this.handleScroll)
@@ -32,8 +60,17 @@ export default {
         showModal() {
             this.modal_visible = !this.modal_visible
         },
+        logout() {
+            const auth = getAuth()
+            
+            signOut(auth).then(() => {
+                alert('You have been logged out')
+                location.reload()
+            }).catch((error) => {
+                alert(`Sign Out Error: ${error}`)
+            })
+        }
     },
-    components: { RegisterModal },
 }
 </script>
 
@@ -144,15 +181,37 @@ export default {
                                     src="/assets/dark_mode.svg" />
                             </button>
                         </li>
-                        <li class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
+                        <li v-if="!$store.state.user" class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
                             <button
                                 @click="showModal()"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
                                 Sign Up / Log In
                             </button>
-                            <RegisterModal
-                                v-if="modal_visible"
-                                @close="showModal()"></RegisterModal>
+                            <div 
+                            v-show="modal_visible"
+                            class="fixed inset-0 z-50 justify-center items-center flex bg-slate-500/60">
+                                <div class="relative w-auto my-6 mx-auto max-w-6xl">
+                                    <div class="border-0 md:rounded-lg shadow-lg relative flex flex-col h-screen w-screen md:w-full md:h-full bg-white md:min-w-[400px] md:min-h-[380px]">
+                                        <div class="flex items-center p-5 border-b border-solid border-slate-200 rounded-t">
+                                            <button class="bg-transparent" @click="showModal()">
+                                                <img class="w-4" src="/assets/cross.svg"/>
+                                            </button>
+                                            <h3 class="text-lg pl-1 font-semibold text-gray-700">Log in or Sign up</h3>
+                                        </div>
+                                        <div class="relative px-6 pb-6 flex-auto">
+                                            <h2 class="text-xl pt-6 pb-7 font-semibold text-gray-700">Welcome to BigRedDot</h2>
+                                            <section id="firebaseui-auth-container"></section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li v-if="$store.state.user" class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
+                            <button
+                                @click="logout()"
+                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
+                                Log Out
+                            </button>
                         </li>
                     </ul>
                 </div>
