@@ -11,17 +11,18 @@ import axios from 'axios';
 export class UserService {
     constructor() {
         this.baseUrl =
-            'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/users.json';
+            'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/users';
     }
     createUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(user);
+            const createUserUrl = this.baseUrl + '/' + user.uid + '.json';
+            console.log(createUserUrl);
             const tempUserEntity = {
                 uid: user.uid,
                 name: user.displayName,
             };
             try {
-                let res = yield axios.put(this.baseUrl, tempUserEntity);
+                let res = yield axios.put(createUserUrl, tempUserEntity);
                 console.log(res);
             }
             catch (err) {
