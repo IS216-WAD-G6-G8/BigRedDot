@@ -150,7 +150,7 @@ export default {
                                     src="/assets/dark_mode.svg" />
                             </button>
                         </li>
-                        <li v-if="!$store.getters.getIsLoggedIn" class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
+                        <li v-if="!$store.state.isLoggedIn" class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
                             <button
                                 @click="showModal()"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
@@ -160,7 +160,7 @@ export default {
                                 v-if="modal_visible"
                                 @close="showModal()"></RegisterModal>
                         </li>
-                        <li v-if="$store.getters.getIsLoggedIn" class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
+                        <li v-if="$store.state.isLoggedIn" class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
                             <button
                                 @click="logout()"
                                 class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
