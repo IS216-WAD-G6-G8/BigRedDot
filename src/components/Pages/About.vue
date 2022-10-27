@@ -5,10 +5,19 @@ import SwiperCore, { Navigation, Pagination, A11y, Autoplay } from 'swiper'
 import 'swiper/swiper.min.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { onMounted } from 'vue'
+import gsap from 'gsap'
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 SwiperCore.use([Navigation, Pagination, A11y, Autoplay])
 
 export default {
     name: 'Home',
+    setup() {
+        onMounted(() => {
+            gsap.to(".purpose-heading", { scrollTrigger: ".purpose-heading", y: 20, duration: 3 });
+        })
+    },
     data() {
         return {
             cards: [
@@ -36,15 +45,17 @@ export default {
                 <img class="object-cover w-full h-full" :src="card" />
                 <div class="swiper-pagination"></div></swiper-slide
         ></swiper>
+        <!-- Card component on carousel -->
         <div class="absolute bottom-28 left-20 z-10">
             <div class="max-w-sm w-full">
                 <div
                     class="rounded-2xl bg-white p-6 flex flex-col justify-between leading-normal dark:bg-slate-900">
                     <div class="mb-4">
-                        <div class="text-gray-900 dark:text-white font-bold text-xl mb-2">
+                        <div
+                            class="text-gray-900 dark:text-white font-bold text-xl mb-2">
                             Support Singapore's local businesses
                         </div>
-                        <p class="text-gray-700  dark:text-white text-base">
+                        <p class="text-gray-700 dark:text-white text-base">
                             Lorem ipsum dolor sit amet, consectetur adipisicing
                             elit. Voluptatibus quia, nulla! Maiores et
                             perferendis eaque, exercitationem praesentium nihil.
@@ -63,6 +74,20 @@ export default {
                 </div>
             </div>
         </div>
+        <!-- Content - Purpose -->
+        <div class="bg-white dark:bg-slate-900 pt-12 h-screen">
+            <div class="purpose-heading">
+                <h1
+                    class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
+                    Purpose
+                </h1>
+                <div
+                    class="text-gray-900 dark:text-white text-sm pb-4 w-full lg:text-lg">
+                    We use an agile approach to test assumptions and connect
+                    with the needs of your audience early and often.
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -71,5 +96,11 @@ export default {
     .default-slider .swiper-slide {
         height: 100vh !important;
     }
+}
+
+.box {
+    width: 50px;
+    height: 50px;
+    background: tomato;
 }
 </style>
