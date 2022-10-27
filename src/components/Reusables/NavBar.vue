@@ -14,7 +14,6 @@ export default {
         return {
             open: false,
             hide: false,
-            dark_mode: false,
             modal_visible: false,
         }
     },
@@ -60,8 +59,7 @@ export default {
             this.open = false
         },
         toggleMode() {
-            this.dark_mode = !this.dark_mode
-            this.$store.dispatch('commitDarkMode', this.dark_mode)
+            this.$store.dispatch('commitDarkMode', !this.$store.getters.getDarkMode)
         },
         showModal() {
             this.modal_visible = !this.modal_visible
