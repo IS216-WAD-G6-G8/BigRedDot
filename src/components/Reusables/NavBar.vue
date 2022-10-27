@@ -3,6 +3,9 @@ import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 import { getAuth, signOut } from "firebase/auth"
+import { UserService } from "../../services/userService"
+
+const userService = new UserService()
 
 export default {
     name: 'NavBar',
@@ -23,7 +26,10 @@ export default {
         var uiConfig = {
             callbacks: {
                 signInSuccessWithAuthResult: (authResult) => {
-                    console.log(authResult)
+                    const isNewUser = authResult.additionalUserInfo.isNewUser
+                    if (isNewUser) {
+                        userService.createUser(authResult.user)
+                    }
                     return true
                 }
             },
