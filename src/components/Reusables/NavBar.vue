@@ -11,6 +11,7 @@ export default {
             hide: false,
             dark_mode: false,
             modal_visible: false,
+            isLoggedIn: false,
         }
     },
     created() {
@@ -18,6 +19,16 @@ export default {
     },
     destroyed() {
         window.removeEventListener('scroll', this.handleScroll)
+    },
+    computed: {
+        checkUser () {
+            if (this.$store.getters.getUser) {
+                this.isLoggedIn = true
+            } else {
+                this.isLoggedIn = false
+            }
+            return this.$store.getters.getUser
+        }
     },
     methods: {
         toggle() {
@@ -37,6 +48,11 @@ export default {
             firebase.auth().signOut()
             this.$store.dispatch('commitUser', null)
             alert('You have been logged out')
+        }
+    },
+    watch: {
+        checkUser (newUser) {
+            console.log(newUser)
         }
     },
     components: { RegisterModal },
