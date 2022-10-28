@@ -52,7 +52,7 @@ export default {
                         class="default-slider rounded-2xl">
                         <swiper-slide v-for="card in cards" :key="card">
                             <img
-                                class="rounded-2xl object-fill w-[17rem] h-[17rem]"
+                                class="rounded-2xl object-cover w-[17rem] h-[17rem]"
                                 :src="card" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
