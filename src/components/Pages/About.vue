@@ -55,10 +55,10 @@ export default {
                 <div class="swiper-pagination"></div></swiper-slide
         ></swiper>
         <!-- Card component on carousel -->
-        <div class="absolute bottom-28 left-20 z-10">
-            <div class="max-w-sm w-full">
+        <div class="initial md:absolute bottom-28 left-20 z-10">
+            <div class="md:max-w-sm w-full">
                 <div
-                    class="rounded-2xl bg-white p-6 flex flex-col justify-between leading-normal dark:bg-slate-900">
+                    class="md:rounded-2xl bg-white p-6 flex flex-col justify-between leading-normal dark:bg-slate-900">
                     <div class="mb-4">
                         <div
                             class="text-gray-900 dark:text-white font-bold text-xl mb-2">
@@ -72,11 +72,11 @@ export default {
                     </div>
                     <div class="flex items-center justify-evenly">
                         <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                            class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded-full">
                             Search for business
                         </button>
                         <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                            class="bg-blue-500 hover:bg-blue-700 text-whit text-sm font-bold py-2 px-4 rounded-full">
                             Learn More
                         </button>
                     </div>
@@ -84,18 +84,18 @@ export default {
             </div>
         </div>
         <!-- Content - Purpose -->
-        <div class="bg-white dark:bg-slate-900 h-screen px-10 pt-2 lg:px-14">
+        <div class="bg-white dark:bg-slate-900 overflow-auto h-screen pb-6 px-10 pt-2 lg:px-14">
             <div class="purpose">
                 <h1
                     class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
                     Purpose
                 </h1>
                 <div
-                    class="text-gray-900 dark:text-white text-sm pb-6 w-full lg:text-lg">
+                    class="text-gray-900 dark:text-white text-sm w-full lg:text-lg pb-4">
                     We use an agile approach to test assumptions and connect
                     with the needs of your audience early and often.
                 </div>
-                <div class="flex flex-wrap justify-evenly gap-10">
+                <div class="flex flex-wrap justify-evenly gap-10 pb-6 md:pb-0">
                     <div v-for="purpose in purposes"
                         class="max-w-xs bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <a href="#">
