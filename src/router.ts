@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './components/Pages/Home.vue'
 import LandingPage from './components/Pages/LandingPage.vue'
-import FireBaseTest from './components/Pages/FirebaseTest.vue'
+import MyList from './components/Pages/MyListing.vue'
 import About from './components/Pages/About.vue'
 import BusinessDetail from './components/Reusables/BusinessDetail.vue'
 
@@ -15,8 +15,8 @@ const routes = [
     component: LandingPage,
   },
   {
-    path: '/Test',
-    component: FireBaseTest
+    path: '/MyList',
+    component: MyList
   },
   {
     path: '/About',
