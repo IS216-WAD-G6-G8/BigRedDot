@@ -15,6 +15,7 @@ export default {
             open: false,
             hide: false,
             modal_visible: false,
+            login_visible: false,
             profile: false,
         }
     },
@@ -83,6 +84,13 @@ export default {
                     alert(`Sign Out Error: ${error}`)
                 })
         },
+        openlogin() {
+            this.showModal()
+            this.login_visible = !this.login_visible
+        },
+        closelogin(){
+            this.login_visible = false
+        }
     },
 }
 </script>
@@ -198,12 +206,12 @@ export default {
                                 <div
                                     class="relative w-auto my-6 mx-auto max-w-6xl">
                                     <div
-                                        class="border-0 md:rounded-lg shadow-lg relative flex flex-col h-screen w-screen md:w-full md:h-full bg-white md:min-w-[400px] md:min-h-[380px]">
+                                        class="border-0 rounded-2xl overflow-auto text-left md:rounded-lg shadow-lg relative flex flex-col md:w-full md:h-full bg-white md:min-w-[500px] max-h-[600px] w-[300px] md:min-h-[380px]">
                                         <div
                                             class="flex items-center p-5 border-b border-solid border-slate-200 rounded-t">
                                             <button
                                                 class="bg-transparent"
-                                                @click="showModal()">
+                                                @click="closelogin()">
                                                 <img
                                                     class="w-4"
                                                     src="/assets/cross.svg" />
@@ -213,14 +221,138 @@ export default {
                                                 Log in or Sign up
                                             </h3>
                                         </div>
+                                        <div class="relative p-6 flex-auto">
+                                            <form
+                                                class="space-y-4 md:space-y-6">
+                                                <div>
+                                                    <label
+                                                        for="username"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >Display Name</label
+                                                    >
+                                                    <input
+                                                        type="username"
+                                                        name="username"
+                                                        id="username"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Nicholas Lee" />
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        for="email"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >Your email</label
+                                                    >
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        id="email"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="name@company.com" />
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        for="password"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >Password</label
+                                                    >
+                                                    <input
+                                                        type="password"
+                                                        name="password"
+                                                        id="password"
+                                                        placeholder="••••••••"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        for="confirm-password"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >Confirm password</label
+                                                    >
+                                                    <input
+                                                        type="confirm-password"
+                                                        name="confirm-password"
+                                                        id="confirm-password"
+                                                        placeholder="••••••••"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                                </div>
+                                                <button
+                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full">
+                                                    Create an account
+                                                </button>
+                                                <p
+                                                    class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                                    Already have an account?
+                                                    <a
+                                                        @click="openlogin()"
+                                                        class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                                                        >Login here</a
+                                                    >
+                                                </p>
+                                                <section
+                                                    id="firebaseui-auth-container"></section>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                v-show="login_visible"
+                                class="fixed inset-0 z-50 justify-center items-center flex bg-slate-500/60">
+                                <div
+                                    class="relative w-auto my-6 mx-auto max-w-6xl">
+                                    <div
+                                        class="border-0 rounded-2xl overflow-auto text-left md:rounded-lg shadow-lg relative flex flex-col md:w-full md:h-full bg-white md:min-w-[500px] max-h-[600px] w-[300px] md:min-h-[380px]">
                                         <div
-                                            class="relative px-6 pb-6 flex-auto">
-                                            <h2
-                                                class="text-xl pt-6 pb-7 font-semibold text-gray-700">
-                                                Welcome to BigRedDot
-                                            </h2>
-                                            <section
-                                                id="firebaseui-auth-container"></section>
+                                            class="flex items-center p-5 border-b border-solid border-slate-200 rounded-t">
+                                            <button
+                                                class="bg-transparent"
+                                                @click="closelogin()">
+                                                <img
+                                                    class="w-4"
+                                                    src="/assets/cross.svg" />
+                                            </button>
+                                            <h3
+                                                class="text-lg pl-1 font-semibold text-gray-700">
+                                                Log in or Sign up
+                                            </h3>
+                                        </div>
+                                        <div class="relative p-6 flex-auto">
+                                            <form
+                                                class="space-y-4 md:space-y-6">
+                                                <div>
+                                                    <label
+                                                        for="email"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >Your email</label
+                                                    >
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        id="email"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="name@company.com" />
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        for="password"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                        >Password</label
+                                                    >
+                                                    <input
+                                                        type="password"
+                                                        name="password"
+                                                        id="password"
+                                                        placeholder="••••••••"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                                </div>
+                                                <button
+                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full">
+                                                    Create an account
+                                                </button>
+                                                <section
+                                                    id="firebaseui-auth-container"></section>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
