@@ -1,10 +1,23 @@
 <script lang="ts">
 export default {
     name: 'LogInModal',
+    data(){
+        return {
+            valid_email: true
+        }
+    },
     props: {
-        valid_email2: Boolean,
-        validateEmail2: Function,
         closelogin: Function,
+    },
+    methods: {
+        validateEmail() {
+            let email = (<HTMLInputElement>document.getElementById('email2')).value
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                this.valid_email = true
+            } else {
+                this.valid_email = false
+            }
+        },
     },
 }
 </script>
@@ -33,11 +46,11 @@ export default {
                                 >Your email</label
                             >
                             <input
-                                @blur="validateEmail2()"
+                                @blur="validateEmail()"
                                 id="email2"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="name@company.com" />
-                            <div v-show="!valid_email2" class="text-gray-900">
+                            <div v-show="!valid_email" class="text-gray-900">
                                 <div
                                     class="flex mt-2 mb-4 text-sm text-red-700 rounded-lg"
                                     role="alert">

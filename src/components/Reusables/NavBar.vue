@@ -20,7 +20,6 @@ export default {
             modal_visible: false,
             login_visible: false,
             profile: false,
-            valid_email1: true,
             valid_email2: true,
         }
     },
@@ -97,29 +96,6 @@ export default {
             this.login_visible = false
             this.valid_email2 = true
         },
-        validateEmail1() {
-            let email = (<HTMLInputElement>document.getElementById('email1'))
-                .value
-            console.log(email)
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-                this.valid_email1 = true
-            } else {
-                this.valid_email1 = false
-            }
-        },
-        validateEmail2() {
-            let email = (<HTMLInputElement>document.getElementById('email2'))
-                .value
-            console.log(email)
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-                this.valid_email2 = true
-            } else {
-                this.valid_email2 = false
-            }
-        },
-        validatePassword(){
-            
-        }
     },
     components: {
         SignUpModal,
@@ -237,13 +213,9 @@ export default {
                             <SignUpModal
                                 v-show="modal_visible"
                                 :showModal="showModal"
-                                :validateEmail1="validateEmail1"
-                                :valid_email1="valid_email1"
                                 :openlogin="openlogin" />
                             <LogInModal
                                 v-show="login_visible"
-                                :valid_email2="valid_email2"
-                                :validateEmail2="validateEmail2"
                                 :closelogin="closelogin" />
                         </li>
                         <li
