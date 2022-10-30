@@ -98,7 +98,7 @@ export default {
                             @click="showFilter"
                             class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center h-full">
                             <img
-                                class="w-6 h-6 my-auto"
+                                class="w-6 h-6 my-auto max-w-none"
                                 src="/assets/filter.svg" />
                         </button>
                     </div>
