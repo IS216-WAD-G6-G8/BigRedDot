@@ -1,12 +1,76 @@
 <script lang="ts">
-export default{
-    name: "SignUpModal",
+export default {
+    name: 'SignUpModal',
+    data() {
+        return {
+            valid_email: true,
+            valid_repw: true,
+            email: '',
+            pw: '',
+            repw: '',
+            disabled: false
+        }
+    },
     props: {
         showModal: Function,
-        validateEmail1: Function,
-        valid_email1: Boolean,
         openlogin: Function,
-    }
+    },
+    methods: {
+        validateEmail() {
+            if (
+                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)
+            ) {
+                this.valid_email = true
+            } else {
+                this.valid_email = false
+            }
+        },
+        validateRePw(){
+            if (this.pw == this.repw){
+                this.valid_repw = true
+            }else{
+                this.valid_repw = false
+            }
+        },
+        validatePassword() {
+            if (this.pw.length > 0) {
+                //validate length
+                this.checkLength()
+                //validate upper and lowe
+                this.checkUpperLower()
+                //validate alphanumeric
+                this.checkAlphanumeric()
+                //validate special chars
+                this.checkSpecial()
+            }
+        },
+        // signUpUser() {
+        //     if(this.valid_email && this.valid_repw && this.checkLength() && this.checkUpperLower() && this.checkAlphanumeric() && this.checkSpecial()){
+        //         return true
+        //     }else{
+        //         this.disabled = true
+        //     }
+        // },
+        checkPwInput() {
+            return this.pw.length > 0
+        },
+        checkLength() {
+            return this.pw.length >= 12
+        },
+        checkUpperLower() {
+            const upper = /[A-Z]/.test(this.pw)
+            const lower = /[a-z]/.test(this.pw)
+            return upper && lower
+        },
+        checkAlphanumeric() {
+            const valid = /[^0-9a-zA-Z]/.test(this.pw)
+            return valid
+        },
+        checkSpecial() {
+            const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
+            return specialChars.test(this.pw)
+        },
+    },
 }
 </script>
 
@@ -15,7 +79,7 @@ export default{
         class="fixed inset-0 z-50 justify-center items-center flex bg-slate-500/60">
         <div class="relative w-auto my-6 mx-auto max-w-6xl">
             <div
-                class="border-0 rounded-2xl overflow-auto text-left shadow-lg relative flex flex-col md:w-full md:h-full bg-white md:min-w-[500px] max-h-[600px] w-[300px] md:min-h-[380px]">
+                class="border-0 rounded-2xl overflow-auto text-left shadow-lg relative flex flex-col md:w-full md:h-full bg-white md:min-w-[500px] max-h-[610px] w-[300px] md:min-h-[380px]">
                 <div
                     class="flex items-center p-5 border-b border-solid border-slate-200 rounded-t">
                     <button class="bg-transparent" @click="showModal()">
@@ -29,7 +93,6 @@ export default{
                     <form class="space-y-4 md:space-y-6">
                         <div>
                             <label
-                                for="username"
                                 class="block mb-2 text-sm font-medium text-gray-900"
                                 >Display Name</label
                             >
@@ -46,11 +109,12 @@ export default{
                                 >Your email</label
                             >
                             <input
-                                @blur="validateEmail1()"
+                                @blur="validateEmail()"
+                                v-model="email"
                                 id="email1"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="name@company.com" />
-                            <div v-show="!valid_email1" class="text-gray-900">
+                            <div v-show="!valid_email" class="text-gray-900">
                                 <div
                                     class="flex mt-2 mb-4 text-sm text-red-700 rounded-lg"
                                     role="alert">
@@ -74,17 +138,63 @@ export default{
                         </div>
                         <div>
                             <label
-                                for="password1"
                                 class="block mb-2 text-sm font-medium text-gray-900"
                                 >Password</label
                             >
                             <input
-                                type="password1"
-                                name="password1"
-                                id="password1"
+                                @blur="validatePassword()"
+                                v-model="pw"
+                                type="password"
                                 placeholder="••••••••"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                            <div class="text-gray-900">Error Msg</div>
+                            <div
+                                class="flex flex-col mt-2 mb-4 text-sm text-gray-400 rounded-lg">
+                                <div
+                                    :class="{
+                                        'text-gray-400': !checkPwInput(),
+                                        'text-red-700':
+                                            checkPwInput() && !checkLength(),
+                                        'text-emerald-500':
+                                            checkPwInput() && checkLength(),
+                                    }">
+                                    • Contain at least 12 characters
+                                </div>
+                                <div
+                                    :class="{
+                                        'text-gray-400': !checkPwInput(),
+                                        'text-red-700':
+                                            checkPwInput() &&
+                                            !checkUpperLower(),
+                                        'text-emerald-500':
+                                            checkPwInput() && checkUpperLower(),
+                                    }">
+                                    • A mixture of both uppercase and lowercase
+                                    letters
+                                </div>
+                                <div
+                                    :class="{
+                                        'text-gray-400': !checkPwInput(),
+                                        'text-red-700':
+                                            checkPwInput() &&
+                                            !checkAlphanumeric(),
+                                        'text-emerald-500':
+                                            checkPwInput() &&
+                                            checkAlphanumeric(),
+                                    }">
+                                    • A mixture of letters and numbers
+                                </div>
+                                <div
+                                    :class="{
+                                        'text-gray-400': !checkPwInput(),
+                                        'text-red-700':
+                                            checkPwInput() && !checkSpecial(),
+                                        'text-emerald-500':
+                                            checkPwInput() && checkSpecial(),
+                                    }">
+                                    • Inclusion of at least one special
+                                    character, e.g., ! @ # ? ]
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <label
@@ -93,11 +203,31 @@ export default{
                                 >Confirm password</label
                             >
                             <input
-                                type="confirm-password"
-                                name="confirm-password"
-                                id="confirm-password"
+                                @blur="validateRePw()"
+                                v-model="repw"
+                                type="password"
                                 placeholder="••••••••"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                            <div v-show="!valid_repw" class="text-gray-900">
+                                <div
+                                    class="flex mt-2 mb-4 text-sm text-red-700 rounded-lg"
+                                    role="alert">
+                                    <svg
+                                        aria-hidden="true"
+                                        class="flex-shrink-0 inline w-5 h-5 mr-1"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <div>
+                                        Confirmed password does not match with the previous password
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <button
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full">
