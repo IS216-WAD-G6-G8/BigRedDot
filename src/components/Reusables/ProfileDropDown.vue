@@ -12,8 +12,8 @@ export default {
 </script>
 
 <template>
-    <li class="w-full hidden md:block md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
-        <div class="relative border rounded-2xl">
+    <li class="w-full relative hidden md:block md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
+        <div class="border rounded-2xl">
             <button
                 id="profile_button"
                 @click="toggleProfile()"
@@ -46,7 +46,7 @@ export default {
         </div>
         <div :class="profile ? 'block' : 'hidden'">
             <div
-                class="absolute gap-5 flex flex-col z-50 right-28 mt-2 w-52 p-5 rounded-md bg-white shadow-lg"
+                class="absolute gap-5 flex flex-col z-50 right-0 mt-2 w-52 p-5 rounded-2xl bg-white shadow-[0_35px_60px_0px_rgba(0,0,0,0.3)]"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button">
                 <router-link to="/MyList">

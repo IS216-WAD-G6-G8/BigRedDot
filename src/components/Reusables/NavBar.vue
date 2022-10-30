@@ -117,6 +117,9 @@ export default {
                 this.valid_email2 = false
             }
         },
+        validatePassword(){
+            
+        }
     },
     components: {
         SignUpModal,
