@@ -160,7 +160,6 @@ export default {
                 <div
                     v-on:scroll.native="handleScroll"
                     :class="open ? 'block' : 'hidden'"
-                    @scroll="toggle"
                     class="w-full md:block md:w-auto"
                     id="navbar-default">
                     <ul
