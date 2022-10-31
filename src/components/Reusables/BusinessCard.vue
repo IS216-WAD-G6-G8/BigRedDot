@@ -31,20 +31,28 @@ export default {
         Swiper,
         SwiperSlide,
     },
-    methods: {},
+    methods: {
+        addFav() {
+            console.log('Hello')
+        },
+    },
 }
 </script>
 
 <template>
     <div
         class="md:max-w-xs h-full flex justify-center mx-auto bg-white rounded-2xl border-gray-20 dark:bg-slate-900">
-        <RouterLink :to="({ name: 'BusinessDetail', params: { business_id: this.data.id }})">
-            <a class="flex flex-col items-center">
-                <div class="w-72 h-72">
-                    <!-- <img
+        <a class="flex flex-col items-center">
+            <div class="w-72 h-72 relative">
+                <!-- <img
                     src="https://twinfinite.net/wp-content/uploads/2020/01/The-Idolmaster-Starlit-Season-2-1.jpg"
                     class="card-img-top rounded-2xl object-none w-80 h-80"
                     alt="..." /> -->
+                <RouterLink
+                    :to="{
+                        name: 'BusinessDetail',
+                        params: { business_id: this.data.id },
+                    }">
                     <swiper
                         :slides-per-view="1"
                         :space-between="30"
@@ -52,11 +60,21 @@ export default {
                         class="default-slider rounded-2xl">
                         <swiper-slide v-for="card in cards" :key="card">
                             <img
-                                class="rounded-2xl object-fill w-[17rem] h-[17rem]"
+                                class="rounded-2xl object-cover w-[17rem] h-[17rem]"
                                 :src="card" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
-                </div>
+                </RouterLink>
+                <img
+                    @click="addFav()"
+                    class="absolute m-4 top-4 right-3 z-10 w-[25px]"
+                    src="/assets/love.svg" />
+            </div>
+            <RouterLink
+                :to="{
+                    name: 'BusinessDetail',
+                    params: { business_id: this.data.id },
+                }">
                 <div class="flex flex-col">
                     <div class="py-5 px-5 flex flex-col">
                         <div
@@ -83,8 +101,8 @@ export default {
                         </div>
                     </div>
                 </div>
-            </a>
-        </RouterLink>
+            </RouterLink>
+        </a>
     </div>
 </template>
 

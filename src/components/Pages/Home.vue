@@ -3,7 +3,7 @@ import NavBar from '../Reusables/NavBar.vue'
 import { Business, CategoryEnum } from '../../types/firebaseTypes'
 import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
-import Filter from '../Reusables/Filter.vue'
+import FilterModal from '../Reusables/FilterModal.vue'
 
 const firebaseService = new FirebaseService()
 
@@ -20,13 +20,13 @@ export default {
             ],
             CategoryEnum,
             businessData: null as Business[] | null,
-            filterVisible: false
+            filterVisible: false,
         }
     },
     beforeMount() {
-        if(this.$store.getters.getCat != ''){
+        if (this.$store.getters.getCat != '') {
             this.getByCategory([CategoryEnum[this.$store.getters.getCat]])
-        }else{
+        } else {
             this.getAllData()
         }
     },
@@ -39,61 +39,91 @@ export default {
                 categories
             )
         },
-        getMode(){
+        getMode() {
             console.log(this.$store.getters.getDarkMode)
         },
-        showFilter(){
+        showFilter() {
             this.filterVisible = true
         },
-        closeFilter(){
+        closeFilter() {
             this.filterVisible = false
         },
     },
-    components: { NavBar, BusinessCard, Filter },
+    components: { NavBar, BusinessCard, FilterModal },
 }
 </script>
 
 <template>
-    <div :class="{ dark: this.$store.getters.getDarkMode }">
-        <NavBar></NavBar>
-        <div class="bg-[#d4e6ff] px-8 md:px-20 w-full flex justify-between">
-            <div class="container overflow-auto flex justify-between mx-auto">
-                <div id="cat" v-for="category in categories">
-                    <button
-                        id="cat_button"
-                        v-on:click="
-                            getByCategory([CategoryEnum[category.name]])
-                        "
-                        class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center">
-                        <img
-                            id="icon"
-                            :src="category.url"
-                            class="w-6 h-6 mb-2" />
-                        <span class="text-xs text-gray-700 md:text-sm">{{
-                            category.name
-                        }}</span>
-                    </button>
-                </div>
-                <div>
-                    <button id="filterBtn" @click="showFilter" class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center h-full">
-                        <img class="w-6 h-6 my-auto" src="assets/filter.png">
-                    </button>
+    <div
+        class="h-screen"
+        :class="filterVisible ? 'overflow-y-hidden' : 'overflow-y-auto'">
+        <div :class="{ dark: this.$store.getters.getDarkMode }">
+            <NavBar></NavBar>
+            <div class="bg-[#d4e6ff] px-8 md:px-20 w-full flex justify-between">
+                <div
+                    class="container overflow-auto flex justify-between mx-auto">
+                    <div>
+                        <button
+                            id="cat_button"
+                            v-on:click="getAllData()"
+                            class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center">
+                            <img
+                                id="icon"
+                                class="w-6 h-6 mb-2"
+                                src="/assets/all.svg" />
+                            <span class="text-xs text-gray-700 md:text-sm">
+                                all
+                            </span>
+                        </button>
+                    </div>
+                    <div v-for="category in categories">
+                        <button
+                            id="cat_button"
+                            v-on:click="
+                                getByCategory([CategoryEnum[category.name]])
+                            "
+                            class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center">
+                            <img
+                                id="icon"
+                                :src="category.url"
+                                class="w-6 h-6 mb-2" />
+                            <span class="text-xs text-gray-700 md:text-sm">{{
+                                category.name
+                            }}</span>
+                        </button>
+                    </div>
+                    <div>
+                        <button
+                            id="filterBtn"
+                            @click="showFilter"
+                            class="bg-[#a4cafe00] mr-7 md:mr-0 flex flex-col items-center h-full">
+                            <img
+                                class="w-6 h-6 my-auto max-w-none"
+                                src="/assets/filter.svg" />
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <Filter @close="closeFilter" v-if="filterVisible"></Filter>
-
-        <div
-            class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
-            <div v-for="business of businessData">
-                <BusinessCard :data="business"></BusinessCard>
+            <FilterModal
+                @close="closeFilter"
+                v-if="filterVisible"></FilterModal>
+            <div
+                class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
+                <div v-for="business of businessData">
+                    <BusinessCard :data="business"></BusinessCard>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+
+#icon {
+    min-width: 1.5rem !important;
+    min-height: 1.5rem !important;
+}
+
 #cat_button {
     position: relative;
     border-radius: unset;
@@ -129,7 +159,8 @@ export default {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
-#filterBtn:focus  {
+
+#filterBtn:focus {
     border-color: transparent;
     outline: none;
 }
