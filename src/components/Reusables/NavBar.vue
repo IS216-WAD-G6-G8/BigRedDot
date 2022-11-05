@@ -24,7 +24,8 @@ export default {
         }
     },
     mounted() {
-        let ui = firebaseui.auth.AuthUI.getInstance()
+        if(!this.$store.getters.getUser){
+            let ui = firebaseui.auth.AuthUI.getInstance()
         if (!ui) {
             ui = new firebaseui.auth.AuthUI(firebase.auth())
         }
@@ -45,6 +46,7 @@ export default {
             ],
         }
         ui.start('#firebaseui-auth-container', uiConfig)
+        }
     },
     created() {
         window.addEventListener('scroll', this.handleScroll)
