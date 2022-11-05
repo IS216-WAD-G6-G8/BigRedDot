@@ -1,4 +1,5 @@
 <script lang="ts">
+
 export default {
     name: 'SignUpModal',
     data() {
@@ -242,7 +243,7 @@ export default {
                                 >Login here</a
                             >
                         </p>
-                        <section id="firebaseui-auth-container"></section>
+                        <section v-if="!this.$store.getters.getUser" id="firebaseui-auth-container"></section>
                     </form>
                 </div>
             </div>
