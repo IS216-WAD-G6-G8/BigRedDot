@@ -1,5 +1,4 @@
 <script lang="ts">
-
 export default {
     name: 'SignUpModal',
     data() {
@@ -9,7 +8,7 @@ export default {
             email: '',
             pw: '',
             repw: '',
-            disabled: false
+            disabled: true,
         }
     },
     props: {
@@ -26,10 +25,10 @@ export default {
                 this.valid_email = false
             }
         },
-        validateRePw(){
-            if (this.pw == this.repw){
+        validateRePw() {
+            if (this.pw == this.repw) {
                 this.valid_repw = true
-            }else{
+            } else {
                 this.valid_repw = false
             }
         },
@@ -45,13 +44,18 @@ export default {
                 this.checkSpecial()
             }
         },
-        // signUpUser() {
-        //     if(this.valid_email && this.valid_repw && this.checkLength() && this.checkUpperLower() && this.checkAlphanumeric() && this.checkSpecial()){
-        //         return true
-        //     }else{
-        //         this.disabled = true
-        //     }
-        // },
+        signUpUser() {
+            if (
+                this.valid_email &&
+                this.valid_repw &&
+                this.checkLength() &&
+                this.checkUpperLower() &&
+                this.checkAlphanumeric() &&
+                this.checkSpecial()
+            ) {
+                console.log('success')
+            }
+        },
         checkPwInput() {
             return this.pw.length > 0
         },
@@ -72,6 +76,28 @@ export default {
             return specialChars.test(this.pw)
         },
     },
+    computed: {
+        validBtn() {
+            if (this.repw != '') {
+                this.validateRePw()
+                if (
+                    this.valid_email == true &&
+                    this.checkLength() &&
+                    this.checkUpperLower() &&
+                    this.checkAlphanumeric() &&
+                    this.checkSpecial() &&
+                    this.checkPwInput() &&
+                    this.valid_repw == true
+                ) {
+                    return (this.disabled = false)
+                } else {
+                    return (this.disabled = true)
+                }
+            } else {
+                return (this.disabled = true)
+            }
+        },
+    },
 }
 </script>
 
@@ -80,9 +106,9 @@ export default {
         class="fixed inset-0 z-50 justify-center items-center flex bg-slate-500/60">
         <div class="relative w-auto my-6 mx-auto max-w-6xl">
             <div
-                class="border-0 rounded-2xl overflow-auto text-left shadow-lg relative flex flex-col md:w-full md:h-full bg-white md:min-w-[500px] max-h-[610px] w-[300px] md:min-h-[380px]">
+                class="border-0 rounded-2xl overflow-auto text-left shadow-lg relative flex flex-col md:w-full md:h-full bg-white md:min-w-[500px] max-h-[620px] w-[300px] md:min-h-[380px]">
                 <div
-                    class="flex items-center p-5 border-b border-solid border-slate-200 rounded-t">
+                    class="sticky top-0 z-20 bg-white flex items-center p-5 border-b border-solid border-slate-200 rounded-t">
                     <button class="bg-transparent" @click="showModal()">
                         <img class="w-4" src="/assets/cross.svg" />
                     </button>
@@ -225,13 +251,17 @@ export default {
                                             clip-rule="evenodd"></path>
                                     </svg>
                                     <div>
-                                        Confirmed password does not match with the previous password
+                                        Confirmed password does not match with
+                                        the previous password
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full">
+                        id="createBtn"
+                            :disabled="validBtn"
+                            @click="signUpUser()"
+                            class="bg-blue-500 disabled:bg-blue-200 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full">
                             Create an account
                         </button>
                         <p
@@ -243,10 +273,23 @@ export default {
                                 >Login here</a
                             >
                         </p>
-                        <section v-if="!this.$store.getters.getUser" id="firebaseui-auth-container"></section>
+                        <section
+                            v-if="!this.$store.getters.getUser"
+                            id="firebaseui-auth-container"></section>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+
+#createBtn:disabled:hover{
+    border-color: transparent;
+}
+
+#createBtn:disabled:focus, #createBtn:disabled:focus-visible {
+    outline: none;
+}
+</style>

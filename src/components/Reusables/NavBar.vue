@@ -24,28 +24,28 @@ export default {
         }
     },
     mounted() {
-        if(!this.$store.getters.getUser){
+        if (!this.$store.getters.getUser) {
             let ui = firebaseui.auth.AuthUI.getInstance()
-        if (!ui) {
-            ui = new firebaseui.auth.AuthUI(firebase.auth())
-        }
-        var uiConfig = {
-            callbacks: {
-                signInSuccessWithAuthResult: (authResult) => {
-                    const isNewUser = authResult.additionalUserInfo.isNewUser
-                    if (isNewUser) {
-                        userService.createUser(authResult.user)
-                    }
-                    return true
+            if (!ui) {
+                ui = new firebaseui.auth.AuthUI(firebase.auth())
+            }
+            var uiConfig = {
+                callbacks: {
+                    signInSuccessWithAuthResult: (authResult) => {
+                        const isNewUser =
+                            authResult.additionalUserInfo.isNewUser
+                        if (isNewUser) {
+                            userService.createUser(authResult.user)
+                        }
+                        return true
+                    },
                 },
-            },
-            //signInSuccessUrl: '/Home', // edit redirect here
-            signInOptions: [
-                firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            ],
-        }
-        ui.start('#firebaseui-auth-container', uiConfig)
+                signInOptions: [
+                    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                ],
+            }
+            ui.start('#firebaseui-auth-container', uiConfig)
         }
     },
     created() {
@@ -65,6 +65,7 @@ export default {
         },
         handleScroll() {
             this.open = false
+            console.log("i am here")
         },
         toggleMode() {
             this.$store.dispatch(
@@ -80,7 +81,6 @@ export default {
         },
         logout() {
             const auth = getAuth()
-
             signOut(auth)
                 .then(() => {
                     alert('You have been logged out')
@@ -140,7 +140,7 @@ export default {
                             src="/assets/dark_mode.svg" />
                     </button>
                     <button
-                        @click="toggle"
+                        @click="toggle()"
                         data-collapse-toggle="navbar-default"
                         type="button"
                         class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -207,17 +207,10 @@ export default {
                             v-if="!$store.state.user"
                             class="w-full md:w-auto mb-1 mt-3 md:mt-0 md:mb-0">
                             <button
-                                @click="showModal()"
+                                @click="showModal(), toggle()"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full md:w-auto">
                                 Sign Up / Log In
                             </button>
-                            <SignUpModal
-                                v-show="modal_visible"
-                                :showModal="showModal"
-                                :openlogin="openlogin" />
-                            <LogInModal
-                                v-show="login_visible"
-                                :closelogin="closelogin" />
                         </li>
                         <li
                             v-if="$store.state.user"
@@ -257,6 +250,11 @@ export default {
                 </div>
             </div>
         </nav>
+        <SignUpModal
+            v-show="modal_visible"
+            :showModal="showModal"
+            :openlogin="openlogin" />
+        <LogInModal v-show="login_visible" :closelogin="closelogin" />
     </div>
 </template>
 
