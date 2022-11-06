@@ -55,8 +55,8 @@ export default {
 
 <template>
     <div
-        class="h-screen"
-        :class="filterVisible ? 'overflow-y-hidden' : 'overflow-y-auto'">
+        class="h-screen sm:overflow-auto"
+        :class="filterVisible ? 'overflow-y-hidden' : 'md:overflow-y-auto'">
         <div :class="{ dark: this.$store.getters.getDarkMode }">
             <NavBar></NavBar>
             <div class="bg-[#d4e6ff] px-8 md:px-20 w-full flex justify-between">
