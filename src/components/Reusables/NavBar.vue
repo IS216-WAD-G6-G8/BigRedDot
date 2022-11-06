@@ -39,7 +39,6 @@ export default {
                     return true
                 },
             },
-            //signInSuccessUrl: '/Home', // edit redirect here
             signInOptions: [
                 firebase.auth.FacebookAuthProvider.PROVIDER_ID,
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -80,7 +79,6 @@ export default {
         },
         logout() {
             const auth = getAuth()
-
             signOut(auth)
                 .then(() => {
                     alert('You have been logged out')
