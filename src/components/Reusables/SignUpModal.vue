@@ -2,8 +2,6 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../main"
 
-console.log("auth import", auth)
-
 export default {
     name: 'SignUpModal',
     data() {
@@ -51,6 +49,9 @@ export default {
             }
         },
         signUpUser() {
+            console.log("function auth", auth)
+            const testAuth = getAuth()
+            console.log("test auth", testAuth)
             if (
                 this.valid_email &&
                 this.valid_repw &&
@@ -61,7 +62,6 @@ export default {
             ) {
                 // run this block of code if all fields are correct
                 console.log(this.name, this.email, this.pw)
-                console.log("function auth", auth)
                 createUserWithEmailAndPassword(auth, this.email, this.password)
                     .then((userCredential) => {
                         console.log(userCredential)
