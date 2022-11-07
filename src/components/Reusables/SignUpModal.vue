@@ -128,7 +128,7 @@ export default {
                     </h3>
                 </div>
                 <div class="relative p-6 flex-auto">
-                    <form class="space-y-4 md:space-y-6">
+                    <div class="space-y-4 md:space-y-6">
                         <div>
                             <label
                                 class="block mb-2 text-sm font-medium text-gray-900"
@@ -288,7 +288,7 @@ export default {
                         <section
                             v-if="!this.$store.getters.getUser"
                             id="firebaseui-auth-container"></section>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
