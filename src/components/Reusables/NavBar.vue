@@ -102,6 +102,7 @@ export default {
             // once user is created it will auto log in
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
+                    console.log(userCredential.user)
                     this.showModal()
                 })
                 .catch((error) => {
