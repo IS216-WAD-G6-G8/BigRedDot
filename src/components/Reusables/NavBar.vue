@@ -104,7 +104,7 @@ export default {
                 .then((userCredential) => {
                     console.log("result:", userCredential)
                     userService.createUserFromEmail(userCredential.user.uid, data.name)
-                    this.closelogin()
+                    this.showModal()
                 })
                 .catch((error) => {
                     console.log(error)
@@ -114,7 +114,7 @@ export default {
             signInWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     console.log("result: ", userCredential)
-                    this.showModal()
+                    this.closelogin()
                 })
                 .catch((error) => {
                     console.log(error)
