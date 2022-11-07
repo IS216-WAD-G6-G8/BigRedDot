@@ -24,18 +24,25 @@ export default {
         }
     },
     methods: {
-        // ensures the min is always lower than the max
-        setNewRange() {
-            if (this.min > this.max) {
+        close() {
+            this.$emit('close')
+        },
+        setNewRange(){
+            if (this.max < this.min) {
                 let temp = this.max
                 this.max = this.min
                 this.min = temp
             }
-        },
-        close() {
-            this.$emit('close')
-        },
+        }
     },
+    computed: {
+        progress_left(){
+            return this.min / this.upperLimit * 100 + '%'
+        },
+        progress_right(){
+            return 100 - (this.max / this.upperLimit * 100) + '%'
+        }
+    }
 }
 </script>
 
@@ -55,25 +62,14 @@ export default {
                 <p class="flex justify-center font-bold text-xl">Filter</p>
             </div>
             <!-- price range -->
-            <div class="my-10 px-3 md:px-12">
+            <div class="my-10 px-3 px-12">
                 <p class="text-left font-bold">Price Range</p>
-                <div class="slider">
-                    <input
-                        class="minPoint"
-                        id="minInput"
-                        type="range"
-                        :min="lowerLimit"
-                        :max="upperLimit"
-                        v-model.number="min"
-                        @change="setNewRange()" />
-                    <input
-                        class="maxPoint"
-                        id="maxInput"
-                        type="range"
-                        :min="lowerLimit"
-                        :max="upperLimit"
-                        v-model.number="max"
-                        @change="setNewRange()" />
+                <div class="slider my-6">
+                    <div class="progress" :style="{left:progress_left, right:progress_right}"></div>
+                    <div class="range-input">
+                        <input type="range" @change="setNewRange()" :min="lowerLimit" :max="upperLimit" v-model="min">
+                        <input type="range" @change="setNewRange()" :min="lowerLimit" :max="upperLimit" v-model="max">
+                    </div>
                 </div>
                 <div class="flex justify-between items-center mt-5">
                     <div class="w-2/5">
@@ -81,7 +77,7 @@ export default {
                         <input
                             type="number"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            v-model="min" />
+                            v-model="min"/>
                     </div>
                     <div class="w-1/5">---</div>
                     <div class="w-2/5">
@@ -89,13 +85,13 @@ export default {
                         <input
                             type="number"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            v-model="max" />
+                            v-model="max"/>
                     </div>
                 </div>
             </div>
 
             <!-- preferred mode -->
-            <div class="text-left px-3 md:px-12">
+            <div class="text-left px-3 px-12">
                 <p class="text-left font-bold pb-3">Mode</p>
                 <div class="flex items-center">
                     <input
@@ -123,18 +119,21 @@ export default {
             <div class="my-10 text-left px-12">
                 <p class="font-bold pb-3">Rating</p>
                 <div>
-                    <button
-                        class="ratingBtn box-border bg-white border rounded border-black mr-4 mb-4"
-                        v-for="star in stars">
-                        {{ star }}
-                    </button>
-                </div>
+                    <span v-for="star in stars" class="mr-4">
+                        <input
+                            class="ratingBtn box-border bg-white border rounded border-black"
+                            type="radio" :id="star" name="chosenRating">
+                        <label class="rating" :for="star">                        
+                            {{ star }}
+                        </label>
+                    </span>
+                </div>                                                              
             </div>
 
             <!-- popularity -->
             <div class="my-10 text-left px-12">
                 <p class="font-bold pb-3">Popularity</p>
-                <select class="bg-white p-3 border rounded-2xl">
+                <select class="bg-white p-3 border rounded-2xl w-100 block">
                     <option v-for="item in popularity">{{ item }}</option>
                 </select>
             </div>
@@ -152,35 +151,72 @@ export default {
 <style scoped>
 /* price range slider */
 .slider {
+    height: 5px;
+    background-color: grey;
+    border-radius: 5px;
     position: relative;
-    margin: auto;
-    width: 100%;
-    height: 30px;
 }
-.slider input[type='range'] {
-    width: 100% !important;
-}
-.slider input[type='range'],
-.slider svg {
+.slider .progress {
+    height: 5px;
+    background-color: #007aff;
+    border-radius: 5px;
     position: absolute;
-    left: 0;
-    bottom: 0;
 }
-input[type='range']::-webkit-slider-thumb {
+.range-input {
     position: relative;
-    z-index: 2;
 }
-
+.range-input input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 5px;
+    width: 100%;
+    -webkit-appearance: none;
+    background: none;
+}
+input[type="range"]::-webkit-slider-thumb{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    background: #007aff;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+}
+input[type="range"]::-moz-range-thumb{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    -moz-appearance: none;
+    background: #007aff;
+    pointer-events: auto;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 /* rating button */
-.ratingBtn:hover {
-    background-color: rgb(59 130 246);
-    border-color: white;
+.ratingBtn {
+    display: none;
+}
+.rating {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: transparent;
+    cursor: pointer;
+}
+.ratingBtn:hover + label {
+    background-color: rgb(59 130 246 / 0.25);
     transition: 0.3s;
 }
-.ratingBtn:focus {
+.ratingBtn:checked + label {
     background-color: rgb(59 130 246 / 0.5);
     transition: 0.3s;
 }
+
 /* search button */
 #searchBtn {
     background-color: rgb(59 130 246 / 0.5);

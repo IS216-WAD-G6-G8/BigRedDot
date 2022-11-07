@@ -129,11 +129,11 @@ export default {
     border-radius: unset;
 }
 
-#cat_button:hover {
+#cat_button:hover, #filterBtn:hover {
     border-color: transparent;
 }
 
-#cat_button:focus {
+#cat_button:focus, #filterBtn:hover {
     outline: none;
 }
 
