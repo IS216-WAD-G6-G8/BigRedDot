@@ -138,7 +138,7 @@ export default defineComponent({
                             <div
                                 class="pl-4 text-gray-900 dark:text-white font-semibold"
                                 v-if="businesses[0].pricerange == 3">
-                                $1000 to $10000
+                                $100 to $1000
                             </div>
                             <div
                                 class="pl-4 text-gray-900 dark:text-white font-semibold"
