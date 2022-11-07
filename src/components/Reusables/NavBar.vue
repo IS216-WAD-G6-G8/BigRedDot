@@ -99,6 +99,7 @@ export default {
             this.valid_email2 = true
         },
         createUser(value) {
+            console.log("called")
             console.log(value)
         }
     },
