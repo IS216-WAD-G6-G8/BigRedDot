@@ -103,6 +103,7 @@ export default {
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     console.log("result:", userCredential)
+                    userService.createUserFromEmail(userCredential.user.uid, data.name)
                     this.showModal()
                 })
                 .catch((error) => {
