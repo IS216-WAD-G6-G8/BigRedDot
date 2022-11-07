@@ -1,10 +1,14 @@
 <script lang="ts">
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../../main"
+
 export default {
     name: 'SignUpModal',
     data() {
         return {
             valid_email: true,
             valid_repw: true,
+            name: '',
             email: '',
             pw: '',
             repw: '',
@@ -53,7 +57,13 @@ export default {
                 this.checkAlphanumeric() &&
                 this.checkSpecial()
             ) {
-                console.log('success')
+                // run this block of code if all fields are correct
+                const newUser = {
+                    name: this.name,
+                    email: this.email,
+                    password: this.pw
+                }
+                this.$emit('create-email-user', newUser)
             }
         },
         checkPwInput() {
@@ -117,7 +127,7 @@ export default {
                     </h3>
                 </div>
                 <div class="relative p-6 flex-auto">
-                    <form class="space-y-4 md:space-y-6">
+                    <div class="space-y-4 md:space-y-6">
                         <div>
                             <label
                                 class="block mb-2 text-sm font-medium text-gray-900"
@@ -126,6 +136,7 @@ export default {
                             <input
                                 type="username"
                                 name="username"
+                                v-model="name"
                                 id="username"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Nicholas Lee" />
@@ -276,7 +287,7 @@ export default {
                         <section
                             v-if="!this.$store.getters.getUser"
                             id="firebaseui-auth-container"></section>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

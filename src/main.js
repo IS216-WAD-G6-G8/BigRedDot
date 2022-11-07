@@ -4,6 +4,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import firebase from 'firebase/compat/app';
+import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
     apiKey: 'AIzaSyAipvvlbfDtRMXnN_UDeHl67l-XbgWc_CU',
     authDomain: 'is216-bigreddot.firebaseapp.com',
@@ -14,5 +15,6 @@ const firebaseConfig = {
     appId: '1:627775349080:web:b4e38d720ec5ded855c52d',
     measurementId: 'G-ZJ0T3NYPCM',
 };
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+export const auth = getAuth(app);
 createApp(App).use(router).use(store).mount('#app');

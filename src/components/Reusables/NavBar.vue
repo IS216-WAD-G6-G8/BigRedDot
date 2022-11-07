@@ -2,11 +2,12 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
-import { getAuth, signOut } from 'firebase/auth'
+import { signOut, createUserWithEmailAndPassword } from 'firebase/auth'
 import { UserService } from '../../services/userService'
 import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
 import ProfileDropDown from './ProfileDropDown.vue'
+import { auth } from '../../main'
 
 const userService = new UserService()
 
@@ -80,7 +81,6 @@ export default {
             this.profile = !this.profile
         },
         logout() {
-            const auth = getAuth()
             signOut(auth)
                 .then(() => {
                     alert('You have been logged out')
@@ -98,6 +98,18 @@ export default {
             this.login_visible = false
             this.valid_email2 = true
         },
+        createUser(data) {
+            // once user is created it will auto log in
+            createUserWithEmailAndPassword(auth, data.email, data.password)
+                .then((userCredential) => {
+                    console.log("result:", userCredential)
+                    userService.createUserFromEmail(userCredential.user.uid, data.name)
+                    this.showModal()
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
     },
     components: {
         SignUpModal,
@@ -253,7 +265,8 @@ export default {
         <SignUpModal
             v-show="modal_visible"
             :showModal="showModal"
-            :openlogin="openlogin" />
+            :openlogin="openlogin" 
+            @create-email-user="createUser"/>
         <LogInModal v-show="login_visible" :closelogin="closelogin" />
     </div>
 </template>

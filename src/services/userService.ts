@@ -11,11 +11,25 @@ export class UserService {
 
     async createUser(user: MultiFactorInfo) {
         const createUserUrl = this.baseUrl + '/' + user.uid + '.json'
-        console.log(createUserUrl)
 
         const tempUserEntity = {
             uid: user.uid,
             name: user.displayName,
+        }
+        try {
+            let res = await axios.put(createUserUrl, tempUserEntity)
+            console.log(res)
+        } catch (err) {
+            throw err
+        }
+    }
+
+    async createUserFromEmail(uid: string, name: string) {
+        const createUserUrl = this.baseUrl + '/' + uid + '.json'
+
+        const tempUserEntity = {
+            uid: uid,
+            name: name,
         }
         try {
             let res = await axios.put(createUserUrl, tempUserEntity)
