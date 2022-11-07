@@ -50,7 +50,7 @@ export default {
     <div
         class="fixed inset-0 z-50 px-6 justify-center items-center flex bg-slate-500/60">
         <div
-            class="bg-white text-black relative max-h-[30rem] rounded-2xl overflow-auto">
+            class="bg-white text-black relative max-h-[40rem] rounded-2xl overflow-auto">
             <!-- cancel icon -->
             <img
                 class="absolute h-5 w-5 top-5 left-5 cursor-pointer"
@@ -62,7 +62,7 @@ export default {
                 <p class="flex justify-center font-bold text-xl">Filter</p>
             </div>
             <!-- price range -->
-            <div class="my-10 px-3 px-12">
+            <div class="my-10 px-12">
                 <p class="text-left font-bold">Price Range</p>
                 <div class="slider my-6">
                     <div class="progress" :style="{left:progress_left, right:progress_right}"></div>
@@ -91,7 +91,7 @@ export default {
             </div>
 
             <!-- preferred mode -->
-            <div class="text-left px-3 px-12">
+            <div class="text-left px-12">
                 <p class="text-left font-bold pb-3">Mode</p>
                 <div class="flex items-center">
                     <input
@@ -128,14 +128,6 @@ export default {
                         </label>
                     </span>
                 </div>                                                              
-            </div>
-
-            <!-- popularity -->
-            <div class="my-10 text-left px-12">
-                <p class="font-bold pb-3">Popularity</p>
-                <select class="bg-white p-3 border rounded-2xl w-100 block">
-                    <option v-for="item in popularity">{{ item }}</option>
-                </select>
             </div>
 
             <!-- search -->
