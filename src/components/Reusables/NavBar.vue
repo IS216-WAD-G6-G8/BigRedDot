@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
-import { signOut, createUserWithEmailAndPassword } from 'firebase/auth'
+import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { UserService } from '../../services/userService'
 import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
@@ -104,6 +104,16 @@ export default {
                 .then((userCredential) => {
                     console.log("result:", userCredential)
                     userService.createUserFromEmail(userCredential.user.uid, data.name)
+                    this.showModal()
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+        loginUser(data) {
+            signInWithEmailAndPassword(auth, data.email, data.password)
+                .then((userCredential) => {
+                    console.log("result: ", userCredential)
                     this.showModal()
                 })
                 .catch((error) => {
@@ -267,7 +277,7 @@ export default {
             :showModal="showModal"
             :openlogin="openlogin" 
             @create-email-user="createUser"/>
-        <LogInModal v-show="login_visible" :closelogin="closelogin" />
+        <LogInModal v-show="login_visible" @login-email-user="loginUser" :closelogin="closelogin" />
     </div>
 </template>
 
