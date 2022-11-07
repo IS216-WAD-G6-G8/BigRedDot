@@ -5,6 +5,7 @@ export default {
         return {
             valid_email: true,
             valid_repw: true,
+            name: '',
             email: '',
             pw: '',
             repw: '',
@@ -53,7 +54,8 @@ export default {
                 this.checkAlphanumeric() &&
                 this.checkSpecial()
             ) {
-                console.log('success')
+                // run this block of code if all fields are correct
+                console.log(this.name, this.email, this.pw)
             }
         },
         checkPwInput() {
@@ -126,6 +128,7 @@ export default {
                             <input
                                 type="username"
                                 name="username"
+                                v-model="name"
                                 id="username"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Nicholas Lee" />
