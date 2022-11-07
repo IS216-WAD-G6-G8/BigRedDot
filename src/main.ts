@@ -19,5 +19,6 @@ const firebaseConfig = {
 }
 const app = firebase.initializeApp(firebaseConfig)
 export const auth = getAuth(app)
+console.log('auth orig', auth)
 
 createApp(App).use(router).use(store).mount('#app')
