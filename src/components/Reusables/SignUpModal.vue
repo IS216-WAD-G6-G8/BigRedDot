@@ -62,6 +62,7 @@ export default {
                 console.log(this.name, this.email, this.pw)
                 createUserWithEmailAndPassword(auth, this.email, this.password)
                     .then((userCredential) => {
+                        console.log(userCredential)
                         this.$store.dispatch('commitUser')
                     })
                     .catch((error) => {
