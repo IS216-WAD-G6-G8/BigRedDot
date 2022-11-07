@@ -98,6 +98,9 @@ export default {
             this.login_visible = false
             this.valid_email2 = true
         },
+        createUser(value) {
+            console.log(value)
+        }
     },
     components: {
         SignUpModal,
@@ -253,7 +256,8 @@ export default {
         <SignUpModal
             v-show="modal_visible"
             :showModal="showModal"
-            :openlogin="openlogin" />
+            :openlogin="openlogin" 
+            :create-email-user="createUser"/>
         <LogInModal v-show="login_visible" :closelogin="closelogin" />
     </div>
 </template>

@@ -49,10 +49,6 @@ export default {
             }
         },
         signUpUser() {
-            console.log("???")
-            console.log("function auth", auth)
-            const testAuth = getAuth()
-            console.log("test auth", testAuth)
             if (
                 this.valid_email &&
                 this.valid_repw &&
@@ -63,14 +59,12 @@ export default {
             ) {
                 // run this block of code if all fields are correct
                 console.log(this.name, this.email, this.pw)
-                createUserWithEmailAndPassword(auth, this.email, this.password)
-                    .then((userCredential) => {
-                        console.log(userCredential)
-                        this.$store.dispatch('commitUser')
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                const newUser = {
+                    name: this.name,
+                    email: this.email,
+                    password: this.pw
+                }
+                this.$emit('create-email-user', newUser)
             }
         },
         checkPwInput() {
