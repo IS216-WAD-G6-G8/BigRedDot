@@ -102,7 +102,6 @@ export default {
             // once user is created it will auto log in
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
-                    console.log("result:", userCredential)
                     userService.createUserFromEmail(userCredential.user.uid, data.name)
                     this.showModal()
                 })
@@ -113,7 +112,6 @@ export default {
         loginUser(data) {
             signInWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
-                    console.log("result: ", userCredential)
                     this.closelogin()
                 })
                 .catch((error) => {
