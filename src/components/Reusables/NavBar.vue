@@ -99,8 +99,8 @@ export default {
             this.valid_email2 = true
         },
         createUser(data) {
-            console.log(auth, data.email, data.pw)
-            createUserWithEmailAndPassword(auth, data.email, data.pw)
+            console.log(auth, data.email, data.password)
+            createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     const user = userCredential.user
                     console.log(user)
