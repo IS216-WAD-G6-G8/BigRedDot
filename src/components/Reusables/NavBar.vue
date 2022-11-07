@@ -257,7 +257,7 @@ export default {
             v-show="modal_visible"
             :showModal="showModal"
             :openlogin="openlogin" 
-            :create-email-user="createUser"/>
+            @create-email-user="createUser"/>
         <LogInModal v-show="login_visible" :closelogin="closelogin" />
     </div>
 </template>
