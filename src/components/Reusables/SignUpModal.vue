@@ -1,7 +1,8 @@
 <script lang="ts">
-import { touchend } from "dom7"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../main"
+
+console.log("auth import", auth)
 
 export default {
     name: 'SignUpModal',
@@ -60,7 +61,7 @@ export default {
             ) {
                 // run this block of code if all fields are correct
                 console.log(this.name, this.email, this.pw)
-                console.log(auth)
+                console.log("function auth", auth)
                 createUserWithEmailAndPassword(auth, this.email, this.password)
                     .then((userCredential) => {
                         console.log(userCredential)
