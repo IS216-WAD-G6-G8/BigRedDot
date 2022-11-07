@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
-import { signOut } from 'firebase/auth'
+import { signOut, createUserWithEmailAndPassword } from 'firebase/auth'
 import { UserService } from '../../services/userService'
 import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
@@ -98,9 +98,16 @@ export default {
             this.login_visible = false
             this.valid_email2 = true
         },
-        createUser(value) {
-            console.log("called")
-            console.log(value)
+        createUser(data) {
+            console.log(data)
+            createUserWithEmailAndPassword(auth, data.email, data.pw)
+                .then((userCredential) => {
+                    const user = userCredential.user
+                    console.log(user)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
     },
     components: {
