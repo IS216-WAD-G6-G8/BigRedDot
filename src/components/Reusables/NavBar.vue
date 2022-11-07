@@ -104,7 +104,7 @@ export default {
                 .then((userCredential) => {
                     console.log("result:", userCredential)
                     userService.createUserFromEmail(userCredential.user.uid, data.name)
-                    this.showModal()
+                    this.closelogin()
                 })
                 .catch((error) => {
                     console.log(error)
@@ -277,7 +277,7 @@ export default {
             :showModal="showModal"
             :openlogin="openlogin" 
             @create-email-user="createUser"/>
-        <LogInModal v-show="login_visible" @login-email-user="loginUser" :closelogin="closelogin" />
+        <LogInModal v-show="login_visible" @login-email-user="loginUser" :closelogin="closelogin"/>
     </div>
 </template>
 
