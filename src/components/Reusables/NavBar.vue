@@ -99,16 +99,13 @@ export default {
             this.valid_email2 = true
         },
         createUser(data) {
-            console.log(auth, data.email, data.password)
+            // once user is created it will auto log in
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
-                    const user = userCredential.user
-                    console.log(user)
+                    this.showModal()
                 })
                 .catch((error) => {
                     console.log(error)
-                    console.log(error.code)
-                    console.log(error.message)
                 })
         }
     },

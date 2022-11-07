@@ -58,7 +58,6 @@ export default {
                 this.checkSpecial()
             ) {
                 // run this block of code if all fields are correct
-                console.log(this.name, this.email, this.pw)
                 const newUser = {
                     name: this.name,
                     email: this.email,
