@@ -60,6 +60,7 @@ export default {
             ) {
                 // run this block of code if all fields are correct
                 console.log(this.name, this.email, this.pw)
+                console.log(auth)
                 createUserWithEmailAndPassword(auth, this.email, this.password)
                     .then((userCredential) => {
                         console.log(userCredential)
