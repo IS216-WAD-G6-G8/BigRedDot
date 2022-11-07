@@ -2,11 +2,12 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
-import { getAuth, signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
 import { UserService } from '../../services/userService'
 import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
 import ProfileDropDown from './ProfileDropDown.vue'
+import { auth } from '../../main'
 
 const userService = new UserService()
 
@@ -80,7 +81,6 @@ export default {
             this.profile = !this.profile
         },
         logout() {
-            const auth = getAuth()
             signOut(auth)
                 .then(() => {
                     alert('You have been logged out')

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { touchend } from "dom7"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-const auth = getAuth()
+import { auth } from "../../main"
 
 export default {
     name: 'SignUpModal',
