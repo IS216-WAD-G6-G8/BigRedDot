@@ -49,6 +49,7 @@ export default {
             }
         },
         signUpUser() {
+            console.log("???")
             console.log("function auth", auth)
             const testAuth = getAuth()
             console.log("test auth", testAuth)
