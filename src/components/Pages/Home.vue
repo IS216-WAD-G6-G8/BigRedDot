@@ -33,23 +33,26 @@ export default {
         } else {
             this.getAllData()
         }
+
+        console.log(auth.currentUser)
+
+        if (auth.currentUser) {
+                console.log(auth.currentUser)
+                this.getUserBookmarks()
+                console.log("end", this.userBookmarks)
+            }
     },
     methods: {
         getAllData: async function () {
             this.businessData = await firebaseService.getAll()
-
-            if (auth.currentUser) {
-                console.log(auth.currentUser)
-                this.userBookmarks = await userService.getBookmarks(auth.currentUser.uid)
-            }
-
-            console.log(this.businessData)
-            console.log(this.userBookmarks)
         },
         getByCategory: async function (categories: CategoryEnum[]) {
             this.businessData = await firebaseService.getDataByCategory(
                 categories
             )
+        },
+        getUserBookmarks: async function (uid: string) {
+            this.userBookmarks = await userService.getBookmarks(uid)
         },
         getMode() {
             console.log(this.$store.getters.getDarkMode)

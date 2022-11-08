@@ -50,8 +50,8 @@ export class UserService {
             const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json';
             try {
                 let res = yield axios.get(getBookmarkUrl);
-                console.log('service return: ', res);
-                return res;
+                console.log('service return: ', res.data);
+                return res.data;
             }
             catch (err) {
                 throw err;
