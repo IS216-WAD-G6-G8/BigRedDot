@@ -71,7 +71,6 @@ export default {
         :class="filterVisible ? 'overflow-y-hidden' : 'sm:overflow-y-auto'">
         <div :class="{ dark: this.$store.getters.getDarkMode }">
             <NavBar></NavBar>
-            <div>{{currentUser}} {{userBookmarks}}</div>
             <div class="bg-[#d4e6ff] px-8 md:px-20 w-full flex justify-between">
                 <div
                     class="container overflow-auto flex justify-between mx-auto">
@@ -127,6 +126,9 @@ export default {
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        {{userBookmarks}}
     </div>
 </template>
 
