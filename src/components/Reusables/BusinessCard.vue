@@ -29,17 +29,24 @@ export default {
     },
     props: {
         data: Object as PropType<Business>,
-        userBookmarks: Array as PropType<Array<number>>
     },
     components: {
         Swiper,
         SwiperSlide,
     },
+    created() {
+        if (Object.values(this.$store.state.userBookmarks).includes(this.data.id)) {
+            this.myfav = '/assets/love.svg'
+        } else {
+            this.myfav = '/assets/confirm.svg'
+        }
+    },
     methods: {
         addFav() {
-            console.log(this.userBookmarks)
             const business_id = this.data.id
             console.log("this business is: ", business_id)
+
+            console.log(Object.values(this.$store.state.userBookmarks))
             
             if(this.myfav == '/assets/love.svg'){
                 this.myfav = '/assets/confirm.svg'

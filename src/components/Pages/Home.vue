@@ -8,7 +8,6 @@ import { UserService } from '../../services/userService'
 import { auth } from '../../main'
 
 const firebaseService = new FirebaseService()
-const userService = new UserService()
 
 export default {
     name: 'Home',
