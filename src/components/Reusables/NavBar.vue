@@ -83,6 +83,7 @@ export default {
         logout() {
             signOut(auth)
                 .then(() => {
+                    window.sessionStorage.clear()
                     alert('You have been logged out')
                     location.reload()
                 })
@@ -126,6 +127,7 @@ export default {
         },
         getBookmarks: async function (userId: string) {
             const result = await userService.getBookmarks(userId)
+            console.log("test: ", result.data)
             return result.data
         }
     },

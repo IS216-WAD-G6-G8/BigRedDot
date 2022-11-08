@@ -44,7 +44,6 @@ export class UserService {
 
         try {
             let res = await axios.get(getBookmarkUrl)
-            console.log('service return: ', res.data)
             return res.data
         } catch (err) {
             throw err
