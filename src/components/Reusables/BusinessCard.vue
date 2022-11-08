@@ -6,8 +6,10 @@ import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
 import 'swiper/swiper.min.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { UserService } from '../../services/userService'
 
 SwiperCore.use([Navigation, Pagination, A11y])
+const userService = new UserService
 
 export default {
     name: 'BusinessCard',
@@ -33,9 +35,10 @@ export default {
     },
     methods: {
         addFav() {
-            console.log('Hello')
             const business_id = this.data.id
-            console.log(business_id)
+            console.log("this business is: ", business_id)
+
+            
         },
     },
 }
