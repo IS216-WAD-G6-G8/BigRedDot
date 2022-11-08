@@ -48,17 +48,17 @@ export default {
 
             var bookmarksArray: number[] = Object.values(this.$store.state.userBookmarks)
             console.log(bookmarksArray)
-            console.log(this.$store.state.user)
+            console.log(this.$store.state.user.multiFactor.user.uid)
 
             if (bookmarksArray.includes(business_id)) {
                 // if it has been bookmarked
                 bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
                 console.log("removed", bookmarksArray)
-                userService.updateBookmarks(this.$store.state.user.uid, bookmarksArray)
+                userService.updateBookmarks(this.$store.state.user.multiFactor.user.uid, bookmarksArray)
             } else {
                 // if it is not already bookmarked
                 bookmarksArray.push(business_id)
-                userService.updateBookmarks(this.$store.state.user.uid, bookmarksArray)
+                userService.updateBookmarks(this.$store.state.user.multiFactor.user.uid, bookmarksArray)
             }
             
             if(this.myfav == '/assets/love.svg'){
