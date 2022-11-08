@@ -34,10 +34,6 @@ export default {
         } else {
             this.getAllData()
         }
-
-        if (auth.currentUser) {
-                this.getUserBookmarks(auth.currentUser.uid)
-            }
     },
     methods: {
         getAllData: async function () {
@@ -47,11 +43,6 @@ export default {
             this.businessData = await firebaseService.getDataByCategory(
                 categories
             )
-        },
-        getUserBookmarks: async function (uid: string) {
-            const res = await userService.getBookmarks(uid)
-            this.userBookmarks = res
-            console.log(res, this.userBookmarks)
         },
         getMode() {
             console.log(this.$store.getters.getDarkMode)

@@ -116,6 +116,9 @@ export default {
                     // then we retrieve the favourites from the user entity 
                     const userId = userCredential.user.uid
                     const bookmarks = this.getBookmarks(userId)
+                    console.log(bookmarks)
+                    this.$store.dispatch("commitUserBookmarks", bookmarks)
+                    console.log("result: ", this.$store.getters.getUserBookmarks)
                 })
                 .catch((error) => {
                     console.log(error)

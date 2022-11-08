@@ -1,10 +1,17 @@
 import { createStore } from 'vuex';
 import firebase from 'firebase/compat/app';
+import createPersistedState from 'vuex-persistedstate';
 export default createStore({
+    plugins: [
+        createPersistedState({
+            storage: window.sessionStorage,
+        }),
+    ],
     state: {
         cat: '',
         dark: false,
         user: null,
+        userBookmarks: null,
     },
     mutations: {
         updateCat(state, user_cat) {
@@ -15,6 +22,9 @@ export default createStore({
         },
         updateUser(state) {
             state.user = firebase.auth().currentUser;
+        },
+        updateUserBookmarks(state, user_bookmarks) {
+            state.userBookmarks = user_bookmarks;
         },
     },
     actions: {
@@ -27,6 +37,9 @@ export default createStore({
         commitUser({ commit }) {
             commit('updateUser');
         },
+        commitUserBookmarks({ commit }, input) {
+            commit('updateUserBookmarks', input);
+        },
     },
     getters: {
         getCat: function (state) {
@@ -37,6 +50,9 @@ export default createStore({
         },
         getUser: function (state) {
             return state.user;
+        },
+        getUserBookmarks(state) {
+            return state.userBookmarks;
         },
     },
 });
