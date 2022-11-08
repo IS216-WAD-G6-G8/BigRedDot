@@ -28,6 +28,7 @@ export default {
     },
     props: {
         data: Object as PropType<Business>,
+        userBookmarks: Array as PropType<Array<number>>
     },
     components: {
         Swiper,
@@ -101,6 +102,9 @@ export default {
                         <div
                             class="text-left w-64 text-sm line-clamp-2 font-normal text-gray-700 dark:text-gray-200">
                             {{ this.data.description }}
+                        </div>
+                        <div>
+                            {{ this.userBookmarks }}
                         </div>
                     </div>
                 </div>
