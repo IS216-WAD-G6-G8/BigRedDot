@@ -49,7 +49,9 @@ export default {
             )
         },
         getUserBookmarks: async function (uid: string) {
-            this.userBookmarks = await userService.getBookmarks(uid)
+            const res = await userService.getBookmarks(uid)
+            this.userBookmarks = res
+            console.log(res, this.userBookmarks)
         },
         getMode() {
             console.log(this.$store.getters.getDarkMode)
