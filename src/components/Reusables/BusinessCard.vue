@@ -37,8 +37,6 @@ export default {
         addFav() {
             const business_id = this.data.id
             console.log("this business is: ", business_id)
-
-            
         },
     },
 }

@@ -39,11 +39,23 @@ export class UserService {
         }
     }
 
-    async updateBookmarks(uid: string, bookmarks: number[]) {
-        const createUserUrl = this.baseUrl + '/' + uid + '.json'
+    async getBookmarks(uid: string) {
+        const getBookmarkUrl = this.baseUrl + '/' + uid + '/ratings.json'
 
         try {
-            let res = await axios.patch(createUserUrl, bookmarks)
+            let res = await axios.get(getBookmarkUrl)
+            console.log(res)
+            return res
+        } catch (err) {
+            throw err
+        }
+    }
+
+    async updateBookmarks(uid: string, bookmarks: number[]) {
+        const updateBookmarkUrl = this.baseUrl + '/' + uid + '.json'
+
+        try {
+            let res = await axios.patch(updateBookmarkUrl, bookmarks)
             console.log(res)
         } catch (err) {
             throw err

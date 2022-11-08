@@ -116,6 +116,9 @@ export default {
 
                     console.log(userCredential)
                     // then we retrieve the favourites from the user entity 
+                    const userId = userCredential.user.uid
+                    const bookmarkData = userService.getBookmarks(userId)
+                    console.log(bookmarkData)
                 })
                 .catch((error) => {
                     console.log(error)
