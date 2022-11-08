@@ -123,6 +123,7 @@ export default {
         },
         getBookmarks: async function (userId: string) {
             const result = await userService.getBookmarks(userId)
+            console.log(result.data)
             this.$store.dispatch('commitUserFavourites', result.data)
         }
     },
