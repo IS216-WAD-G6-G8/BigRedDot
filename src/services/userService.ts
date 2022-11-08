@@ -52,7 +52,7 @@ export class UserService {
     }
 
     async updateBookmarks(uid: string, bookmarks: number[]) {
-        const updateBookmarkUrl = this.baseUrl + '/' + uid + '.json'
+        const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
 
         console.log(updateBookmarkUrl)
         try {
