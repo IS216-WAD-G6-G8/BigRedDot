@@ -33,7 +33,7 @@ export default createStore({
             commit('updateUser')
         },
         commitUserFavourites({ commit }, input) {
-            commit('userFavourites', input)
+            commit('updateUserFavourites', input)
         },
     },
     getters: {
