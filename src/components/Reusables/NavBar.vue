@@ -117,9 +117,8 @@ export default {
                     this.closelogin()
                     // then we retrieve the favourites from the user entity 
                     const userId = userCredential.user.uid
-                    const bookmarks = this.getBookmarks(userId)
-                    console.log(bookmarks)
-                    this.$store.dispatch("commitUserBookmarks", bookmarks)
+                    this.getBookmarks(userId)
+                    this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
                     console.log("result: ", this.$store.getters.getUserBookmarks)
                 })
                 .catch((error) => {
@@ -128,7 +127,6 @@ export default {
         },
         getBookmarks: async function (userId: string) {
             this.userBookmarks = await userService.getBookmarks(userId)
-            console.log("test: ", this.userBookmarks)
         }
     },
     components: {
