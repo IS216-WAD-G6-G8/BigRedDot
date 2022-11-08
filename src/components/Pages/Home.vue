@@ -32,6 +32,8 @@ export default {
         }
     },
     created() {
+        console.log(this.$store.getUserFavourites)
+        console.log(this.$store.getUserFavourites.length)
         if (this.$store.getUserFavourites.length !== 0) {
             this.userFavourites = this.$store.getUserFavourites
         }
