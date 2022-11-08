@@ -46,7 +46,19 @@ export default {
             const business_id = this.data.id
             console.log("this business is: ", business_id)
 
-            console.log(Object.values(this.$store.state.userBookmarks))
+            var bookmarksArray: number[] = Object.values(this.$store.state.userBookmarks)
+
+            if (bookmarksArray.includes(business_id)) {
+                // if it has been bookmarked
+                bookmarksArray.splice(bookmarksArray.indexOf(business_id))
+                console.log("removed", bookmarksArray)
+                userService.updateBookmarks(this.$store.state.user.uid, bookmarksArray)
+            } else {
+                // if it is not already bookmarked
+                bookmarksArray.push(business_id)
+                console.log("added", bookmarksArray)
+                userService.updateBookmarks(this.$store.state.user.uid, bookmarksArray)
+            }
             
             if(this.myfav == '/assets/love.svg'){
                 this.myfav = '/assets/confirm.svg'
