@@ -25,6 +25,7 @@ export default {
             businessData: null as Business[] | null,
             filterVisible: false,
             userBookmarks: null,
+            currentUser: auth.currentUser
         }
     },
     beforeMount() {
@@ -34,12 +35,8 @@ export default {
             this.getAllData()
         }
 
-        console.log(auth.currentUser)
-
         if (auth.currentUser) {
-                console.log(auth.currentUser)
                 this.getUserBookmarks()
-                console.log("end", this.userBookmarks)
             }
     },
     methods: {
@@ -74,6 +71,7 @@ export default {
         :class="filterVisible ? 'overflow-y-hidden' : 'sm:overflow-y-auto'">
         <div :class="{ dark: this.$store.getters.getDarkMode }">
             <NavBar></NavBar>
+            <div>{{currentUser}} {{userBookmarks}}</div>
             <div class="bg-[#d4e6ff] px-8 md:px-20 w-full flex justify-between">
                 <div
                     class="container overflow-auto flex justify-between mx-auto">
