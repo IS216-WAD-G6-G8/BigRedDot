@@ -57,11 +57,6 @@ export default {
                 this.$store.dispatch('commitUser')
             }
         })
-
-        if (this.$store.state.user) {
-            const userId = this.$store.state.user.multiFactor.user.uid
-            this.getBookmarks(userId)
-        }
     },
     destroyed() {
         window.removeEventListener('scroll', this.handleScroll)

@@ -65,6 +65,9 @@ export default {
             } else {
                 this.myfav = '/assets/love.svg'
             }
+            
+            // lazy method of updating, will improve if time permits
+            this.$store.dispatch("commitUserBookmarks", bookmarksArray)
         },
     },
 }
