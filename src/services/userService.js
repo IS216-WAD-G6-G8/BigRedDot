@@ -45,4 +45,16 @@ export class UserService {
             }
         });
     }
+    updateBookmarks(uid, bookmarks) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const createUserUrl = this.baseUrl + '/' + uid + '.json';
+            try {
+                let res = yield axios.patch(createUserUrl, bookmarks);
+                console.log(res);
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
 }

@@ -38,4 +38,15 @@ export class UserService {
             throw err
         }
     }
+
+    async updateBookmarks(uid: string, bookmarks: number[]) {
+        const createUserUrl = this.baseUrl + '/' + uid + '.json'
+
+        try {
+            let res = await axios.patch(createUserUrl, bookmarks)
+            console.log(res)
+        } catch (err) {
+            throw err
+        }
+    }
 }
