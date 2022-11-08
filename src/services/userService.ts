@@ -55,8 +55,9 @@ export class UserService {
         const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
 
         console.log(updateBookmarkUrl)
+        console.log(bookmarks)
         try {
-            let res = await axios.patch(updateBookmarkUrl, bookmarks)
+            let res = await axios.post(updateBookmarkUrl, bookmarks)
             console.log(res)
         } catch (err) {
             throw err
