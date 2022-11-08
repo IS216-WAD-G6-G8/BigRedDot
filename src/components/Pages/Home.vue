@@ -21,6 +21,7 @@ export default {
             CategoryEnum,
             businessData: null as Business[] | null,
             filterVisible: false,
+            userFavourites: null,
         }
     },
     beforeMount() {
@@ -29,6 +30,12 @@ export default {
         } else {
             this.getAllData()
         }
+    },
+    created() {
+        if (this.$store.getUserFavourites.length !== 0) {
+            this.userFavourites = this.$store.getUserFavourites
+        }
+        console.log(this.userFavourites)
     },
     methods: {
         getAllData: async function () {
