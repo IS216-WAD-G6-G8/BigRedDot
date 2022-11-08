@@ -25,7 +25,6 @@ export default createStore({
             state.user = firebase.auth().currentUser
         },
         updateUserBookmarks(state, user_bookmarks) {
-            console.log('updated', user_bookmarks)
             state.userBookmarks = user_bookmarks
         },
     },
@@ -40,7 +39,6 @@ export default createStore({
             commit('updateUser')
         },
         commitUserBookmarks({ commit }, input) {
-            console.log('committed', input)
             commit('updateUserBookmarks', input)
         },
     },
@@ -55,7 +53,6 @@ export default createStore({
             return state.user
         },
         getUserBookmarks(state) {
-            console.log('get', state)
             return state.userBookmarks
         },
     },
