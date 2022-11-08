@@ -47,6 +47,7 @@ export default {
             console.log("this business is: ", business_id)
 
             var bookmarksArray: number[] = Object.values(this.$store.state.userBookmarks)
+            console.log(bookmarksArray)
 
             if (bookmarksArray.includes(business_id)) {
                 // if it has been bookmarked
