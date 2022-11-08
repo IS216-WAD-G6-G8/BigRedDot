@@ -62,7 +62,7 @@ export default {
             
             if(this.myfav == '/assets/love.svg'){
                 this.myfav = '/assets/confirm.svg'
-            }else{
+            } else {
                 this.myfav = '/assets/love.svg'
             }
         },
