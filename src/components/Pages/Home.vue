@@ -5,6 +5,7 @@ import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
 import FilterModal from '../Reusables/FilterModal.vue'
 import { UserService } from '../../services/userService'
+import { auth } from '../../main'
 
 const firebaseService = new FirebaseService()
 const userService = new UserService()
@@ -23,7 +24,7 @@ export default {
             CategoryEnum,
             businessData: null as Business[] | null,
             filterVisible: false,
-            userFavourites: null,
+            userBookmarks: null,
         }
     },
     beforeMount() {
@@ -33,19 +34,17 @@ export default {
             this.getAllData()
         }
     },
-    created() {
-        console.log(this.$store.getters.getUser)
-        if (this.$store.getters.getUser) {
-            const user = this.$store.getters.getUser
-            console.log(user)
-            // if we are logged in
-            this.userFavourites = this.getBookmarks(user.uid)
-            console.log("end", this.userFavourites)
-        }
-    },
     methods: {
         getAllData: async function () {
             this.businessData = await firebaseService.getAll()
+
+            if (auth.currentUser) {
+                console.log(auth.currentUser)
+                this.userBookmarks = await userService.getBookmarks(auth.currentUser.uid)
+            }
+
+            console.log(this.businessData)
+            console.log(this.userBookmarks)
         },
         getByCategory: async function (categories: CategoryEnum[]) {
             this.businessData = await firebaseService.getDataByCategory(
@@ -60,10 +59,6 @@ export default {
         },
         closeFilter() {
             this.filterVisible = false
-        },
-        getBookmarks: async function (userId: string) {
-            const result = await userService.getBookmarks(userId)
-            return result.data
         }
     },
     components: { NavBar, BusinessCard, FilterModal },
