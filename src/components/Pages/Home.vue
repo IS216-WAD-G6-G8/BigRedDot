@@ -36,7 +36,7 @@ export default {
         }
 
         if (auth.currentUser) {
-                this.getUserBookmarks()
+                this.getUserBookmarks(auth.currentUser.uid)
             }
     },
     methods: {
