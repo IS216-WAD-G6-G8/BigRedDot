@@ -113,8 +113,6 @@ export default {
             signInWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     this.closelogin()
-
-                    console.log(userCredential)
                     // then we retrieve the favourites from the user entity 
                     const userId = userCredential.user.uid
                     const bookmarkData = userService.getBookmarks(userId)

@@ -40,7 +40,7 @@ export class UserService {
     }
 
     async getBookmarks(uid: string) {
-        const getBookmarkUrl = this.baseUrl + '/' + uid + '/ratings.json'
+        const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
 
         try {
             let res = await axios.get(getBookmarkUrl)
