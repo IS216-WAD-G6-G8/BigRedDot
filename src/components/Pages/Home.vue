@@ -4,8 +4,10 @@ import { Business, CategoryEnum } from '../../types/firebaseTypes'
 import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
 import FilterModal from '../Reusables/FilterModal.vue'
+import { UserService } from '../../services/userService'
 
 const firebaseService = new FirebaseService()
+const userService = new UserService()
 
 export default {
     name: 'Home',
@@ -32,11 +34,13 @@ export default {
         }
     },
     created() {
-        console.log(this.$store.getters.getUserFavourites)
-        if (this.$store.getters.getUserFavourites.length !== 0) {
-            this.userFavourites = this.$store.getter.getUserFavourites
+        if (this.$store.getters.getUser) {
+            const user = this.$store.getters.getUser
+            console.log(user)
+            // if we are logged in
+            this.userFavourites = this.getBookmarks(user.uid)
+            console.log("end", this.userFavourites)
         }
-        console.log(this.userFavourites)
     },
     methods: {
         getAllData: async function () {
@@ -56,6 +60,10 @@ export default {
         closeFilter() {
             this.filterVisible = false
         },
+        getBookmarks: async function (userId: string) {
+            const result = await userService.getBookmarks(userId)
+            return result.data
+        }
     },
     components: { NavBar, BusinessCard, FilterModal },
 }

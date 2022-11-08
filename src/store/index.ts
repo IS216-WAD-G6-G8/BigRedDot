@@ -6,7 +6,6 @@ export default createStore({
         cat: '',
         dark: false,
         user: null,
-        userFavourites: [],
     },
     mutations: {
         updateCat(state, user_cat) {
@@ -17,10 +16,6 @@ export default createStore({
         },
         updateUser(state) {
             state.user = firebase.auth().currentUser
-        },
-        updateUserFavourites(state, user_favourites) {
-            state.userFavourites = user_favourites
-            console.log('after:', state.userFavourites)
         },
     },
     actions: {
@@ -33,9 +28,6 @@ export default createStore({
         commitUser({ commit }) {
             commit('updateUser')
         },
-        commitUserFavourites({ commit }, input) {
-            commit('updateUserFavourites', input)
-        },
     },
     getters: {
         getCat: function (state) {
@@ -46,10 +38,6 @@ export default createStore({
         },
         getUser: function (state) {
             return state.user
-        },
-        getUserFavourites: function (state) {
-            console.log('get: ', state.userFavourites)
-            return state.userFavourites
         },
     },
 })
