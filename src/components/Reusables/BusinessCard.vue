@@ -36,6 +36,7 @@ export default {
     },
     methods: {
         addFav() {
+            console.log(this.userBookmarks)
             const business_id = this.data.id
             console.log("this business is: ", business_id)
         },
@@ -102,9 +103,6 @@ export default {
                         <div
                             class="text-left w-64 text-sm line-clamp-2 font-normal text-gray-700 dark:text-gray-200">
                             {{ this.data.description }}
-                        </div>
-                        <div>
-                            {{ this.userBookmarks }}
                         </div>
                     </div>
                 </div>
