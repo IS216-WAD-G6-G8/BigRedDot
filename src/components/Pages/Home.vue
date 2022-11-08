@@ -34,6 +34,7 @@ export default {
         }
     },
     created() {
+        console.log(this.$store.getters.getUser)
         if (this.$store.getters.getUser) {
             const user = this.$store.getters.getUser
             console.log(user)
