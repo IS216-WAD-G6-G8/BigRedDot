@@ -1,7 +1,4 @@
 <script lang="ts">
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../../main"
-
 export default {
     name: 'SignUpModal',
     data() {

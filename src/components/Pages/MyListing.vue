@@ -27,7 +27,7 @@ export default {
                     <RouterLink to="/Home">
                         <img class="w-6 h-6 mr-4" src="/assets/back.svg" />
                     </RouterLink>
-                    <div class="font-bold text-sm md:text-xl text-gray-900">
+                    <div class="font-bold ml-5 text-sm md:text-xl text-gray-900">
                         My Favourite
                     </div>
                 </div>
@@ -60,14 +60,21 @@ export default {
                     src="/assets/f&b.jpg" />
                 <div
                     class="p-4 text-left flex flex-col self-center justify-between leading-normal">
-                    <div class="mb-4 text-left">
-                        <div
-                            class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
-                            Placeholder
+                    <div class="mb-4 flex text-left justify-between">
+                        <div>
+                            <div
+                                class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
+                                Placeholder
+                            </div>
+                            <div
+                                class="inline py-1 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
+                                Placeholder
+                            </div>
                         </div>
-                        <div
-                            class="inline py-1 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
-                            Placeholder
+                        <div>
+                            <img
+                                class="w-[25px]"
+                                src="/assets/love.svg" />
                         </div>
                     </div>
                     <div class="mb-8">

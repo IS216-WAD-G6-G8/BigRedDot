@@ -22,6 +22,7 @@ export default {
                 el: '.swiper-pagination',
                 type: 'bullets',
             },
+            myfav: '/assets/love.svg'
         }
     },
     props: {
@@ -33,7 +34,11 @@ export default {
     },
     methods: {
         addFav() {
-            console.log('Hello')
+            if(this.myfav == '/assets/love.svg'){
+                this.myfav = '/assets/confirm.svg'
+            }else{
+                this.myfav = '/assets/love.svg'
+            }
         },
     },
 }
@@ -58,17 +63,17 @@ export default {
                         :space-between="30"
                         :pagination="{ clickable: true } as any"
                         class="default-slider rounded-2xl">
-                        <swiper-slide v-for="card in cards" :key="card">
-                            <img
+                        <swiper-slide v-for="index in 3" :key="index">
+                            <img v-if="this.data.images !== undefined "
                                 class="rounded-2xl object-cover w-[17rem] h-[17rem]"
-                                :src="card" />
+                                :src="this.data.images[index-1]" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
                 </RouterLink>
                 <img
                     @click="addFav()"
-                    class="absolute m-4 top-4 right-3 z-10 w-[25px]"
-                    src="/assets/love.svg" />
+                    class="absolute m-4 top-4 right-3 z-10 w-[28px]"
+                    :src="myfav" />
             </div>
             <RouterLink
                 :to="{
@@ -80,10 +85,11 @@ export default {
                         <div
                             class="mb-4 flex justify-between text-l text-left font-bold tracking-tight text-gray-900 dark:text-white">
                             <span>{{ this.data.name }}</span>
-                            <span class="text-right">
-                                <img src="/assets/star.svg" />
+                            <div class="text-right flex">
+                                <img class="pr-3" src="/assets/star.svg" />
+                                <span>{{ this.data.ratings }}</span>
                                 <div></div>
-                            </span>
+                            </div>
                         </div>
                         <div class="mb-4 text-left">
                             <div
@@ -91,7 +97,7 @@ export default {
                                 {{ this.data.category }}
                             </div>
                             <div
-                                class="inline py-1 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
+                                class="inline py-1 px-3 text-xs border-solid border-2 border-rose-300 rounded-2xl text-gray-700 dark:text-white">
                                 {{ this.data.mode }}
                             </div>
                         </div>
