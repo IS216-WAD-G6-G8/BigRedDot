@@ -22,6 +22,7 @@ export default {
             login_visible: false,
             profile: false,
             valid_email2: true,
+            userBookmarks: true,
         }
     },
     mounted() {
@@ -126,9 +127,8 @@ export default {
                 })
         },
         getBookmarks: async function (userId: string) {
-            const result = await userService.getBookmarks(userId)
-            console.log("test: ", result.data)
-            return result.data
+            this.userBookmarks = await userService.getBookmarks(userId)
+            console.log("test: ", this.userBookmarks)
         }
     },
     components: {

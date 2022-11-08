@@ -24,8 +24,6 @@ export default {
             CategoryEnum,
             businessData: null as Business[] | null,
             filterVisible: false,
-            userBookmarks: null,
-            currentUser: auth.currentUser
         }
     },
     beforeMount() {
@@ -115,7 +113,7 @@ export default {
             <div
                 class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
                 <div v-for="business of businessData">
-                    <BusinessCard :data="business" :bookmarks="userBookmarks"></BusinessCard>
+                    <BusinessCard :data="business"></BusinessCard>
                 </div>
             </div>
         </div>
