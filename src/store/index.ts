@@ -46,7 +46,7 @@ export default createStore({
         getUser: function (state) {
             return state.user
         },
-        getUserFavourites(state) {
+        getUserFavourites: function (state) {
             return state.userFavourites
         },
     },
