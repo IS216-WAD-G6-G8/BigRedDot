@@ -19,8 +19,8 @@ export default createStore({
             state.user = firebase.auth().currentUser
         },
         updateUserFavourites(state, user_favourites) {
-            console.log('update: ', user_favourites)
             state.userFavourites = user_favourites
+            console.log('after:', state.userFavourites)
         },
     },
     actions: {
@@ -34,7 +34,6 @@ export default createStore({
             commit('updateUser')
         },
         commitUserFavourites({ commit }, input) {
-            console.log('store', input)
             commit('updateUserFavourites', input)
         },
     },
@@ -49,6 +48,7 @@ export default createStore({
             return state.user
         },
         getUserFavourites: function (state) {
+            console.log('get: ', state.userFavourites)
             return state.userFavourites
         },
     },
