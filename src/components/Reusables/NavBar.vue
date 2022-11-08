@@ -119,6 +119,7 @@ export default {
                     const userId = userCredential.user.uid
                     this.getBookmarks(userId)
                     this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
+                    console.log("result non get", this.$store.state.userBookmarks)
                     console.log("result: ", this.$store.getters.getUserBookmarks)
                 })
                 .catch((error) => {

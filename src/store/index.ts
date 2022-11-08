@@ -12,7 +12,7 @@ export default createStore({
         cat: '',
         dark: false,
         user: null,
-        userBookmarks: null,
+        userBookmarks: [],
     },
     mutations: {
         updateCat(state, user_cat) {
