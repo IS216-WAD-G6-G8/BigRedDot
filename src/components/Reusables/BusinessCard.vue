@@ -87,7 +87,7 @@ export default {
                             <span>{{ this.data.name }}</span>
                             <div class="text-right flex">
                                 <img class="pr-3" src="/assets/star.svg" />
-                                <span>{{ this.data.ratings }}</span>
+                                <span>4.0</span>
                                 <div></div>
                             </div>
                         </div>

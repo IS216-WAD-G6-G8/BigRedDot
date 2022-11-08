@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
-import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+// import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { UserService } from '../../services/userService'
 import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
@@ -81,14 +81,14 @@ export default {
             this.profile = !this.profile
         },
         logout() {
-            signOut(auth)
-                .then(() => {
-                    alert('You have been logged out')
-                    location.reload()
-                })
-                .catch((error) => {
-                    alert(`Sign Out Error: ${error}`)
-                })
+            // signOut(auth)
+            //     .then(() => {
+            //         alert('You have been logged out')
+            //         location.reload()
+            //     })
+            //     .catch((error) => {
+            //         alert(`Sign Out Error: ${error}`)
+            //     })
         },
         openlogin() {
             this.showModal()
@@ -100,23 +100,23 @@ export default {
         },
         createUser(data) {
             // once user is created it will auto log in
-            createUserWithEmailAndPassword(auth, data.email, data.password)
-                .then((userCredential) => {
-                    userService.createUserFromEmail(userCredential.user.uid, data.name)
-                    this.showModal()
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+            // createUserWithEmailAndPassword(auth, data.email, data.password)
+            //     .then((userCredential) => {
+            //         userService.createUserFromEmail(userCredential.user.uid, data.name)
+            //         this.showModal()
+            //     })
+            //     .catch((error) => {
+            //         console.log(error)
+            //     })
         },
         loginUser(data) {
-            signInWithEmailAndPassword(auth, data.email, data.password)
-                .then((userCredential) => {
-                    this.closelogin()
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+            // signInWithEmailAndPassword(auth, data.email, data.password)
+            //     .then((userCredential) => {
+            //         this.closelogin()
+            //     })
+            //     .catch((error) => {
+            //         console.log(error)
+            //     })
         }
     },
     components: {
