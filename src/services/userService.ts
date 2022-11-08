@@ -57,7 +57,7 @@ export class UserService {
         console.log(updateBookmarkUrl)
         console.log(bookmarks)
         try {
-            let res = await axios.post(updateBookmarkUrl, bookmarks)
+            let res = await axios.put(updateBookmarkUrl, bookmarks)
             console.log(res)
         } catch (err) {
             throw err

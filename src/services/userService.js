@@ -64,7 +64,7 @@ export class UserService {
             console.log(updateBookmarkUrl);
             console.log(bookmarks);
             try {
-                let res = yield axios.post(updateBookmarkUrl, bookmarks);
+                let res = yield axios.put(updateBookmarkUrl, bookmarks);
                 console.log(res);
             }
             catch (err) {
