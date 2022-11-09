@@ -24,6 +24,7 @@ export default {
                 el: '.swiper-pagination',
                 type: 'bullets',
             },
+            bookmarksArray: Object.values(this.$store.state.userBookmarks),
             myfav: '/assets/love.svg'
         }
     },
@@ -45,18 +46,17 @@ export default {
         addFav() {
             const business_id = this.data.id
 
-            var bookmarksArray: number[] = Object.values(this.$store.state.userBookmarks)
             const uid = this.$store.state.user.multiFactor.user.uid
-            console.log(bookmarksArray, uid)
+            console.log(this.bookmarksArray, uid)
 
-            if (bookmarksArray.includes(business_id)) {
+            if (this.bookmarksArray.includes(business_id)) {
                 // if it has been bookmarked
-                bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
-                userService.updateBookmarks(uid, bookmarksArray)
+                this.bookmarksArray.splice(this.bookmarksArray.indexOf(business_id), 1)
+                userService.updateBookmarks(uid, this.bookmarksArray)
             } else {
                 // if it is not already bookmarked
-                bookmarksArray.push(business_id)
-                userService.updateBookmarks(uid, bookmarksArray)
+                this.bookmarksArray.push(business_id)
+                userService.updateBookmarks(uid, this.bookmarksArray)
             }
             
             if(this.myfav == '/assets/love.svg'){
@@ -66,7 +66,7 @@ export default {
             }
             
             // lazy method of updating, will improve if time permits
-            this.$store.dispatch("commitUserBookmarks", bookmarksArray)
+            this.$store.dispatch("commitUserBookmarks", this.bookmarksArray)
         },
     },
 }
