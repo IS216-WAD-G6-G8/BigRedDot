@@ -55,8 +55,7 @@ export default {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.$store.dispatch('commitUser')
-                this.userBookmarks = userService.getBookmarks(user.uid)
-                this.$store.dispatch('commitUserBookmarks', this.userBookmarks)
+                this.getBookmarks(user.uid)
             }
         })
     },
@@ -129,6 +128,7 @@ export default {
         },
         getBookmarks: async function (userId: string) {
             this.userBookmarks = await userService.getBookmarks(userId)
+            console.log(this.userBookmarks)
             this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
         }
     },
