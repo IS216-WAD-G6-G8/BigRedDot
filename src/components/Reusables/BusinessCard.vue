@@ -51,9 +51,7 @@ export default {
             const business_id = this.data.id
 
             var bookmarksArray: number[] = this.$store.state.userBookmarks
-            console.log(bookmarksArray)
             const uid = this.$store.state.user.multiFactor.user.uid
-            console.log(bookmarksArray, uid)
 
             if (bookmarksArray.includes(business_id)) {
                 // if it has been bookmarked
@@ -94,7 +92,7 @@ export default {
                         <swiper-slide v-for="index in 3" :key="index">
                             <img v-if="this.data.images !== undefined "
                                 class="rounded-2xl object-cover w-[17rem] h-[17rem]" 
-                                />
+                                :src="this.data.images[index-1]" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
                 </RouterLink>

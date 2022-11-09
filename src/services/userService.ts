@@ -54,8 +54,6 @@ export class UserService {
     async updateBookmarks(uid: string, bookmarks: number[]) {
         const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
 
-        console.log(updateBookmarkUrl)
-        console.log(bookmarks)
         try {
             let res = await axios.put(updateBookmarkUrl, bookmarks)
             console.log(res)

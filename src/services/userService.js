@@ -61,8 +61,6 @@ export class UserService {
     updateBookmarks(uid, bookmarks) {
         return __awaiter(this, void 0, void 0, function* () {
             const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json';
-            console.log(updateBookmarkUrl);
-            console.log(bookmarks);
             try {
                 let res = yield axios.put(updateBookmarkUrl, bookmarks);
                 console.log(res);
