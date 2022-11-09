@@ -127,7 +127,9 @@ export default {
         getBookmarks: async function (userId: string) {
             this.userBookmarks = await userService.getBookmarks(userId)
             console.log(this.userBookmarks)
-            this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
+            if (this.userBookmarks) {
+                this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
+            }
         }
     },
     components: {
