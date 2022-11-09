@@ -15,6 +15,7 @@ export class UserService {
         const tempUserEntity = {
             uid: user.uid,
             name: user.displayName,
+            bookmarks: [],
         }
         try {
             let res = await axios.put(createUserUrl, tempUserEntity)
@@ -30,6 +31,7 @@ export class UserService {
         const tempUserEntity = {
             uid: uid,
             name: name,
+            bookmarks: [],
         }
         try {
             let res = await axios.put(createUserUrl, tempUserEntity)
