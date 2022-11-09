@@ -26,6 +26,7 @@ export default createStore({
         },
         updateUserBookmarks(state, user_bookmarks) {
             state.userBookmarks = user_bookmarks
+            location.reload()
         },
     },
     actions: {
@@ -53,7 +54,6 @@ export default createStore({
             return state.user
         },
         getUserBookmarks(state) {
-            location.reload()
             return state.userBookmarks
         },
     },
