@@ -53,7 +53,7 @@ export default {
 
             if (bookmarksArray.includes(business_id)) {
                 // if it has been bookmarked
-                this.bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
+                bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
                 userService.updateBookmarks(uid, bookmarksArray)
             } else {
                 // if it is not already bookmarked
