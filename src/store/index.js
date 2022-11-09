@@ -1,6 +1,6 @@
-import { createStore } from 'vuex';
-import firebase from 'firebase/compat/app';
-import createPersistedState from 'vuex-persistedstate';
+import { createStore } from 'vuex'
+import firebase from 'firebase/compat/app'
+import createPersistedState from 'vuex-persistedstate'
 export default createStore({
     plugins: [
         createPersistedState({
@@ -15,45 +15,44 @@ export default createStore({
     },
     mutations: {
         updateCat(state, user_cat) {
-            state.cat = user_cat;
+            state.cat = user_cat
         },
         updateDarkMode(state, user_mode) {
-            state.dark = user_mode;
+            state.dark = user_mode
         },
         updateUser(state) {
-            state.user = firebase.auth().currentUser;
+            state.user = firebase.auth().currentUser
         },
         updateUserBookmarks(state, user_bookmarks) {
-            state.userBookmarks = user_bookmarks;
+            state.userBookmarks = user_bookmarks
         },
     },
     actions: {
         commitCat({ commit }, input) {
-            commit('updateCat', input);
+            commit('updateCat', input)
         },
         commitDarkMode({ commit }, input) {
-            commit('updateDarkMode', input);
+            commit('updateDarkMode', input)
         },
         commitUser({ commit }) {
-            commit('updateUser');
+            commit('updateUser')
         },
         commitUserBookmarks({ commit }, input) {
-            commit('updateUserBookmarks', input);
+            commit('updateUserBookmarks', input)
         },
     },
     getters: {
         getCat: function (state) {
-            return state.cat;
+            return state.cat
         },
         getDarkMode: function (state) {
-            return state.dark;
+            return state.dark
         },
         getUser: function (state) {
-            return state.user;
+            return state.user
         },
         getUserBookmarks(state) {
-            location.reload();
-            return state.userBookmarks;
+            return state.userBookmarks
         },
     },
-});
+})
