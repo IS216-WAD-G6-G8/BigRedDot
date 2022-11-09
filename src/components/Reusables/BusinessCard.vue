@@ -25,7 +25,6 @@ export default {
                 type: 'bullets',
             },
             bookmarksArray: Object.values(this.$store.state.userBookmarks),
-            myfav: '/assets/love.svg'
         }
     },
     props: {
@@ -35,11 +34,13 @@ export default {
         Swiper,
         SwiperSlide,
     },
-    created() {
-        if (Object.values(this.$store.state.userBookmarks).includes(this.data.id)) {
-            this.myfav = '/assets/love.svg'
-        } else {
-            this.myfav = '/assets/confirm.svg'
+    computed: {
+        imageSource () {
+            if (Object.values(this.$store.state.userBookmarks).includes(this.data.id)) {
+                return '/assets/love.svg'
+            } else {
+                return '/assets/confirm.svg'
+            }
         }
     },
     methods: {
@@ -57,12 +58,6 @@ export default {
                 // if it is not already bookmarked
                 this.bookmarksArray.push(business_id)
                 userService.updateBookmarks(uid, this.bookmarksArray)
-            }
-            
-            if(this.myfav == '/assets/love.svg'){
-                this.myfav = '/assets/confirm.svg'
-            } else {
-                this.myfav = '/assets/love.svg'
             }
             
             // lazy method of updating, will improve if time permits
@@ -101,7 +96,7 @@ export default {
                 <img
                     @click="addFav()"
                     class="absolute m-4 top-4 right-3 z-10 w-[28px]"
-                    :src="myfav" />
+                    :src="imageSource" />
             </div>
             <RouterLink
                 :to="{
