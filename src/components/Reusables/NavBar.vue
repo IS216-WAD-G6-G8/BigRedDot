@@ -56,6 +56,8 @@ export default {
             if (user) {
                 this.$store.dispatch('commitUser')
                 this.getBookmarks(user.uid)
+
+                location.reload()
             }
         })
     },
