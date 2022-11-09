@@ -53,6 +53,7 @@ export default createStore({
             return state.user
         },
         getUserBookmarks(state) {
+            location.reload()
             return state.userBookmarks
         },
     },

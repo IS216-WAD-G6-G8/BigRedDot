@@ -120,8 +120,6 @@ export default {
                     // then we retrieve the favourites from the user entity 
                     const userId = userCredential.user.uid
                     this.getBookmarks(userId)
-
-                    location.reload()
                 })
                 .catch((error) => {
                     console.log(error)
