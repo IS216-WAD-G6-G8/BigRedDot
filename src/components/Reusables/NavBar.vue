@@ -130,7 +130,6 @@ export default {
             this.userBookmarks = await userService.getBookmarks(userId)
             console.log(this.userBookmarks)
             this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
-            location.reload()
         }
     },
     components: {
