@@ -55,6 +55,8 @@ export default {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.$store.dispatch('commitUser')
+                this.userBookmarks = userService.getBookmarks(user.uid)
+                this.$store.dispatch('commitUserBookmarks', this.userBookmarks)
             }
         })
     },

@@ -44,11 +44,10 @@ export default {
     methods: {
         addFav() {
             const business_id = this.data.id
-            console.log("this business is: ", business_id)
 
             var bookmarksArray: number[] = Object.values(this.$store.state.userBookmarks)
-            console.log(bookmarksArray)
             const uid = this.$store.state.user.multiFactor.user.uid
+            console.log(bookmarksArray, uid)
 
             if (bookmarksArray.includes(business_id)) {
                 // if it has been bookmarked
