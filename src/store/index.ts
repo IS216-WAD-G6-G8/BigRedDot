@@ -26,7 +26,6 @@ export default createStore({
         },
         updateUserBookmarks(state, user_bookmarks) {
             state.userBookmarks = user_bookmarks
-            location.reload()
         },
     },
     actions: {
