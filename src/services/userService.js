@@ -19,7 +19,6 @@ export class UserService {
             const tempUserEntity = {
                 uid: user.uid,
                 name: user.displayName,
-                bookmarks: [],
             };
             try {
                 let res = yield axios.put(createUserUrl, tempUserEntity);
@@ -36,7 +35,6 @@ export class UserService {
             const tempUserEntity = {
                 uid: uid,
                 name: name,
-                bookmarks: [],
             };
             try {
                 let res = yield axios.put(createUserUrl, tempUserEntity);
