@@ -94,8 +94,8 @@ export default {
                         class="default-slider rounded-2xl">
                         <swiper-slide v-for="index in 3" :key="index">
                             <img v-if="this.data.images !== undefined "
-                                class="rounded-2xl object-cover w-[17rem] h-[17rem]"
-                                :src="this.data.images[index-1]" />
+                                class="rounded-2xl object-cover w-[17rem] h-[17rem]" 
+                                />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
                 </RouterLink>
