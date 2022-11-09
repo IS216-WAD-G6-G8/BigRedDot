@@ -8,6 +8,7 @@ import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
 import 'swiper/swiper.min.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+
 SwiperCore.use([Navigation, Pagination, A11y])
 const firebaseService = new FirebaseService()
 
@@ -43,6 +44,18 @@ export default defineComponent({
                 Number(business_id)
             )
         },
+        findPercentage(input) {
+            let sum = this.findSum()
+            let percent = (Number(input) / sum) * 100
+            return 'width: ' + percent + '%'
+        },
+        findSum() {
+            let sum = 0
+            for (var i = 1; i < this.businesses[0].ratings.length; i++) {
+                sum += this.businesses[0].ratings[i]
+            }
+            return sum
+        },
     },
     components: { NavBar, Swiper, SwiperSlide },
 })
@@ -56,13 +69,23 @@ export default defineComponent({
                 <div class="hidden md:block pt-4 px-10 lg:px-14">
                     <div class="grid grid-cols-1 md:gap-6 md:grid-cols-2">
                         <div>
-                            <img class="rounded-xl" src="/assets/fashion.jpg" />
+                            <img
+                                class="rounded-xl object-cover w-full max-h-[26rem]"
+                                :src="businesses[0].images[4]" />
                         </div>
                         <div class="flex flex-col justify-between">
                             <div
-                                class="h-full rounded-xl bg-[url('/assets/fashion.jpg')] bg-cover bg-center"></div>
+                                v-bind:style="{
+                                    backgroundImage:
+                                        'url(' + businesses[0].images[3] + ')',
+                                }"
+                                class="h-full rounded-xl bg-cover bg-center"></div>
                             <div
-                                class="h-full rounded-xl mt-4 bg-[url('/assets/fashion.jpg')] bg-cover bg-center"></div>
+                                v-bind:style="{
+                                    backgroundImage:
+                                        'url(' + businesses[0].images[2] + ')',
+                                }"
+                                class="h-full rounded-xl mt-4 bg-cover bg-center"></div>
                         </div>
                     </div>
                 </div>
@@ -72,8 +95,10 @@ export default defineComponent({
                         :space-between="30"
                         :pagination="{ clickable: true } as any"
                         class="default-slider">
-                        <swiper-slide v-for="card in cards" :key="card">
-                            <img class="object-fill" :src="card" />
+                        <swiper-slide v-for="index in 3" :key="index">
+                            <img
+                                class="object-cover w-screen max-h-72"
+                                :src="businesses[0].images[4 - index]" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
                 </div>
@@ -165,27 +190,37 @@ export default defineComponent({
                                 </div>
                                 <div class="md:pl-12 lg:pl-24 w-full">
                                     <div
-                                        v-for="rating of ratings"
+                                        v-for="index in 5"
                                         class="relative pt-1">
                                         <div
                                             class="flex mb-2 items-center justify-between">
                                             <div>
                                                 <span
                                                     class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-amber-600 bg-amber-200">
-                                                    {{ rating }}
+                                                    {{ 6 - index }} stars
                                                 </span>
                                             </div>
                                             <div class="text-right">
                                                 <span
                                                     class="text-xs font-semibold inline-block text-amber-600">
-                                                    30%
+                                                    {{
+                                                        businesses[0].ratings[
+                                                            6 - index
+                                                        ]
+                                                    }}
                                                 </span>
                                             </div>
                                         </div>
                                         <div
                                             class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-amber-200">
                                             <div
-                                                style="width: 50%"
+                                                :style="
+                                                    findPercentage(
+                                                        businesses[0].ratings[
+                                                            6 - index
+                                                        ]
+                                                    )
+                                                "
                                                 class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-amber-500"></div>
                                         </div>
                                     </div>
