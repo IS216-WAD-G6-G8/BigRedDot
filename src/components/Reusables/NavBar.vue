@@ -39,6 +39,7 @@ export default {
                         if (isNewUser) {
                             userService.createUser(authResult.user)
                         }
+                        this.getBookmarks(authResult.user.uid)
                         return true
                     },
                 },
@@ -55,9 +56,6 @@ export default {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.$store.dispatch('commitUser')
-                this.getBookmarks(user.uid)
-
-                location.reload()
             }
         })
     },
