@@ -99,7 +99,7 @@ export default {
             this.valid_email2 = true
         },
         createUser(data) {
-            // once user is created it will auto log in
+            // once user is created it will auto log in//
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     userService.createUserFromEmail(userCredential.user.uid, data.name)
