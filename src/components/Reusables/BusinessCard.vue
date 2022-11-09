@@ -47,6 +47,7 @@ export default {
             const business_id = this.data.id
 
             var bookmarksArray: number[] = this.$store.state.userBookmarks
+            console.log(bookmarksArray)
             const uid = this.$store.state.user.multiFactor.user.uid
             console.log(bookmarksArray, uid)
 
