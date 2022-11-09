@@ -33,6 +33,7 @@ export default {
             }
             var uiConfig = {
                 callbacks: {
+                    signInSuccessUrl: "/Home",
                     signInSuccessWithAuthResult: (authResult) => {
                         const isNewUser =
                             authResult.additionalUserInfo.isNewUser
