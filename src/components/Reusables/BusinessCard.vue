@@ -35,8 +35,12 @@ export default {
     },
     computed: {
         imageSource () {
-            if (Object.values(this.$store.state.userBookmarks).includes(this.data.id)) {
-                return '/assets/love.svg'
+            if (this.$store.state.userBookmarks) {
+                if (Object.values(this.$store.state.userBookmarks).includes(this.data.id)) {
+                    return '/assets/love.svg'
+                } else {
+                    return '/assets/confirm.svg'
+                }
             } else {
                 return '/assets/confirm.svg'
             }
