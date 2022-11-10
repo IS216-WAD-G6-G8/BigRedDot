@@ -31,14 +31,24 @@ export default {
     data() {
         return {
             cards: [
-                '/assets/fashion.jpg',
-                '/assets/services.jpg',
-                '/assets/crafts.jpg',
+                'https://static.thehoneycombers.com/wp-content/uploads/sites/2/2020/07/haji-lane-singapore-street.png',
+                'https://upload.wikimedia.org/wikipedia/commons/6/6e/Temple_Street%2C_Singapore%2C_2014_%2803%29.JPG',
+                'https://cdn01.vulcanpost.com/wp-uploads/2018/04/DSC00628.jpg',
             ] as string[],
             purposes: [
-                { url: '/assets/crafts.jpg', title: 'Promote', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
-                { url: '/assets/crafts.jpg', title: 'Improve', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
-                { url: '/assets/crafts.jpg', title: 'Encourage', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
+                { 
+                    url: 'https://01kennyfyp.files.wordpress.com/2014/10/singaporean-cuisine-1.jpg', 
+                    title: 'Variety', 
+                    desc: 'Each local business has its own flair, and offers products that you will not see anywhere else!' 
+                },
+                { 
+                    url: 'https://thehomeground.asia/wp-content/uploads/Souece-City-Developments-Limited_Featured-Image.jpg', 
+                    title: 'Sustainability', 
+                    desc: 'By shopping local, you reduce your reliance on the global supply chain, reducing your carbon emissions!' },
+                { 
+                    url: 'https://blog.transfez.com/wp-content/uploads/2022/07/21-Central-Business-District-Singapore-by-transfez.jpg', 
+                    title: 'Economy', 
+                    desc: 'Support your fellow Singaporeans in their businesses, and contribute to the local economy too!' },
             ] as ImageContent[],
         }
     },
@@ -71,18 +81,19 @@ export default {
                             Support Singapore's local businesses
                         </div>
                         <p class="text-gray-700 dark:text-white text-base">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Voluptatibus quia, nulla! Maiores et
-                            perferendis eaque, exercitationem praesentium nihil.
+                            Tired of the same old big chain stores, and the same old products? Why not shop #SGLocal? Find local businesses near you, offering unique and high-quality products and services that you will love!
                         </p>
                     </div>
                     <div class="flex items-center justify-evenly">
+                        <router-link to="/Home">
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded-full">
+                                Search for business
+                            </button>
+                        </router-link>
                         <button
+                            onclick="(function() {window.location.href = '#purpose'})()"
                             class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded-full">
-                            Search for business
-                        </button>
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-whit text-sm font-bold py-2 px-4 rounded-full">
                             Learn More
                         </button>
                     </div>
@@ -91,24 +102,21 @@ export default {
         </div>
         <!-- Content - Purpose -->
         <div class="bg-white dark:bg-slate-900 overflow-auto h-screen pb-6 px-10 pt-2 lg:px-14">
-            <div class="purpose">
+            <div id="purpose" class="purpose">
                 <h1
                     class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
-                    Purpose
+                    Why #SGLocal?
                 </h1>
                 <div
                     class="text-gray-900 dark:text-white text-sm w-full lg:text-lg pb-4">
-                    We use an agile approach to test assumptions and connect
-                    with the needs of your audience early and often.
+                    Why you should start shopping local today!
                 </div>
                 <div class="flex flex-wrap justify-evenly gap-10 pb-6 md:pb-0">
                     <div v-for="purpose in purposes"
                         class="max-w-xs bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                        <a href="#">
-                            <img
-                                class="rounded-t-lg"
-                                :src="purpose.url"/>
-                        </a>
+                        <img
+                            class="rounded-t-lg object-cover"
+                            :src="purpose.url"/>
                         <div class="p-5">
                             <a href="#">
                                 <h5
