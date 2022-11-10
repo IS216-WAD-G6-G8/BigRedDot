@@ -17,7 +17,7 @@ export default defineComponent({
     props: {
         data: Object as PropType<Business>,
         business_id: String,
-        rData: Object as PropType<RatingData>,
+        rData: Object as PropType<RatingData> | null,
     },
     data() {
         return {
