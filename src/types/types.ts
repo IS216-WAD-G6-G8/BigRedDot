@@ -43,7 +43,7 @@ export interface Business {
     pricerange: number
     ratings: object
     reviews: string
-    images: object
+    images: string[]
 }
 
 export interface EmailLoginData {

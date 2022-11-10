@@ -46,7 +46,6 @@ export class FirebaseService {
     getDataByID(id) {
         return __awaiter(this, void 0, void 0, function* () {
             var getIdUrl = this.businessUrl + '/' + (id - 1) + '.json';
-            console.log(getIdUrl);
             try {
                 let res = yield axios.get(getIdUrl);
                 let data = res.data;

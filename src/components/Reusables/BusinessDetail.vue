@@ -20,7 +20,7 @@ export default defineComponent({
     },
     data() {
         return {
-            businesses: [] as Business[],
+            businessData: null as Business | null,
             cards: [
                 '/assets/fashion.jpg',
                 '/assets/services.jpg',
@@ -40,7 +40,7 @@ export default defineComponent({
     },
     methods: {
         getDataByID: async function (business_id: String) {
-            this.businesses = await firebaseService.getDataByID(
+            this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
         },
@@ -77,19 +77,19 @@ export default defineComponent({
                         <div>
                             <img
                                 class="rounded-xl object-cover w-full max-h-[26rem]"
-                                :src="businesses[0].images[4]" />
+                                :src="businessData.images[4]" />
                         </div>
                         <div class="flex flex-col justify-between">
                             <div
                                 v-bind:style="{
                                     backgroundImage:
-                                        'url(' + businesses[0].images[3] + ')',
+                                        'url(' + businessData.images[3] + ')',
                                 }"
                                 class="h-full rounded-xl bg-cover bg-center"></div>
                             <div
                                 v-bind:style="{
                                     backgroundImage:
-                                        'url(' + businesses[0].images[2] + ')',
+                                        'url(' + businessData[0].images[2] + ')',
                                 }"
                                 class="h-full rounded-xl mt-4 bg-cover bg-center"></div>
                         </div>
@@ -104,7 +104,7 @@ export default defineComponent({
                         <swiper-slide v-for="index in 5" :key="index">
                             <img
                                 class="object-cover w-screen max-h-72"
-                                :src="businesses[0].images[5 - index]" />
+                                :src="businessData.images[5 - index]" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
                 </div>
@@ -115,11 +115,11 @@ export default defineComponent({
                 <div class="w-full md:w-3/4 flex flex-col items-start">
                     <h1
                         class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
-                        {{ businesses[0].name }}
+                        {{ businessData.name }}
                     </h1>
                     <div
                         class="text-gray-900 dark:text-white text-sm border-b pb-4 w-full lg:text-lg text-left">
-                        {{ businesses[0].description }}
+                        {{ businessData.description }}
                     </div>
                     <!-- Extra information -->
                     <div class="w-full">
@@ -136,7 +136,7 @@ export default defineComponent({
                                 src="/assets/categoryIcon.svg" />
                             <div
                                 class="pl-4 text-gray-900 dark:text-white font-semibold">
-                                {{ businesses[0].mode }}
+                                {{ businessData.mode }}
                             </div>
                         </div>
                         <div class="pt-4 flex items-center">
@@ -152,7 +152,7 @@ export default defineComponent({
                                 src="/assets/productIcon.svg" />
                             <div
                                 class="pl-4 text-gray-900 dark:text-white font-semibold">
-                                {{ businesses[0].products }}
+                                {{ businessData.products }}
                             </div>
                         </div>
                         <div class="pt-4 pb-4 border-b flex items-center">
@@ -168,17 +168,17 @@ export default defineComponent({
                                 src="/assets/priceIcon.svg" />
                             <div
                                 class="pl-4 text-gray-900 dark:text-white font-semibold"
-                                v-if="businesses[0].pricerange == 3">
+                                v-if="businessData.pricerange == 3">
                                 $100 to $1000
                             </div>
                             <div
                                 class="pl-4 text-gray-900 dark:text-white font-semibold"
-                                v-if="businesses[0].pricerange == 2">
+                                v-if="businessData.pricerange == 2">
                                 $10 to $100
                             </div>
                             <div
                                 class="pl-4 text-gray-900 dark:text-white font-semibold"
-                                v-if="businesses[0].pricerange == 1">
+                                v-if="businessData.pricerange == 1">
                                 $0 to $10
                             </div>
                         </div>
@@ -213,7 +213,7 @@ export default defineComponent({
                                                 <span
                                                     class="text-xs font-semibold inline-block text-amber-600">
                                                     {{
-                                                        businesses[0].ratings[
+                                                        businessData.ratings[
                                                             6 - index
                                                         ]
                                                     }}
@@ -225,7 +225,7 @@ export default defineComponent({
                                             <div
                                                 :style="
                                                     findPercentage(
-                                                        businesses[0].ratings[
+                                                        businessData.ratings[
                                                             6 - index
                                                         ]
                                                     )
@@ -239,7 +239,7 @@ export default defineComponent({
                         <div class="flex pt-4">
                             <h1
                                 class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
-                                Reviews ({{ businesses[0].reviews }})
+                                Reviews ({{ businessData.reviews }})
                             </h1>
                         </div>
                     </div>
@@ -264,7 +264,7 @@ export default defineComponent({
                                         <div
                                             class="text-xs lg:text-sm pl-4 break-all text-center lg:text-left text-gray-900 dark:text-white font-semibold">
                                             {{
-                                                businesses[0].socialmedia[
+                                                businessData.socialmedia[
                                                     elem.name
                                                 ]
                                             }}
