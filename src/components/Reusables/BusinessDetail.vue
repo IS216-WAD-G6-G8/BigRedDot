@@ -53,14 +53,14 @@ export default defineComponent({
         findSum() {
             let sum = 0
             for (var i = 1; i < this.businesses[0].ratings.length; i++) {
-                sum += this.businesses[0].ratings[i]
+                sum += this.businessData.ratings[i]
             }
             return sum
         },
         findAvg(){
             let sum = 0
             for (var i = this.businesses[0].ratings.length; i > 0; i--) {
-                console.log(this.businesses[0].ratings[i])
+                console.log(this.businessData.ratings[i])
             }
         }
     },
