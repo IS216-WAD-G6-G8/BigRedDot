@@ -12,13 +12,13 @@ export class FirebaseService {
     constructor() {
         this.baseUrl =
             'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app';
-        this.businessUrl = this.baseUrl + '/businesses.json';
+        this.businessUrl = this.baseUrl + '/businesses';
         this.ratingUrl = this.baseUrl + '/ratings.json';
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let res = yield axios.get(this.businessUrl);
+                let res = yield axios.get(this.businessUrl + '.json');
                 let data = res.data;
                 return data;
             }
@@ -31,7 +31,7 @@ export class FirebaseService {
         return __awaiter(this, void 0, void 0, function* () {
             var matchCategories = Object.values(categories);
             try {
-                let res = yield axios.get(this.businessUrl);
+                let res = yield axios.get(this.businessUrl + '.json');
                 let data = res.data;
                 let retData = data.filter((business) => {
                     return matchCategories.includes(business.category);

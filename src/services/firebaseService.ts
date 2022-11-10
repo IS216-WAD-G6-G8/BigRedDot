@@ -9,13 +9,13 @@ export class FirebaseService {
     constructor() {
         this.baseUrl =
             'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app'
-        this.businessUrl = this.baseUrl + '/businesses.json'
+        this.businessUrl = this.baseUrl + '/businesses'
         this.ratingUrl = this.baseUrl + '/ratings.json'
     }
 
     async getAll(): Promise<void | Business[]> {
         try {
-            let res = await axios.get(this.businessUrl)
+            let res = await axios.get(this.businessUrl + '.json')
             let data = res.data
             return data
         } catch (err) {
@@ -29,7 +29,7 @@ export class FirebaseService {
         var matchCategories = Object.values(categories)
 
         try {
-            let res = await axios.get(this.businessUrl)
+            let res = await axios.get(this.businessUrl + '.json')
             let data = res.data
 
             let retData = data.filter((business: Business) => {
