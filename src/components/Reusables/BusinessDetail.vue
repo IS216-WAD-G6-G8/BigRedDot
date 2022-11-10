@@ -56,6 +56,12 @@ export default defineComponent({
             }
             return sum
         },
+        findAvg(){
+            let sum = 0
+            for (var i = this.businesses[0].ratings.length; i > 0; i--) {
+                console.log(this.businesses[0].ratings[i])
+            }
+        }
     },
     components: { NavBar, Swiper, SwiperSlide },
 })
@@ -95,10 +101,10 @@ export default defineComponent({
                         :space-between="30"
                         :pagination="{ clickable: true } as any"
                         class="default-slider">
-                        <swiper-slide v-for="index in 3" :key="index">
+                        <swiper-slide v-for="index in 5" :key="index">
                             <img
                                 class="object-cover w-screen max-h-72"
-                                :src="businesses[0].images[4 - index]" />
+                                :src="businesses[0].images[5 - index]" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
                 </div>
@@ -179,14 +185,17 @@ export default defineComponent({
                         <!-- Ratings -->
                         <div class="pt-4 pb-4 border-b">
                             <div class="flex flex-col md:flex-row">
-                                <div class="flex items-center pb-4 md:pb-0">
-                                    <img
-                                        class="w-[35px]"
-                                        src="/assets/star2.svg" />
-                                    <h1
-                                        class="pl-4 md:pl-4 text-gray-900 dark:text-white text-2xl font-semibold flex">
-                                        Overall Ratings
-                                    </h1>
+                                <div class="flex flex-col justify-center items-center pb-4 md:pb-0">
+                                    <div class="flex">
+                                        <img
+                                            class="w-[35px]"
+                                            src="/assets/star2.svg" />
+                                        <h1
+                                            class="pl-4 md:pl-4 text-gray-900 dark:text-white text-2xl font-semibold flex">
+                                            Overall Ratings
+                                        </h1>
+                                    </div>
+                                    <div>{{findAvg()}} out of 5 stars</div>
                                 </div>
                                 <div class="md:pl-12 lg:pl-24 w-full">
                                     <div
@@ -230,7 +239,7 @@ export default defineComponent({
                         <div class="flex pt-4">
                             <h1
                                 class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
-                                Reviews (100)
+                                Reviews ({{ businesses[0].reviews }})
                             </h1>
                         </div>
                     </div>
