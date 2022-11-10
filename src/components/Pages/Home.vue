@@ -7,6 +7,11 @@ import FilterModal from '../Reusables/FilterModal.vue'
 
 const firebaseService = new FirebaseService()
 
+interface category {
+    name: string,
+    url: string
+}
+
 export default {
     name: 'Home',
     data() {
@@ -17,10 +22,10 @@ export default {
                 { name: 'fashion', url: '/assets/fashion.svg' },
                 { name: 'crafts', url: '/assets/crafts.svg' },
                 { name: 'experiences', url: '/assets/experiences.svg' },
-            ],
+            ] as category[],
             CategoryEnum,
             businessData: null as Business[] | null,
-            filterVisible: false,
+            filterVisible: false as boolean,
         }
     },
     beforeMount() {
@@ -31,21 +36,21 @@ export default {
         }
     },
     methods: {
-        getAllData: async function () {
+        getAllData: async function (): Promise<void> {
             this.businessData = await firebaseService.getAll()
         },
-        getByCategory: async function (categories: CategoryEnum[]) {
+        getByCategory: async function (categories: CategoryEnum[]): Promise<void> {
             this.businessData = await firebaseService.getDataByCategory(
                 categories
             )
         },
-        getMode() {
+        getMode(): void {
             console.log(this.$store.getters.getDarkMode)
         },
-        showFilter() {
+        showFilter(): void {
             this.filterVisible = true
         },
-        closeFilter() {
+        closeFilter(): void {
             this.filterVisible = false
         }
     },
