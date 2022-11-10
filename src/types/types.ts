@@ -31,3 +31,12 @@ export interface Business {
     reviews: string
     // photos: string[] (see how)
 }
+
+export interface EmailLoginData {
+    email: string
+    password: string
+}
+
+export interface EmailCreateData extends EmailLoginData {
+    name: string
+}

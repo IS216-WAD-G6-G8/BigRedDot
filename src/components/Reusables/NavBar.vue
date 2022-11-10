@@ -8,6 +8,7 @@ import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
 import ProfileDropDown from './ProfileDropDown.vue'
 import { auth } from '../../main'
+import { EmailLoginData, EmailCreateData } from '../../types/types'
 
 const userService = new UserService()
 
@@ -101,7 +102,7 @@ export default {
             this.login_visible = false
             this.valid_email2 = true
         },
-        createUser(data): void {
+        createUser(data: EmailCreateData): void {
             // once user is created it will auto log in
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
@@ -112,8 +113,7 @@ export default {
                     console.log(error)
                 })
         },
-        loginUser(data) {
-            console.log(data)
+        loginUser(data: EmailLoginData) {
             signInWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     this.closelogin()
@@ -125,7 +125,7 @@ export default {
                     console.log(error)
                 })
         },
-        getBookmarks: async function (userId: string) {
+        getBookmarks: async function (userId: string): Promise<void> {
             this.userBookmarks = await userService.getBookmarks(userId)
             if (this.userBookmarks) {
                 this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
