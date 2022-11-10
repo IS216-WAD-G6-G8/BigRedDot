@@ -17,7 +17,7 @@ export default defineComponent({
     props: {
         data: Object as PropType<Business>,
         business_id: String,
-        rData: Object as PropType<RatingData> | null,
+        ratingdata: Object,
     },
     data() {
         return {
@@ -59,6 +59,7 @@ export default defineComponent({
             return sum
         },
         findAvg(): void {
+            console.log(this.ratingdata)
             let sum = 0
             for (var i = this.businessData.ratings.length; i > 0; i--) {
                 console.log(this.businessData.ratings[i])
@@ -241,7 +242,7 @@ export default defineComponent({
                         <div class="flex pt-4">
                             <h1
                                 class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
-                                Reviews ({{ rData }})
+                                Reviews ({{ ratingdata }})
                             </h1>
                         </div>
                     </div>

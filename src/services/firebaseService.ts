@@ -57,7 +57,6 @@ export class FirebaseService {
         try {
             let res = await axios.get(this.ratingUrl)
             let data = res.data
-            console.log(data)
             return data
         } catch (err) {
             throw err
