@@ -69,7 +69,6 @@ export default {
         },
         handleScroll(): void {
             this.open = false
-            console.log("i am here")
         },
         toggleMode(): void {
             this.$store.dispatch(

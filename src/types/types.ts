@@ -41,9 +41,9 @@ export interface Business {
     }
     products: string
     pricerange: number
-    // ratings: number
+    ratings: object
     reviews: string
-    // photos: string[] (see how)
+    images: object
 }
 
 export interface EmailLoginData {
