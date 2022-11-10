@@ -61,15 +61,4 @@ export class UserService {
             throw err
         }
     }
-
-    async getRatings() {
-        const getRatingsUrl = this.baseUrl + '/ratings.json'
-
-        try {
-            let res = await axios.get(getRatingsUrl)
-            console.log(res)
-        } catch (err) {
-            throw err
-        }
-    }
 }

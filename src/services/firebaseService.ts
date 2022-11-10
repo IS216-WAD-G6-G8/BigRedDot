@@ -3,15 +3,19 @@ import { Business, CategoryEnum } from '../types/types'
 
 export class FirebaseService {
     baseUrl: string
+    businessUrl: string
+    ratingUrl: string
 
     constructor() {
         this.baseUrl =
-            'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/businesses.json'
+            'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app'
+        this.businessUrl = this.baseUrl + '/businesses.json'
+        this.ratingUrl = this.baseUrl + '/ratings.json'
     }
 
     async getAll(): Promise<void | Business[]> {
         try {
-            let res = await axios.get(this.baseUrl)
+            let res = await axios.get(this.businessUrl)
             let data = res.data
             console.log(data)
             return data
@@ -26,7 +30,7 @@ export class FirebaseService {
         var matchCategories = Object.values(categories)
 
         try {
-            let res = await axios.get(this.baseUrl)
+            let res = await axios.get(this.businessUrl)
             let data = res.data
 
             let retData = data.filter((business: Business) => {
@@ -39,13 +43,21 @@ export class FirebaseService {
     }
 
     async getDataByID(id: Number): Promise<void | Business[]> {
+        var getIdUrl = this.businessUrl + '/' + id + '.json'
+
         try {
-            let res = await axios.get(this.baseUrl)
+            let res = await axios.get(getIdUrl)
             let data = res.data
-            let retData = data.filter((business: Business) => {
-                return business.id == id
-            })
-            return retData
+            return data
+        } catch (err) {
+            throw err
+        }
+    }
+
+    async getRatings() {
+        try {
+            let res = await axios.get(this.ratingUrl)
+            console.log(res)
         } catch (err) {
             throw err
         }
