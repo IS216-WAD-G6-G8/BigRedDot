@@ -41,8 +41,9 @@ export class FirebaseService {
         }
     }
 
-    async getDataByID(id: Number): Promise<void | Business[]> {
-        var getIdUrl = this.businessUrl + '/' + id + '.json'
+    async getDataByID(id: number): Promise<void | Business[]> {
+        var getIdUrl = this.businessUrl + '/' + (id - 1) + '.json'
+        console.log(getIdUrl)
 
         try {
             let res = await axios.get(getIdUrl)
