@@ -105,7 +105,7 @@ export default defineComponent({
             </div>
             <!-- Name + Desc -->
             <div
-                class="flex items-center mt-6 pb-10 md:gap-12 px-10 lg:px-14 bg-white dark:bg-slate-900">
+                class="flex mt-6 pb-10 md:gap-12 px-10 lg:px-14 bg-white dark:bg-slate-900">
                 <div class="w-full md:w-3/4 flex flex-col items-start">
                     <h1
                         class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
@@ -179,7 +179,8 @@ export default defineComponent({
                         <!-- Ratings -->
                         <div class="pt-4 pb-4 border-b">
                             <div class="flex flex-col md:flex-row">
-                                <div class="flex flex-col justify-center items-center pb-4 md:pb-0">
+                                <div
+                                    class="flex flex-col justify-center items-center pb-4 md:pb-0">
                                     <div class="flex">
                                         <img
                                             class="w-[35px]"
@@ -229,17 +230,44 @@ export default defineComponent({
                                 </div>
                             </div>
                         </div>
-                        <div class="flex pt-4">
+                        <div class="flex text-left flex-col pt-4">
                             <h1
-                                class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
-                                Reviews ()
+                                class="text-gray-900 dark:text-white text-2xl font-semibold pb-4">
+                                No Reviews (yet)
                             </h1>
+                            <div
+                                class="relative overflow-hidden">
+                                <div
+                                    class="w-full rounded-2xl border-2 border-gray-100 p-14">
+                                    <div class="flex flex-col items-center">
+                                        <h3
+                                            class="text-gray-900 pb-4 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight">
+                                            Be the first to leave a review!
+                                        </h3>
+                                        <div
+                                            action=""
+                                            class="mx-auto mt-4 flex w-full max-w-md flex-col gap-3 sm:flex-row sm:gap-0">
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                id="email"
+                                                class="grow rounded border-2 border-gray-300 py-3 px-3 focus:border-emerald-500 focus:outline-none sm:rounded-l-md sm:rounded-r-none sm:border-r-0"
+                                                placeholder="Email Address" />
+                                            <button
+                                                type="submit"
+                                                class="rounded bg-emerald-500 px-5 py-4 font-bold text-white sm:rounded-l-none sm:rounded-r-md">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="hidden md:block w-1/4 ml-4">
+                <div class="hidden relative md:block w-1/4 ml-4">
                     <div
-                        class="max-w-sm rounded-lg border overflow-hidden shadow-lg">
+                        class="sticky top-12 max-w-sm rounded-lg border overflow-hidden shadow-lg">
                         <div class="px-6 py-4">
                             <div
                                 class="text-gray-900 dark:text-white text-base flex flex-col">
