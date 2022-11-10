@@ -13,6 +13,7 @@ export class FirebaseService {
         try {
             let res = await axios.get(this.baseUrl)
             let data = res.data
+            console.log(data)
             return data
         } catch (err) {
             throw err
@@ -50,5 +51,3 @@ export class FirebaseService {
         }
     }
 }
-
-

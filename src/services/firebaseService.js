@@ -18,6 +18,7 @@ export class FirebaseService {
             try {
                 let res = yield axios.get(this.baseUrl);
                 let data = res.data;
+                console.log(data);
                 return data;
             }
             catch (err) {
