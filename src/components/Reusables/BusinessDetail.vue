@@ -43,6 +43,7 @@ export default defineComponent({
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
+            console.log(this.businessData)
         },
         findPercentage(input): string {
             let sum = this.findSum()

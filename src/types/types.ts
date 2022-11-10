@@ -34,8 +34,7 @@ export interface Business {
     }
     products: string
     pricerange: number
-    ratings: object
-    reviews: string
+    ratings?: RatingData
     images: string[]
 }
 
@@ -51,4 +50,14 @@ export interface EmailCreateData extends EmailLoginData {
 export interface Category {
     name: string
     url: string
+}
+
+interface Rating {
+    name: string
+    ratingscore: number
+    reviewtext: string
+}
+
+interface RatingData {
+    [key: string]: Rating
 }
