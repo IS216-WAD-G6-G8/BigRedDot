@@ -70,4 +70,16 @@ export class UserService {
             }
         });
     }
+    getRatings() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const getRatingsUrl = this.baseUrl + '/ratings.json';
+            try {
+                let res = yield axios.get(getRatingsUrl);
+                console.log(res);
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
 }

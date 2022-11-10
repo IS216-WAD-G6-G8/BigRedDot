@@ -5,8 +5,11 @@ import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
 import FilterModal from '../Reusables/FilterModal.vue'
 import { Category } from '../../types/types'
+import { UserService } from '../../services/userService'
 
 const firebaseService = new FirebaseService()
+
+const userService = new UserService()
 
 export default {
     name: 'Home',
@@ -34,6 +37,7 @@ export default {
     methods: {
         getAllData: async function (): Promise<void> {
             this.businessData = await firebaseService.getAll()
+            userService.getRatings()
         },
         getByCategory: async function (categories: CategoryEnum[]): Promise<void> {
             this.businessData = await firebaseService.getDataByCategory(

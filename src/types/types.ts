@@ -59,3 +59,8 @@ export interface Category {
     name: string
     url: string
 }
+
+export interface Review {
+    ratingscore: number
+    reviewtext: string
+}
