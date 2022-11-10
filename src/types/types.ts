@@ -34,8 +34,7 @@ export interface Business {
     }
     products: string
     pricerange: number
-    ratings: RatingData
-    reviews: string
+    ratings?: RatingData
     images: string[]
 }
 
