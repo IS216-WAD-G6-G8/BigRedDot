@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Business, CategoryEnum } from '../types/types'
+import { Business, CategoryEnum, ReviewData } from '../types/types'
 
 export class FirebaseService {
     baseUrl: string
@@ -17,7 +17,6 @@ export class FirebaseService {
         try {
             let res = await axios.get(this.businessUrl)
             let data = res.data
-            console.log(data)
             return data
         } catch (err) {
             throw err
@@ -54,10 +53,11 @@ export class FirebaseService {
         }
     }
 
-    async getRatings() {
+    async getRatings(): Promise<void | ReviewData> {
         try {
             let res = await axios.get(this.ratingUrl)
-            console.log(res)
+            let data = res.data
+            return data
         } catch (err) {
             throw err
         }

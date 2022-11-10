@@ -20,7 +20,6 @@ export class FirebaseService {
             try {
                 let res = yield axios.get(this.businessUrl);
                 let data = res.data;
-                console.log(data);
                 return data;
             }
             catch (err) {
@@ -61,7 +60,8 @@ export class FirebaseService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let res = yield axios.get(this.ratingUrl);
-                console.log(res);
+                let data = res.data;
+                return data;
             }
             catch (err) {
                 throw err;
