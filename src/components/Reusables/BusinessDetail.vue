@@ -39,25 +39,25 @@ export default defineComponent({
         this.getDataByID(this.business_id)
     },
     methods: {
-        getDataByID: async function (business_id: String) {
+        getDataByID: async function (business_id: String): Promise<void> {
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
-            console.log(this.businessData)
         },
-        findPercentage(input) {
+        findPercentage(input): string {
+            console.log(input)
             let sum = this.findSum()
             let percent = (Number(input) / sum) * 100
             return 'width: ' + percent + '%'
         },
-        findSum() {
+        findSum(): number {
             let sum = 0
             for (var i = 1; i < this.businessData.ratings.length; i++) {
                 sum += this.businessData.ratings[i]
             }
             return sum
         },
-        findAvg(){
+        findAvg(): void {
             let sum = 0
             for (var i = this.businessData.ratings.length; i > 0; i--) {
                 console.log(this.businessData.ratings[i])
