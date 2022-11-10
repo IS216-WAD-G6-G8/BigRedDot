@@ -8,7 +8,8 @@ export default {
             min: 0,
             max: 100,
             selectedMode: 'physical',
-            stars: ['Any', '1 ★', '2 ★', '3 ★', '4 ★', '5 ★'],
+            stars: ['1', '2', '3', '4', '5'],
+            price_range: ['$', '$$', '$$$'],
             deliveryOptions: [
                 'Self pick-up',
                 'Same day delivery',
@@ -21,118 +22,148 @@ export default {
                 'Most Views',
                 'Best Reviewed',
             ],
+            selected_price: '',
+            selected_rating: ''
         }
     },
     methods: {
         close() {
             this.$emit('close')
         },
-        setNewRange(){
+        setNewRange() {
             if (this.max < this.min) {
                 let temp = this.max
                 this.max = this.min
                 this.min = temp
             }
-        }
-    },
-    computed: {
-        progress_left(){
-            return this.min / this.upperLimit * 100 + '%'
         },
-        progress_right(){
-            return 100 - (this.max / this.upperLimit * 100) + '%'
-        }
-    }
+        checkPrice(input) {
+            console.log(input.target.value)
+            if (this.selected_price == input.target.value) {
+                this.selected_price = ''
+            } else {
+                this.selected_price = input.target.value
+            }
+            console.log(this.selected_price)
+        },
+        checkRating(input) {
+            if (this.selected_rating == input.target.value) {
+                this.selected_rating = ''
+            } else {
+                this.selected_rating = input.target.value
+            }
+        },
+    },
 }
 </script>
 
 <template>
     <div
-        class="fixed inset-0 z-50 px-6 justify-center items-center flex bg-slate-500/60">
+        class="fixed inset-0 z-40 px-6 justify-center items-center flex bg-slate-500/60">
         <div
-            class="bg-white text-black relative max-h-[40rem] rounded-2xl overflow-auto">
+            class="bg-white text-black relative max-h-[620px] rounded-2xl overflow-auto">
             <!-- cancel icon -->
-            <img
-                class="absolute h-5 w-5 top-5 left-5 cursor-pointer"
-                @click="close"
-                src="/assets/cross.svg"
-                id="cancelbtn"
-                alt="" />
-            <div class="pt-3 pb-3 px-12 w-full border-b">
+            <div
+                class="sticky top-0 z-20 bg-white pt-3 pb-3 px-12 w-full border-b">
+                <img
+                    class="absolute z-50 h-5 w-5 top-5 left-5 cursor-pointer"
+                    @click="close"
+                    src="/assets/cross.svg"
+                    id="cancelbtn" />
                 <p class="flex justify-center font-bold text-xl">Filter</p>
             </div>
             <!-- price range -->
-            <div class="my-10 px-12">
-                <p class="text-left font-bold">Price Range</p>
-                <div class="slider my-6">
-                    <div class="progress" :style="{left:progress_left, right:progress_right}"></div>
-                    <div class="range-input">
-                        <input type="range" @change="setNewRange()" :min="lowerLimit" :max="upperLimit" v-model="min">
-                        <input type="range" @change="setNewRange()" :min="lowerLimit" :max="upperLimit" v-model="max">
-                    </div>
-                </div>
-                <div class="flex justify-between items-center mt-5">
-                    <div class="w-2/5">
-                        <p class="font-bold">Min</p>
-                        <input
-                            type="number"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            v-model="min"/>
-                    </div>
-                    <div class="w-1/5">---</div>
-                    <div class="w-2/5">
-                        <p class="font-bold">Max</p>
-                        <input
-                            type="number"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            v-model="max"/>
+            <div class="my-5 md:my-10 text-left px-6 md:px-12">
+                <p class="font-bold pb-3">Price Range</p>
+                <div class="w-full flex justify-between flex-wrap gap-3">
+                    <div class="w-full md:w-auto" v-for="price in price_range">
+                        <button
+                            :value="price"
+                            @click="checkPrice($event)"
+                            class="w-full md:w-auto md:min-w-[115px] hover:bg-gray-50 font-semibold focus:outline-none py-2 px-5 rounded-lg border-2 border-gray-200 cursor-pointer"
+                            :class="{
+                                'bg-transparent border-blue-500':
+                                    price === selected_price,
+                                'bg-transparent text-gray-500 ':
+                                    price !== selected_price,
+                            }">
+                            {{ price }}
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- preferred mode -->
-            <div class="text-left px-12">
+            <div class="text-left px-6 md:px-12">
                 <p class="text-left font-bold pb-3">Mode</p>
-                <div class="flex items-center">
-                    <input
-                        type="radio"
-                        name="physical"
-                        value="mode"
-                        class="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"/>
-                    <label
-                        class="text-sm font-medium text-gray-900 ml-2 mr-5 block">
-                        Physical
-                    </label>
-                    <input
-                        type="radio"
-                        name="physical"
-                        value="mode"
-                        class="h-4 w-4 border-gray-300 focus:ring-2 focus:ring-blue-300"/>
-                    <label
-                        class="text-sm font-medium text-gray-900 ml-2 block">
-                        Online
-                    </label>
-                </div>
+                <ul class="grid gap-6 w-full md:grid-cols-2">
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="react-option"
+                            value=""
+                            class="hidden peer" />
+                        <label
+                            for="react-option"
+                            class="inline-flex justify-between items-center text-gray-500 px-7 py-3 w-full bg-white rounded-lg border-2 border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-gray-700 hover:bg-gray-50">
+                            <div class="block">
+                                <div class="w-full text-lg font-semibold">
+                                    Physical
+                                </div>
+                                <div class="w-full text-sm">
+                                    Visit physical stores
+                                </div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input
+                            type="checkbox"
+                            id="flowbite-option"
+                            value=""
+                            class="hidden peer" />
+                        <label
+                            for="flowbite-option"
+                            class="inline-flex justify-between items-center text-gray-500 px-7 py-3 w-full bg-white rounded-lg border-2 border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-gray-700 hover:bg-gray-50">
+                            <div class="block">
+                                <div class="w-full text-lg font-semibold">
+                                    Online
+                                </div>
+                                <div class="w-full text-sm">
+                                    Delivery Services
+                                </div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
             </div>
 
             <!-- rating -->
-            <div class="my-10 text-left px-12">
+            <div class="my-5 md:my-10 text-center md:text-left px-6 md:px-12">
                 <p class="font-bold pb-3">Rating</p>
-                <div>
-                    <span v-for="star in stars" class="mr-4">
-                        <input
-                            class="ratingBtn box-border bg-white border rounded border-black"
-                            type="radio" :id="star" name="chosenRating">
-                        <label class="rating" :for="star">                        
-                            {{ star }}
-                        </label>
-                    </span>
-                </div>                                                              
+                <div class="w-full flex justify-between flex-wrap gap-3">
+                    <div class="w-full md:w-auto" v-for="star in stars">
+                        <button
+                            :value="star"
+                            @click="checkRating($event)"
+                            class="flex items-center w-full md:w-auto md:min-w-[60px] hover:bg-gray-50 font-semibold focus:outline-none py-2 px-5 rounded-lg border-2 border-gray-200 cursor-pointer"
+                            :class="{
+                                'bg-transparent border-blue-500':
+                                    star === selected_rating,
+                                'bg-transparent text-gray-500 ':
+                                    star !== selected_rating,
+                            }">
+                            {{ star }}<span><img class="ml-4" src="/assets/star.svg"/></span>
+                        </button>
+                    </div>
+                </div>
             </div>
-
             <!-- search -->
             <div class="my-10 text-center px-12">
-                <button @click="close" id="searchBtn" class="w-full font-bold">
+                <button
+                    @click="close"
+                    id="searchBtn"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full">
                     Search
                 </button>
             </div>
@@ -141,55 +172,6 @@ export default {
 </template>
 
 <style scoped>
-/* price range slider */
-.slider {
-    height: 5px;
-    background-color: grey;
-    border-radius: 5px;
-    position: relative;
-}
-.slider .progress {
-    height: 5px;
-    background-color: #007aff;
-    border-radius: 5px;
-    position: absolute;
-}
-.range-input {
-    position: relative;
-}
-.range-input input {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 5px;
-    width: 100%;
-    -webkit-appearance: none;
-    background: none;
-}
-input[type="range"]::-webkit-slider-thumb{
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    -webkit-appearance: none;
-    background: #007aff;
-    pointer-events: auto;
-    position: relative;
-    z-index: 1;
-}
-input[type="range"]::-moz-range-thumb{
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    -moz-appearance: none;
-    background: #007aff;
-    pointer-events: auto;
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-/* rating button */
 .ratingBtn {
     display: none;
 }
@@ -207,10 +189,5 @@ input::-webkit-inner-spin-button {
 .ratingBtn:checked + label {
     background-color: rgb(59 130 246 / 0.5);
     transition: 0.3s;
-}
-
-/* search button */
-#searchBtn {
-    background-color: rgb(59 130 246 / 0.5);
 }
 </style>
