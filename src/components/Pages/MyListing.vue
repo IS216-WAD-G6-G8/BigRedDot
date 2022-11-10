@@ -1,5 +1,6 @@
 <script lang="ts">
 import NavBar from '../Reusables/NavBar.vue'
+import { Category } from '../../types/types';
 
 export default {
     name: 'MyList',
@@ -11,7 +12,7 @@ export default {
                 { name: 'fashion', url: '/assets/fashion.svg' },
                 { name: 'crafts', url: '/assets/crafts.svg' },
                 { name: 'experiences', url: '/assets/experiences.svg' },
-            ],
+            ] as Category[],
         }
     },
     components: { NavBar },

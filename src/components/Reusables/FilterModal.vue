@@ -1,43 +1,36 @@
 <script lang="ts">
+import { DeliveryOptionsEnum, PopularityEnum } from '../../types/types'
+
 export default {
     name: 'Filter',
     data() {
         return {
-            lowerLimit: 0,
-            upperLimit: 100,
-            min: 0,
-            max: 100,
-            selectedMode: 'physical',
-            stars: ['1', '2', '3', '4', '5'],
-            price_range: ['$', '$$', '$$$'],
-            deliveryOptions: [
-                'Self pick-up',
-                'Same day delivery',
-                'One-day delivery',
-                'Standard delivery',
-            ],
-            popularity: [
-                'Trending',
-                'Most Recent',
-                'Most Views',
-                'Best Reviewed',
-            ],
-            selected_price: '',
-            selected_rating: ''
+            lowerLimit: 0 as number,
+            upperLimit: 100 as number,
+            min: 0 as number,
+            max: 100 as number,
+            selectedMode: 'physical' as string,
+            stars: ['1', '2', '3', '4', '5'] as string[],
+            price_range: ['$', '$$', '$$$'] as string[],
+            deliveryOptions: DeliveryOptionsEnum,
+            popularity: PopularityEnum,
+            selected_price: '' as string,
+            selected_rating: '' as string
         }
     },
     methods: {
-        close() {
+        close(): void {
             this.$emit('close')
         },
-        setNewRange() {
+        setNewRange(): void {
             if (this.max < this.min) {
                 let temp = this.max
                 this.max = this.min
                 this.min = temp
             }
         },
-        checkPrice(input) {
+        checkPrice(input): void {
+            console.log(input)
             console.log(input.target.value)
             if (this.selected_price == input.target.value) {
                 this.selected_price = ''
@@ -46,7 +39,7 @@ export default {
             }
             console.log(this.selected_price)
         },
-        checkRating(input) {
+        checkRating(input): void {
             if (this.selected_rating == input.target.value) {
                 this.selected_rating = ''
             } else {

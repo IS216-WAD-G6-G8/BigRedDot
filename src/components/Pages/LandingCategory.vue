@@ -1,4 +1,6 @@
 <script lang="ts">
+import { Category } from '../../types/types';
+
 export default {
     name: 'LandingCategory',
     data() {
@@ -9,7 +11,7 @@ export default {
                 { name: 'fashion', url: '/assets/fashion.jpg' },
                 { name: 'crafts', url: '/assets/crafts.jpg' },
                 { name: 'experiences', url: '/assets/experiences.jpeg' },
-            ],
+            ] as Category[],
         }
     },
     methods: {

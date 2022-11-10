@@ -4,13 +4,9 @@ import { Business, CategoryEnum } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
 import FilterModal from '../Reusables/FilterModal.vue'
+import { Category } from '../../types/types'
 
 const firebaseService = new FirebaseService()
-
-interface category {
-    name: string,
-    url: string
-}
 
 export default {
     name: 'Home',
@@ -22,7 +18,7 @@ export default {
                 { name: 'fashion', url: '/assets/fashion.svg' },
                 { name: 'crafts', url: '/assets/crafts.svg' },
                 { name: 'experiences', url: '/assets/experiences.svg' },
-            ] as category[],
+            ] as Category[],
             CategoryEnum,
             businessData: null as Business[] | null,
             filterVisible: false as boolean,

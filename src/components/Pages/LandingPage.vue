@@ -4,7 +4,7 @@ import LandingCategory from './LandingCategory.vue';
 export default {
     name: "LandingPage",
     methods: {
-        isMobile() {
+        isMobile(): boolean {
             if (screen.width <= 760) {
                 return true;
             }

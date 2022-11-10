@@ -19,7 +19,7 @@ export default {
                 '/assets/fashion.jpg',
                 '/assets/services.jpg',
                 '/assets/crafts.jpg',
-            ],
+            ] as string[],
             pagination: {
                 el: '.swiper-pagination',
                 type: 'bullets',
@@ -34,7 +34,7 @@ export default {
         SwiperSlide,
     },
     computed: {
-        imageSource () {
+        imageSource (): string {
             if (this.$store.state.userBookmarks) {
                 if (Object.values(this.$store.state.userBookmarks).includes(this.data.id)) {
                     return '/assets/love.svg'
@@ -47,7 +47,7 @@ export default {
         }
     },
     methods: {
-        addFav() {
+        addFav(): void {
             const business_id = this.data.id
 
             var bookmarksArray: number[] = this.$store.state.userBookmarks
