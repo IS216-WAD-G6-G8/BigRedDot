@@ -34,6 +34,7 @@ export default {
     methods: {
         getAllData: async function (): Promise<void> {
             this.businessData = await firebaseService.getAll()
+            firebaseService.getRatings()
         },
         getByCategory: async function (categories: CategoryEnum[]): Promise<void> {
             this.businessData = await firebaseService.getDataByCategory(

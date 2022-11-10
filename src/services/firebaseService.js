@@ -11,12 +11,14 @@ import axios from 'axios';
 export class FirebaseService {
     constructor() {
         this.baseUrl =
-            'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/businesses.json';
+            'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app';
+        this.businessUrl = this.baseUrl + '/businesses';
+        this.ratingUrl = this.baseUrl + '/ratings.json';
     }
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let res = yield axios.get(this.baseUrl);
+                let res = yield axios.get(this.businessUrl + '.json');
                 let data = res.data;
                 return data;
             }
@@ -29,7 +31,7 @@ export class FirebaseService {
         return __awaiter(this, void 0, void 0, function* () {
             var matchCategories = Object.values(categories);
             try {
-                let res = yield axios.get(this.baseUrl);
+                let res = yield axios.get(this.businessUrl + '.json');
                 let data = res.data;
                 let retData = data.filter((business) => {
                     return matchCategories.includes(business.category);
@@ -43,13 +45,23 @@ export class FirebaseService {
     }
     getDataByID(id) {
         return __awaiter(this, void 0, void 0, function* () {
+            var getIdUrl = this.businessUrl + '/' + (id - 1) + '.json';
             try {
-                let res = yield axios.get(this.baseUrl);
+                let res = yield axios.get(getIdUrl);
                 let data = res.data;
-                let retData = data.filter((business) => {
-                    return business.id == id;
-                });
-                return retData;
+                return data;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    getRatings() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let res = yield axios.get(this.ratingUrl);
+                let data = res.data;
+                return data;
             }
             catch (err) {
                 throw err;
