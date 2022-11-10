@@ -51,7 +51,6 @@ export class UserService {
             try {
                 let res = yield axios.get(getBookmarkUrl);
                 let data = res.data;
-                console.log(data);
                 return data;
             }
             catch (err) {
