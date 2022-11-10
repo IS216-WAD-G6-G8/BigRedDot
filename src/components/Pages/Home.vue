@@ -1,7 +1,7 @@
 <script lang="ts">
 import {defineAsyncComponent} from 'vue'
 import NavBar from '../Reusables/NavBar.vue'
-import { Business, CategoryEnum } from '../../types/types'
+import { Business, CategoryEnum, RatingData } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
 // import BusinessCard from '../Reusables/BusinessCard.vue'
 import FilterModal from '../Reusables/FilterModal.vue'
@@ -25,6 +25,7 @@ export default {
             ] as Category[],
             CategoryEnum,
             businessData: null as Business[] | null,
+            ratingsData: null as RatingData | null,
             filterVisible: false as boolean,
         }
     },
@@ -116,7 +117,7 @@ export default {
             <div
                 class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
                 <div v-for="business of businessData">
-                    <lazyPictureLoad :data="business"></lazyPictureLoad>
+                    <lazyPictureLoad :data="business" :rData="ratingsData[business.id]"></lazyPictureLoad>
                 </div>
             </div>
         </div>

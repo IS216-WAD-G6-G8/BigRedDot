@@ -61,10 +61,11 @@ export interface Category {
 }
 
 interface Review {
+    name: string
     ratingscore: number
     reviewtext: string
 }
 
-export interface ReviewData {
+export interface RatingData {
     [key: string]: Review
 }

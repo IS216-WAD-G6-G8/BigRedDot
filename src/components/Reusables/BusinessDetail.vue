@@ -1,7 +1,7 @@
 <script lang="ts">
 import NavBar from './NavBar.vue'
 import { defineComponent, PropType } from 'vue'
-import { Business } from '../../types/types'
+import { Business, RatingData } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
@@ -17,6 +17,7 @@ export default defineComponent({
     props: {
         data: Object as PropType<Business>,
         business_id: String,
+        rData: Object as PropType<RatingData>,
     },
     data() {
         return {
@@ -240,7 +241,7 @@ export default defineComponent({
                         <div class="flex pt-4">
                             <h1
                                 class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
-                                Reviews ({{ businessData.reviews }})
+                                Reviews ({{ rData }})
                             </h1>
                         </div>
                     </div>
