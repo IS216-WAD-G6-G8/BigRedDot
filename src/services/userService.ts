@@ -9,7 +9,7 @@ export class UserService {
             'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/users'
     }
 
-    async createUser(user: MultiFactorInfo) {
+    async createUser(user: MultiFactorInfo): Promise<void> {
         const createUserUrl = this.baseUrl + '/' + user.uid + '.json'
 
         const tempUserEntity = {
@@ -24,7 +24,7 @@ export class UserService {
         }
     }
 
-    async createUserFromEmail(uid: string, name: string) {
+    async createUserFromEmail(uid: string, name: string): Promise<void> {
         const createUserUrl = this.baseUrl + '/' + uid + '.json'
 
         const tempUserEntity = {
@@ -45,6 +45,7 @@ export class UserService {
         try {
             let res = await axios.get(getBookmarkUrl)
             let data = res.data
+            console.log(data)
             return data
         } catch (err) {
             throw err
