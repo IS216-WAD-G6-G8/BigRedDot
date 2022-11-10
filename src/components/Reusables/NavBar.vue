@@ -8,6 +8,7 @@ import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
 import ProfileDropDown from './ProfileDropDown.vue'
 import { auth } from '../../main'
+import { EmailLoginData, EmailCreateData } from '../../types/types'
 
 const userService = new UserService()
 
@@ -16,12 +17,13 @@ export default {
     el: '#app',
     data() {
         return {
-            open: false,
-            hide: false,
-            modal_visible: false,
-            login_visible: false,
-            profile: false,
-            valid_email2: true,
+            open: false as boolean,
+            hide: false as boolean,
+            modal_visible: false as boolean,
+            login_visible: false as boolean,
+            profile: false as boolean,
+            valid_email2: true as boolean,
+            userBookmarks: [] as number[],
         }
     },
     mounted() {
@@ -33,11 +35,12 @@ export default {
             var uiConfig = {
                 callbacks: {
                     signInSuccessWithAuthResult: (authResult) => {
-                        const isNewUser =
+                        const isNewUser: boolean =
                             authResult.additionalUserInfo.isNewUser
                         if (isNewUser) {
                             userService.createUser(authResult.user)
                         }
+                        this.getBookmarks(authResult.user.uid)
                         return true
                     },
                 },
@@ -61,61 +64,71 @@ export default {
         window.removeEventListener('scroll', this.handleScroll)
     },
     methods: {
-        toggle() {
+        toggle(): void {
             this.open = !this.open
         },
-        handleScroll() {
+        handleScroll(): void {
             this.open = false
         },
-        toggleMode() {
+        toggleMode(): void {
             this.$store.dispatch(
                 'commitDarkMode',
                 !this.$store.getters.getDarkMode
             )
         },
-        showModal() {
+        showModal(): void {
             this.modal_visible = !this.modal_visible
         },
-        toggleProfile() {
+        toggleProfile(): void {
             this.profile = !this.profile
         },
-        logout() {
-            // signOut(auth)
-            //     .then(() => {
-            //         alert('You have been logged out')
-            //         location.reload()
-            //     })
-            //     .catch((error) => {
-            //         alert(`Sign Out Error: ${error}`)
-            //     })
+        logout(): void {
+            signOut(auth)
+                .then(() => {
+                    window.sessionStorage.clear()
+                    alert('You have been logged out')
+                    location.reload()
+                })
+                .catch((error) => {
+                    alert(`Sign Out Error: ${error}`)
+                })
         },
-        openlogin() {
+        openlogin(): void {
             this.showModal()
             this.login_visible = !this.login_visible
         },
-        closelogin() {
+        closelogin(): void {
             this.login_visible = false
             this.valid_email2 = true
         },
-        createUser(data) {
-            // once user is created it will auto log in//
-            // createUserWithEmailAndPassword(auth, data.email, data.password)
-            //     .then((userCredential) => {
-            //         userService.createUserFromEmail(userCredential.user.uid, data.name)
-            //         this.showModal()
-            //     })
-            //     .catch((error) => {
-            //         console.log(error)
-            //     })
+        createUser(data: EmailCreateData): void {
+            // once user is created it will auto log in
+            createUserWithEmailAndPassword(auth, data.email, data.password)
+                .then((userCredential) => {
+                    userService.createUserFromEmail(userCredential.user.uid, data.name)
+                    this.showModal()
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         },
-        loginUser(data) {
-            // signInWithEmailAndPassword(auth, data.email, data.password)
-            //     .then((userCredential) => {
-            //         this.closelogin()
-            //     })
-            //     .catch((error) => {
-            //         console.log(error)
-            //     })
+        loginUser(data: EmailLoginData) {
+            signInWithEmailAndPassword(auth, data.email, data.password)
+                .then((userCredential) => {
+                    this.closelogin()
+                    // then we retrieve the favourites from the user entity 
+                    const userId = userCredential.user.uid
+                    this.getBookmarks(userId)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+        getBookmarks: async function (userId: string): Promise<void> {
+            this.userBookmarks = await userService.getBookmarks(userId)
+            if (this.userBookmarks) {
+                this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
+            }
         }
     },
     components: {

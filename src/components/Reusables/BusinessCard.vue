@@ -1,13 +1,15 @@
 <script lang="ts">
 import { PropType } from 'vue'
-import { Business } from '../../types/firebaseTypes'
+import { Business } from '../../types/types'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
 import 'swiper/swiper.min.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { UserService } from '../../services/userService'
 
 SwiperCore.use([Navigation, Pagination, A11y])
+const userService = new UserService
 
 export default {
     name: 'BusinessCard',
@@ -17,12 +19,11 @@ export default {
                 '/assets/fashion.jpg',
                 '/assets/services.jpg',
                 '/assets/crafts.jpg',
-            ],
+            ] as string[],
             pagination: {
                 el: '.swiper-pagination',
                 type: 'bullets',
             },
-            myfav: '/assets/love.svg'
         }
     },
     props: {
@@ -32,13 +33,38 @@ export default {
         Swiper,
         SwiperSlide,
     },
-    methods: {
-        addFav() {
-            if(this.myfav == '/assets/love.svg'){
-                this.myfav = '/assets/confirm.svg'
-            }else{
-                this.myfav = '/assets/love.svg'
+    computed: {
+        imageSource (): string {
+            if (this.$store.state.userBookmarks) {
+                if (Object.values(this.$store.state.userBookmarks).includes(this.data.id)) {
+                    return '/assets/love.svg'
+                } else {
+                    return '/assets/confirm.svg'
+                }
+            } else {
+                return '/assets/confirm.svg'
             }
+        }
+    },
+    methods: {
+        addFav(): void {
+            const business_id = this.data.id
+
+            var bookmarksArray: number[] = this.$store.state.userBookmarks
+            const uid = this.$store.state.user.multiFactor.user.uid
+
+            if (bookmarksArray.includes(business_id)) {
+                // if it has been bookmarked
+                bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
+                userService.updateBookmarks(uid, bookmarksArray)
+            } else {
+                // if it is not already bookmarked
+                bookmarksArray.push(business_id)
+                userService.updateBookmarks(uid, bookmarksArray)
+            }
+            
+            // lazy method of updating, will improve if time permits
+            this.$store.dispatch("commitUserBookmarks", bookmarksArray)
         },
     },
 }
@@ -65,7 +91,7 @@ export default {
                         class="default-slider rounded-2xl">
                         <swiper-slide v-for="index in 3" :key="index">
                             <img v-if="this.data.images !== undefined "
-                                class="rounded-2xl object-cover w-[17rem] h-[17rem]"
+                                class="rounded-2xl object-cover w-[17rem] h-[17rem]" 
                                 :src="this.data.images[index-1]" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
@@ -73,7 +99,7 @@ export default {
                 <img
                     @click="addFav()"
                     class="absolute m-4 top-4 right-3 z-10 w-[28px]"
-                    :src="myfav" />
+                    :src="imageSource" />
             </div>
             <RouterLink
                 :to="{

@@ -3,16 +3,16 @@ export default {
     name: 'LogInModal',
     data(){
         return {
-            valid_email: true,
-            email: '',
-            password: '',
+            valid_email: true as boolean,
+            email: '' as string,
+            password: '' as string,
         }
     },
     props: {
         closelogin: Function,
     },
     methods: {
-        validateEmail() {
+        validateEmail(): void {
             let email = (<HTMLInputElement>document.getElementById('email2')).value
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
                 this.valid_email = true
@@ -20,7 +20,7 @@ export default {
                 this.valid_email = false
             }
         },
-        loginUser() {
+        loginUser(): void {
             let data = {
                 email: this.email,
                 password: this.password
