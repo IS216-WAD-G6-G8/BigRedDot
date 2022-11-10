@@ -101,7 +101,7 @@ export default {
             this.login_visible = false
             this.valid_email2 = true
         },
-        createUser(data) {
+        createUser(data): void {
             // once user is created it will auto log in
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
@@ -113,6 +113,7 @@ export default {
                 })
         },
         loginUser(data) {
+            console.log(data)
             signInWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     this.closelogin()
