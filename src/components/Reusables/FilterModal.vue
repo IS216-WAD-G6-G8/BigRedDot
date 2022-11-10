@@ -29,21 +29,21 @@ export default {
                 this.min = temp
             }
         },
-        checkPrice(input): void {
-            console.log(input)
-            console.log(input.target.value)
-            if (this.selected_price == input.target.value) {
+        checkPrice(input: MouseEvent): void {
+            const target = input.target as HTMLButtonElement
+            if (this.selected_price == target.value) {
                 this.selected_price = ''
             } else {
-                this.selected_price = input.target.value
+                this.selected_price = target.value
             }
             console.log(this.selected_price)
         },
-        checkRating(input): void {
-            if (this.selected_rating == input.target.value) {
+        checkRating(input: MouseEvent): void {
+            const target = input.target as HTMLButtonElement
+            if (this.selected_rating == target.value) {
                 this.selected_rating = ''
             } else {
-                this.selected_rating = input.target.value
+                this.selected_rating = target.value
             }
         },
     },
