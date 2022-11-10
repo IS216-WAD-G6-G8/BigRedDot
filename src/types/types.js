@@ -19,10 +19,3 @@ export var DeliveryOptionsEnum;
     DeliveryOptionsEnum["oneday"] = "One-day delivery";
     DeliveryOptionsEnum["delivery"] = "Standard delivery";
 })(DeliveryOptionsEnum || (DeliveryOptionsEnum = {}));
-export var PopularityEnum;
-(function (PopularityEnum) {
-    PopularityEnum["trending"] = "Trending";
-    PopularityEnum["recent"] = "Most Recent";
-    PopularityEnum["views"] = "Most Views";
-    PopularityEnum["reviews"] = "Best Reviewed";
-})(PopularityEnum || (PopularityEnum = {}));

@@ -1,7 +1,7 @@
 <script lang="ts">
 import NavBar from './NavBar.vue'
 import { defineComponent, PropType } from 'vue'
-import { Business, RatingData } from '../../types/types'
+import { Business } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
@@ -17,7 +17,6 @@ export default defineComponent({
     props: {
         data: Object as PropType<Business>,
         business_id: String,
-        ratingdata: Object,
     },
     data() {
         return {
@@ -46,7 +45,6 @@ export default defineComponent({
             )
         },
         findPercentage(input): string {
-            console.log(input)
             let sum = this.findSum()
             let percent = (Number(input) / sum) * 100
             return 'width: ' + percent + '%'
@@ -58,13 +56,6 @@ export default defineComponent({
             }
             return sum
         },
-        findAvg(): void {
-            console.log(this.ratingdata)
-            let sum = 0
-            for (var i = this.businessData.ratings.length; i > 0; i--) {
-                console.log(this.businessData.ratings[i])
-            }
-        }
     },
     components: { NavBar, Swiper, SwiperSlide },
 })
@@ -198,7 +189,6 @@ export default defineComponent({
                                             Overall Ratings
                                         </h1>
                                     </div>
-                                    <div>{{findAvg()}} out of 5 stars</div>
                                 </div>
                                 <div class="md:pl-12 lg:pl-24 w-full">
                                     <div
@@ -242,7 +232,7 @@ export default defineComponent({
                         <div class="flex pt-4">
                             <h1
                                 class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
-                                Reviews ({{ ratingdata }})
+                                Reviews ()
                             </h1>
                         </div>
                     </div>

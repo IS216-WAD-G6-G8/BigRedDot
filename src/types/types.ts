@@ -19,13 +19,6 @@ export enum DeliveryOptionsEnum {
     delivery = 'Standard delivery',
 }
 
-export enum PopularityEnum {
-    trending = 'Trending',
-    recent = 'Most Recent',
-    views = 'Most Views',
-    reviews = 'Best Reviewed',
-}
-
 export interface Business {
     id: number
     name: string
@@ -58,14 +51,4 @@ export interface EmailCreateData extends EmailLoginData {
 export interface Category {
     name: string
     url: string
-}
-
-interface Review {
-    name: string
-    ratingscore: number
-    reviewtext: string
-}
-
-export interface RatingData {
-    [key: string]: Review
 }
