@@ -16,13 +16,13 @@ export default {
     el: '#app',
     data() {
         return {
-            open: false,
-            hide: false,
-            modal_visible: false,
-            login_visible: false,
-            profile: false,
-            valid_email2: true,
-            userBookmarks: [],
+            open: false as boolean,
+            hide: false as boolean,
+            modal_visible: false as boolean,
+            login_visible: false as boolean,
+            profile: false as boolean,
+            valid_email2: true as boolean,
+            userBookmarks: [] as number[],
         }
     },
     mounted() {
@@ -34,7 +34,7 @@ export default {
             var uiConfig = {
                 callbacks: {
                     signInSuccessWithAuthResult: (authResult) => {
-                        const isNewUser =
+                        const isNewUser: boolean =
                             authResult.additionalUserInfo.isNewUser
                         if (isNewUser) {
                             userService.createUser(authResult.user)
@@ -63,26 +63,26 @@ export default {
         window.removeEventListener('scroll', this.handleScroll)
     },
     methods: {
-        toggle() {
+        toggle(): void {
             this.open = !this.open
         },
-        handleScroll() {
+        handleScroll(): void {
             this.open = false
             console.log("i am here")
         },
-        toggleMode() {
+        toggleMode(): void {
             this.$store.dispatch(
                 'commitDarkMode',
                 !this.$store.getters.getDarkMode
             )
         },
-        showModal() {
+        showModal(): void {
             this.modal_visible = !this.modal_visible
         },
-        toggleProfile() {
+        toggleProfile(): void {
             this.profile = !this.profile
         },
-        logout() {
+        logout(): void {
             signOut(auth)
                 .then(() => {
                     window.sessionStorage.clear()
@@ -93,11 +93,11 @@ export default {
                     alert(`Sign Out Error: ${error}`)
                 })
         },
-        openlogin() {
+        openlogin(): void {
             this.showModal()
             this.login_visible = !this.login_visible
         },
-        closelogin() {
+        closelogin(): void {
             this.login_visible = false
             this.valid_email2 = true
         },

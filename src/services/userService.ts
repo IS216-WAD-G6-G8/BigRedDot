@@ -39,7 +39,7 @@ export class UserService {
         }
     }
 
-    async getBookmarks(uid: string) {
+    async getBookmarks(uid: string): Promise<void | number[]> {
         const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
 
         try {
@@ -52,7 +52,7 @@ export class UserService {
         }
     }
 
-    async updateBookmarks(uid: string, bookmarks: number[]) {
+    async updateBookmarks(uid: string, bookmarks: number[]): Promise<void> {
         const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
 
         try {

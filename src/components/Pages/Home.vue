@@ -1,6 +1,6 @@
 <script lang="ts">
 import NavBar from '../Reusables/NavBar.vue'
-import { Business, CategoryEnum } from '../../types/firebaseTypes'
+import { Business, CategoryEnum } from '../../types/types
 import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
 import FilterModal from '../Reusables/FilterModal.vue'

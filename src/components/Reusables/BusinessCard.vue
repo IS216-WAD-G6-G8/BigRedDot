@@ -1,6 +1,6 @@
 <script lang="ts">
 import { PropType } from 'vue'
-import { Business } from '../../types/firebaseTypes'
+import { Business } from '../../types/types
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
 import 'swiper/swiper.min.css'
