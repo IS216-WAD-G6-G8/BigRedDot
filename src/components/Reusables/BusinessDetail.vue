@@ -90,7 +90,7 @@ export default defineComponent({
                             <div
                                 v-bind:style="{
                                     backgroundImage:
-                                        'url(' + businessData[0].images[2] + ')',
+                                        'url(' + businessData.images[2] + ')',
                                 }"
                                 class="h-full rounded-xl mt-4 bg-cover bg-center"></div>
                         </div>
