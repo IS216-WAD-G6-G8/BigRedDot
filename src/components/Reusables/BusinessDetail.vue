@@ -43,9 +43,9 @@ export default defineComponent({
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
+            console.log(this.businessData)
         },
         findPercentage(input): string {
-            console.log(input)
             let sum = this.findSum()
             let percent = (Number(input) / sum) * 100
             return 'width: ' + percent + '%'
@@ -57,12 +57,6 @@ export default defineComponent({
             }
             return sum
         },
-        findAvg(): void {
-            let sum = 0
-            for (var i = this.businessData.ratings.length; i > 0; i--) {
-                console.log(this.businessData.ratings[i])
-            }
-        }
     },
     components: { NavBar, Swiper, SwiperSlide },
 })
@@ -196,7 +190,6 @@ export default defineComponent({
                                             Overall Ratings
                                         </h1>
                                     </div>
-                                    <div>{{findAvg()}} out of 5 stars</div>
                                 </div>
                                 <div class="md:pl-12 lg:pl-24 w-full">
                                     <div
@@ -240,7 +233,7 @@ export default defineComponent({
                         <div class="flex pt-4">
                             <h1
                                 class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl">
-                                Reviews ({{ businessData.reviews }})
+                                Reviews ()
                             </h1>
                         </div>
                     </div>

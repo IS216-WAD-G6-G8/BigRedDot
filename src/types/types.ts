@@ -19,13 +19,6 @@ export enum DeliveryOptionsEnum {
     delivery = 'Standard delivery',
 }
 
-export enum PopularityEnum {
-    trending = 'Trending',
-    recent = 'Most Recent',
-    views = 'Most Views',
-    reviews = 'Best Reviewed',
-}
-
 export interface Business {
     id: number
     name: string
@@ -41,8 +34,7 @@ export interface Business {
     }
     products: string
     pricerange: number
-    ratings: object
-    reviews: string
+    ratings?: RatingData
     images: string[]
 }
 
@@ -60,11 +52,12 @@ export interface Category {
     url: string
 }
 
-interface Review {
+interface Rating {
+    name: string
     ratingscore: number
     reviewtext: string
 }
 
-export interface ReviewData {
-    [key: string]: Review
+interface RatingData {
+    [key: string]: Rating
 }

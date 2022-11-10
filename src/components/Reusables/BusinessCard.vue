@@ -13,8 +13,13 @@ const userService = new UserService
 
 export default {
     name: 'BusinessCard',
+    props: {
+        data: Object as PropType<Business>,
+        business_id: String,
+    },
     data() {
         return {
+            businessData: null as Business | null,
             cards: [
                 '/assets/fashion.jpg',
                 '/assets/services.jpg',
@@ -25,9 +30,6 @@ export default {
                 type: 'bullets',
             },
         }
-    },
-    props: {
-        data: Object as PropType<Business>,
     },
     components: {
         Swiper,
@@ -49,7 +51,6 @@ export default {
     methods: {
         addFav(): void {
             const business_id = this.data.id
-
             var bookmarksArray: number[] = this.$store.state.userBookmarks
             const uid = this.$store.state.user.multiFactor.user.uid
 
@@ -75,14 +76,10 @@ export default {
         class="md:max-w-xs h-full flex justify-center mx-auto bg-white rounded-2xl border-gray-20 dark:bg-slate-900">
         <a class="flex flex-col items-center">
             <div class="w-72 h-72 relative">
-                <!-- <img
-                    src="https://twinfinite.net/wp-content/uploads/2020/01/The-Idolmaster-Starlit-Season-2-1.jpg"
-                    class="card-img-top rounded-2xl object-none w-80 h-80"
-                    alt="..." /> -->
                 <RouterLink
                     :to="{
                         name: 'BusinessDetail',
-                        params: { business_id: this.data.id },
+                        params: { business_id: this.data.id},
                     }">
                     <swiper
                         :slides-per-view="1"
@@ -113,7 +110,7 @@ export default {
                             <span>{{ this.data.name }}</span>
                             <div class="text-right flex">
                                 <img class="pr-3" src="/assets/star.svg" />
-                                <span>4.0</span>
+                                <span>{{this.data.ratingdata}}</span>
                                 <div></div>
                             </div>
                         </div>

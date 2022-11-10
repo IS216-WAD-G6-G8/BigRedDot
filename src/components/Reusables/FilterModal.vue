@@ -1,5 +1,5 @@
 <script lang="ts">
-import { DeliveryOptionsEnum, PopularityEnum } from '../../types/types'
+import { DeliveryOptionsEnum } from '../../types/types'
 
 export default {
     name: 'Filter',
@@ -13,7 +13,6 @@ export default {
             stars: ['1', '2', '3', '4', '5'] as string[],
             price_range: ['$', '$$', '$$$'] as string[],
             deliveryOptions: DeliveryOptionsEnum,
-            popularity: PopularityEnum,
             selected_price: '' as string,
             selected_rating: '' as string
         }

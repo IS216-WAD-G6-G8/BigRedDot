@@ -56,16 +56,4 @@ export class FirebaseService {
             }
         });
     }
-    getRatings() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                let res = yield axios.get(this.ratingUrl);
-                let data = res.data;
-                return data;
-            }
-            catch (err) {
-                throw err;
-            }
-        });
-    }
 }
