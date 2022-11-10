@@ -52,14 +52,14 @@ export default defineComponent({
         },
         findSum() {
             let sum = 0
-            for (var i = 1; i < this.businesses[0].ratings.length; i++) {
+            for (var i = 1; i < this.businessData.ratings.length; i++) {
                 sum += this.businessData.ratings[i]
             }
             return sum
         },
         findAvg(){
             let sum = 0
-            for (var i = this.businesses[0].ratings.length; i > 0; i--) {
+            for (var i = this.businessData.ratings.length; i > 0; i--) {
                 console.log(this.businessData.ratings[i])
             }
         }
