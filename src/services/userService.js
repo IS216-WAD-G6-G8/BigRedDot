@@ -45,4 +45,29 @@ export class UserService {
             }
         });
     }
+    getBookmarks(uid) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json';
+            try {
+                let res = yield axios.get(getBookmarkUrl);
+                let data = res.data;
+                return data;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    updateBookmarks(uid, bookmarks) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json';
+            try {
+                let res = yield axios.put(updateBookmarkUrl, bookmarks);
+                console.log(res);
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
 }

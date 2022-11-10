@@ -3,13 +3,13 @@ export default {
     name: 'SignUpModal',
     data() {
         return {
-            valid_email: true,
-            valid_repw: true,
-            name: '',
-            email: '',
-            pw: '',
-            repw: '',
-            disabled: true,
+            valid_email: true as boolean,
+            valid_repw: true as boolean,
+            name: '' as string,
+            email: '' as string,
+            pw: '' as string,
+            repw: '' as string,
+            disabled: true as boolean,
         }
     },
     props: {
@@ -17,7 +17,7 @@ export default {
         openlogin: Function,
     },
     methods: {
-        validateEmail() {
+        validateEmail(): void {
             if (
                 /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)
             ) {
@@ -26,14 +26,14 @@ export default {
                 this.valid_email = false
             }
         },
-        validateRePw() {
+        validateRePw(): void {
             if (this.pw == this.repw) {
                 this.valid_repw = true
             } else {
                 this.valid_repw = false
             }
         },
-        validatePassword() {
+        validatePassword(): void {
             if (this.pw.length > 0) {
                 //validate length
                 this.checkLength()
@@ -45,7 +45,7 @@ export default {
                 this.checkSpecial()
             }
         },
-        signUpUser() {
+        signUpUser(): void {
             if (
                 this.valid_email &&
                 this.valid_repw &&
@@ -63,28 +63,28 @@ export default {
                 this.$emit('create-email-user', newUser)
             }
         },
-        checkPwInput() {
+        checkPwInput(): boolean {
             return this.pw.length > 0
         },
-        checkLength() {
+        checkLength(): boolean {
             return this.pw.length >= 12
         },
-        checkUpperLower() {
+        checkUpperLower(): boolean {
             const upper = /[A-Z]/.test(this.pw)
             const lower = /[a-z]/.test(this.pw)
             return upper && lower
         },
-        checkAlphanumeric() {
+        checkAlphanumeric(): boolean {
             const valid = /[^0-9a-zA-Z]/.test(this.pw)
             return valid
         },
-        checkSpecial() {
+        checkSpecial(): boolean {
             const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
             return specialChars.test(this.pw)
         },
     },
     computed: {
-        validBtn() {
+        validBtn(): boolean {
             if (this.repw != '') {
                 this.validateRePw()
                 if (

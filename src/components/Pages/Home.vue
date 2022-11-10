@@ -1,9 +1,10 @@
 <script lang="ts">
 import NavBar from '../Reusables/NavBar.vue'
-import { Business, CategoryEnum } from '../../types/firebaseTypes'
+import { Business, CategoryEnum } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
 import BusinessCard from '../Reusables/BusinessCard.vue'
 import FilterModal from '../Reusables/FilterModal.vue'
+import { Category } from '../../types/types'
 
 const firebaseService = new FirebaseService()
 
@@ -17,10 +18,10 @@ export default {
                 { name: 'fashion', url: '/assets/fashion.svg' },
                 { name: 'crafts', url: '/assets/crafts.svg' },
                 { name: 'experiences', url: '/assets/experiences.svg' },
-            ],
+            ] as Category[],
             CategoryEnum,
             businessData: null as Business[] | null,
-            filterVisible: false,
+            filterVisible: false as boolean,
         }
     },
     beforeMount() {
@@ -31,23 +32,23 @@ export default {
         }
     },
     methods: {
-        getAllData: async function () {
+        getAllData: async function (): Promise<void> {
             this.businessData = await firebaseService.getAll()
         },
-        getByCategory: async function (categories: CategoryEnum[]) {
+        getByCategory: async function (categories: CategoryEnum[]): Promise<void> {
             this.businessData = await firebaseService.getDataByCategory(
                 categories
             )
         },
-        getMode() {
+        getMode(): void {
             console.log(this.$store.getters.getDarkMode)
         },
-        showFilter() {
+        showFilter(): void {
             this.filterVisible = true
         },
-        closeFilter() {
+        closeFilter(): void {
             this.filterVisible = false
-        },
+        }
     },
     components: { NavBar, BusinessCard, FilterModal },
 }

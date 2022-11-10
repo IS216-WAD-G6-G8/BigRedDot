@@ -11,6 +11,12 @@ import ScrollTrigger from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 SwiperCore.use([Navigation, Pagination, A11y, Autoplay])
 
+interface ImageContent {
+    url: string,
+    title: string,
+    desc: string,
+}
+
 export default {
     name: 'Home',
     setup() {
@@ -28,12 +34,12 @@ export default {
                 '/assets/fashion.jpg',
                 '/assets/services.jpg',
                 '/assets/crafts.jpg',
-            ],
+            ] as string[],
             purposes: [
                 { url: '/assets/crafts.jpg', title: 'Promote', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
                 { url: '/assets/crafts.jpg', title: 'Improve', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
                 { url: '/assets/crafts.jpg', title: 'Encourage', desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.' },
-            ],
+            ] as ImageContent[],
         }
     },
     methods: {},

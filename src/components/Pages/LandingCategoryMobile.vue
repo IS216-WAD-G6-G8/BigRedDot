@@ -1,4 +1,6 @@
 <script lang="ts">
+import { Category } from '../../types/types'
+
 export default {
     name: 'LandingCategory',
     data() {
@@ -9,15 +11,15 @@ export default {
                 { name: 'fashion', url: '/assets/fashion.jpg' },
                 { name: 'crafts', url: '/assets/crafts.jpg' },
                 { name: 'experiences', url: '/assets/experiences.jpeg' },
-            ],
-            darkmode: false,
+            ] as Category[],
+            darkmode: false as boolean,
         }
     },
     methods: {
-        routePage() {
+        routePage(): void {
             this.$router.push('/Home')
         },
-        toggleMode() {
+        toggleMode(): void {
             this.darkmode = !this.darkmode
         },
     },

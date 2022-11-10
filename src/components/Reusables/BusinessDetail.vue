@@ -1,7 +1,7 @@
 <script lang="ts">
 import NavBar from './NavBar.vue'
 import { defineComponent, PropType } from 'vue'
-import { Business } from '../../types/firebaseTypes'
+import { Business } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
