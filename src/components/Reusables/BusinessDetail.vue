@@ -117,7 +117,7 @@ export default defineComponent({
         },
         submitRating() {
             const user = this.$store.getters.getUser.multiFactor.user
-            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value + 1, this.final_review)
+            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value + 1, this.final_review, Date.now())
             location.reload()
         }
     },

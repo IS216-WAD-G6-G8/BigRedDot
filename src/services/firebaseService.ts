@@ -58,7 +58,8 @@ export class FirebaseService {
         uid: string,
         name: string,
         rating: number,
-        review: string
+        review: string,
+        datetime: number
     ): Promise<void> {
         const updateRatingUrl =
             this.businessUrl + '/' + bid + '/ratings/' + uid + '.json'
@@ -67,6 +68,7 @@ export class FirebaseService {
             name: name,
             ratingscore: rating,
             reviewtext: review,
+            datetime: datetime,
         }
 
         try {
