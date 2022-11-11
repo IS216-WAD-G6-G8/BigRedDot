@@ -50,10 +50,10 @@ export default defineComponent({
         this.getDataByID(this.business_id)
     },
     mounted() {
-        // if (Object.keys(this.businessData.ratings).length > 0) {
-        //     this.getRating()
-        //     this.findSum()
-        // }
+        if (Object.keys(this.businessData.ratings).length > 0) {
+            this.getRating()
+            this.findSum()
+        }
     },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
