@@ -1,6 +1,9 @@
 <script lang="ts">
 import NavBar from '../Reusables/NavBar.vue'
-import { Category } from '../../types/types';
+import { Category } from '../../types/types'
+import { UserService } from '../../services/userService'
+
+const userService = new UserService
 
 export default {
     name: 'MyList',
@@ -13,9 +16,46 @@ export default {
                 { name: 'crafts', url: '/assets/crafts.svg' },
                 { name: 'experiences', url: '/assets/experiences.svg' },
             ] as Category[],
+            bookmark_list: Object
         }
     },
     components: { NavBar },
+    computed: {
+        imageSource(): string {
+            if (this.$store.state.userBookmarks) {
+                if (
+                    Object.values(this.$store.state.userBookmarks).includes(
+                        this.data.id
+                    )
+                ) {
+                    return '/assets/confirm.svg'
+                } else {
+                    return '/assets/love.svg'
+                }
+            } else {
+                return '/assets/love.svg'
+            }
+        },
+    },
+    methods: {
+        addFav(): void {
+            const business_id = this.data.id
+            var bookmarksArray: number[] = this.$store.state.userBookmarks
+            const uid = this.$store.state.user.multiFactor.user.uid
+
+            if (bookmarksArray.includes(business_id)) {
+                // if it has been bookmarked
+                bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
+                userService.updateBookmarks(uid, bookmarksArray)
+            } else {
+                // if it is not already bookmarked
+                bookmarksArray.push(business_id)
+                userService.updateBookmarks(uid, bookmarksArray)
+            }
+            // lazy method of updating, will improve if time permits
+            this.$store.dispatch('commitUserBookmarks', bookmarksArray)
+        },
+    },
 }
 </script>
 
@@ -28,7 +68,8 @@ export default {
                     <RouterLink to="/Home">
                         <img class="w-6 h-6 mr-4" src="/assets/back.svg" />
                     </RouterLink>
-                    <div class="font-bold ml-5 text-sm md:text-xl text-gray-900">
+                    <div
+                        class="font-bold ml-5 text-sm md:text-xl text-gray-900">
                         My Favourite
                     </div>
                 </div>
@@ -73,9 +114,7 @@ export default {
                             </div>
                         </div>
                         <div>
-                            <img
-                                class="w-[25px]"
-                                src="/assets/love.svg" />
+                            <img class="w-[25px]" src="/assets/love.svg" />
                         </div>
                     </div>
                     <div class="mb-8">
