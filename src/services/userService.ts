@@ -48,7 +48,6 @@ export class UserService {
         } catch (err) {
             throw err
         }
-
     }
 
     async updateBookmarks(uid: string, bookmarks: number[]): Promise<void> {
