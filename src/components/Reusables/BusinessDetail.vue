@@ -117,8 +117,8 @@ export default defineComponent({
         },
         submitRating() {
             const user = this.$store.getters.getUser.multiFactor.user
-            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value, this.final_review)
-
+            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value + 1, this.final_review)
+            location.reload()
         }
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },
@@ -319,8 +319,14 @@ export default defineComponent({
                                     class="w-full rounded-2xl border-2 border-gray-100 p-8">
                                     <div class="flex flex-col items-center">
                                         <h3
-                                            class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight">
+                                            class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
+                                            v-if="businessData.ratings === undefined">
                                             Be the first to leave a review!
+                                        </h3>
+                                        <h3
+                                            class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
+                                            v-else>
+                                            Leave your review now!
                                         </h3>
                                         <div class="flex items-center">
                                             <div class="flex items-center">
