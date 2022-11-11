@@ -9,7 +9,7 @@ import 'swiper/css/pagination'
 import { UserService } from '../../services/userService'
 
 SwiperCore.use([Navigation, Pagination, A11y])
-const userService = new UserService
+const userService = new UserService()
 
 export default {
     name: 'BusinessCard',
@@ -29,6 +29,7 @@ export default {
                 el: '.swiper-pagination',
                 type: 'bullets',
             },
+            bookmark_list: Object,
         }
     },
     components: {
@@ -36,17 +37,21 @@ export default {
         SwiperSlide,
     },
     computed: {
-        imageSource (): string {
+        imageSource(): string {
             if (this.$store.state.userBookmarks) {
-                if (Object.values(this.$store.state.userBookmarks).includes(this.data.id)) {
-                    return '/assets/love.svg'
-                } else {
+                if (
+                    Object.values(this.$store.state.userBookmarks).includes(
+                        this.data.id
+                    )
+                ) {
                     return '/assets/confirm.svg'
+                } else {
+                    return '/assets/love.svg'
                 }
             } else {
-                return '/assets/confirm.svg'
+                return '/assets/love.svg'
             }
-        }
+        },
     },
     methods: {
         addFav(): void {
@@ -63,9 +68,8 @@ export default {
                 bookmarksArray.push(business_id)
                 userService.updateBookmarks(uid, bookmarksArray)
             }
-            
             // lazy method of updating, will improve if time permits
-            this.$store.dispatch("commitUserBookmarks", bookmarksArray)
+            this.$store.dispatch('commitUserBookmarks', bookmarksArray)
         },
     },
 }
@@ -79,7 +83,7 @@ export default {
                 <RouterLink
                     :to="{
                         name: 'BusinessDetail',
-                        params: { business_id: this.data.id},
+                        params: { business_id: this.data.id },
                     }">
                     <swiper
                         :slides-per-view="1"
@@ -87,9 +91,10 @@ export default {
                         :pagination="{ clickable: true } as any"
                         class="default-slider rounded-2xl">
                         <swiper-slide v-for="index in 3" :key="index">
-                            <img v-if="this.data.images !== undefined "
-                                class="rounded-2xl object-cover w-[17rem] h-[17rem]" 
-                                :src="this.data.images[index-1]" />
+                            <img
+                                v-if="this.data.images !== undefined"
+                                class="rounded-2xl object-cover w-[17rem] h-[17rem]"
+                                :src="this.data.images[index - 1]" />
                             <div class="swiper-pagination"></div></swiper-slide
                     ></swiper>
                 </RouterLink>
@@ -110,7 +115,7 @@ export default {
                             <span>{{ this.data.name }}</span>
                             <div class="text-right flex">
                                 <img class="pr-3" src="/assets/star.svg" />
-                                <span>{{this.data.ratingdata}}</span>
+                                <span>{{ this.data.ratingdata }}</span>
                                 <div></div>
                             </div>
                         </div>
