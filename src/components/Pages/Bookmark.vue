@@ -124,6 +124,11 @@ export default {
             <div v-for="(business, index) in business_list"
                 class="w-full flex flex-col md:flex-row justify-center p-3 border-gray-300"
                 :class="{ 'border-b' : (Number(index) !== business_list.length - 1)}">
+                <RouterLink class="flex flex-col md:flex-row flex-1"
+                    :to="{
+                        name: 'BusinessDetail',
+                        params: { business_id: business['id'] },
+                    }">
                 <img
                     class="m-3 rounded-2xl flex-initial basis-1/4 max-w-none md:w-14 min-h-[200px] max-h-52 object-cover"
                     :src="business['images'][0]" />
@@ -154,6 +159,7 @@ export default {
                         </p>
                     </div>
                 </div>
+                </RouterLink>
             </div>
         </div>
     </div>
