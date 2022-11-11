@@ -145,7 +145,7 @@ export default defineComponent({
                                 }"
                                 class="h-full rounded-xl bg-cover bg-center"></div>
                             <div
-                                v-bind:style="{
+                                :style="{
                                     backgroundImage:
                                         'url(' + businessData.images[2] + ')',
                                 }"
@@ -382,7 +382,7 @@ export default defineComponent({
                 </div>
                 <div class="w-full md:relative md:block md:w-1/4 md:ml-4">
                     <div
-                        class="sticky top-12 max-w-sm rounded-lg border overflow-hidden shadow-lg">
+                        class="sticky top-12 max-w-sm rounded-2xl border overflow-hidden">
                         <div class="px-6 py-4">
                             <div
                                 class="text-gray-900 dark:text-white text-base flex flex-col">

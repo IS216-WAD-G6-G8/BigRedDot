@@ -1,6 +1,8 @@
 import { createStore } from 'vuex';
 import firebase from 'firebase/compat/app';
 import createPersistedState from 'vuex-persistedstate';
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 export default createStore({
     plugins: [
         createPersistedState({

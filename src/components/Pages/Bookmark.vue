@@ -2,8 +2,11 @@
 import NavBar from '../Reusables/NavBar.vue'
 import { Category } from '../../types/types'
 import { UserService } from '../../services/userService'
+import { FirebaseService } from '../../services/firebaseService'
+import { Business } from '../../types/types'
 
-const userService = new UserService
+const userService = new UserService()
+const firebaseService = new FirebaseService()
 
 export default {
     name: 'MyList',
@@ -16,7 +19,11 @@ export default {
                 { name: 'crafts', url: '/assets/crafts.svg' },
                 { name: 'experiences', url: '/assets/experiences.svg' },
             ] as Category[],
-            bookmark_list: Object
+            bookmark_list: Object,
+            businesses: Object,
+            business_list: Object,
+            businessData: null as Business | null,
+            businessID: null,
         }
     },
     components: { NavBar },
@@ -25,7 +32,7 @@ export default {
             if (this.$store.state.userBookmarks) {
                 if (
                     Object.values(this.$store.state.userBookmarks).includes(
-                        this.data.id
+                        this.businessID
                     )
                 ) {
                     return '/assets/confirm.svg'
@@ -37,30 +44,54 @@ export default {
             }
         },
     },
+    mounted() {
+        this.getList()
+    },
     methods: {
-        addFav(): void {
-            const business_id = this.data.id
+        addFav(input): void {
+            this.business_id = input
             var bookmarksArray: number[] = this.$store.state.userBookmarks
             const uid = this.$store.state.user.multiFactor.user.uid
 
-            if (bookmarksArray.includes(business_id)) {
+            if (bookmarksArray.includes(this.business_id)) {
                 // if it has been bookmarked
-                bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
-                userService.updateBookmarks(uid, bookmarksArray)
+                bookmarksArray.splice(
+                    bookmarksArray.indexOf(this.business_id),
+                    1
+                )
+                userService.updateBookmarks(uid, bookmarksArray, 'remove')
             } else {
                 // if it is not already bookmarked
-                bookmarksArray.push(business_id)
-                userService.updateBookmarks(uid, bookmarksArray)
+                bookmarksArray.push(this.business_id)
+                userService.updateBookmarks(uid, bookmarksArray, 'add')
             }
             // lazy method of updating, will improve if time permits
             this.$store.dispatch('commitUserBookmarks', bookmarksArray)
+            this.getList()
+        },
+        async getList() {
+            this.businesses = this.$store.getters.getUserBookmarks
+            let tempArr = []
+            for (let value of this.businesses) {
+                tempArr.push(await this.getDataByID(value))
+            }
+            this.business_list = tempArr
+            console.log(this.business_list)
+        },
+        getDataByID: async function (
+            business_id: String
+        ): Promise<void | Business[]> {
+            const res = await firebaseService.getDataByID(Number(business_id))
+            return res
         },
     },
 }
 </script>
 
 <template>
-    <div :class="{ dark: this.$store.getters.getDarkMode }">
+    <div
+        class="bg-white dark:bg-slate-900"
+        :class="{ dark: this.$store.getters.getDarkMode }">
         <NavBar></NavBar>
         <div class="bg-[#d4e6ff] p-5 w-full flex justify-between">
             <div class="container overflow-auto flex mx-auto">
@@ -73,7 +104,7 @@ export default {
                         My Favourite
                     </div>
                 </div>
-                <div class="flex items-center px-3 flex-1">
+                <!-- <div class="flex items-center px-3 flex-1">
                     <button
                         id="cat_button"
                         class="bg-white mr-5 flex flex-col items-center border-solid border-2 hover:border-blue-700 focus:border-blue-700 border-blue-400 rounded-2xl">
@@ -90,44 +121,60 @@ export default {
                             }}</span>
                         </button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
-        <div
-            class="bg-white h-screen dark:bg-slate-900 px-8 lg:px-16 py-8 w-full">
+        <div class="bg-white h-screen dark:bg-slate-900 w-full">
             <div
-                class="w-full flex flex-col md:flex-row justify-center border-b border-gray-300">
-                <img
-                    class="m-3 max-w-96 max-h-60 md:max-h-40 lg:max-h-48 md:w-96 object-cover rounded-2xl"
-                    src="/assets/f&b.jpg" />
-                <div
-                    class="p-4 text-left flex flex-col self-center justify-between leading-normal">
-                    <div class="mb-4 flex text-left justify-between">
-                        <div>
-                            <div
-                                class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
-                                Placeholder
+                v-for="(business, index) in business_list"
+                class="w-full bg-white dark:bg-slate-900 px-8 lg:px-16 py-5 flex flex-col md:flex-row justify-center p-3 border-gray-300"
+                :class="{
+                    'border-b': Number(index) !== business_list.length - 1,
+                }">
+                <RouterLink
+                    class="flex flex-col md:flex-row flex-1"
+                    :to="{
+                        name: 'BusinessDetail',
+                        params: { business_id: business['id'] },
+                    }">
+                    <img
+                        class="m-3 rounded-2xl flex-initial basis-1/4 max-w-none md:w-14 min-h-[200px] max-h-52 object-cover"
+                        :src="business['images'][0]" />
+                    <div
+                        class="p-4 w-full text-left flex-col self-center justify-between leading-normal">
+                        <div class="mb-4 flex text-left justify-between">
+                            <div class="flex-wrap flex">
+                                <div
+                                    class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
+                                    {{ business['category'] }}
+                                </div>
+                                <div
+                                    class="inline py-1 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
+                                    {{ business['mode'] }}
+                                </div>
                             </div>
-                            <div
-                                class="inline py-1 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
-                                Placeholder
-                            </div>
+                            <img
+                                @click="addFav(business['id'])"
+                                class="block md:hidden w-[20px]"
+                                :src="imageSource"/>
                         </div>
-                        <div>
-                            <img class="w-[25px]" src="/assets/love.svg" />
+                        <div class="mb-8">
+                            <p
+                                class="text-sm text-gray-600 flex items-center"></p>
+                            <div class="text-gray-900 font-bold text-xl mb-2">
+                                {{ business['name'] }}
+                            </div>
+                            <p class="text-gray-700 dark:text-white text-base">
+                                {{ business['description'] }}
+                            </p>
                         </div>
                     </div>
-                    <div class="mb-8">
-                        <p class="text-sm text-gray-600 flex items-center"></p>
-                        <div class="text-gray-900 font-bold text-xl mb-2">
-                            Can coffee make you a better developer?
-                        </div>
-                        <p class="text-gray-700 text-base">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Voluptatibus quia, nulla! Maiores et
-                            perferendis eaque, exercitationem praesentium nihil.
-                        </p>
-                    </div>
+                </RouterLink>
+                <div>
+                    <img
+                        @click="addFav(business['id'])"
+                        class="hidden md:block w-[30px] pt-10"
+                        :src="imageSource" />
                 </div>
             </div>
         </div>
