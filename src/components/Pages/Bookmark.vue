@@ -49,25 +49,24 @@ export default {
     },
     methods: {
         addFav(input): void {
-            this.business_id = input
+            this.businessID = input
             var bookmarksArray: number[] = this.$store.state.userBookmarks
             const uid = this.$store.state.user.multiFactor.user.uid
 
-            if (bookmarksArray.includes(this.business_id)) {
+            if (bookmarksArray.includes(this.businessID)) {
                 // if it has been bookmarked
                 bookmarksArray.splice(
-                    bookmarksArray.indexOf(this.business_id),
+                    bookmarksArray.indexOf(this.businessID),
                     1
                 )
                 userService.updateBookmarks(uid, bookmarksArray)
             } else {
                 // if it is not already bookmarked
-                bookmarksArray.push(this.business_id)
+                bookmarksArray.push(this.businessID)
                 userService.updateBookmarks(uid, bookmarksArray)
             }
             // lazy method of updating, will improve if time permits
             this.$store.dispatch('commitUserBookmarks', bookmarksArray)
-            this.getList()
         },
         async getList() {
             this.businesses = this.$store.getters.getUserBookmarks
@@ -76,7 +75,6 @@ export default {
                 tempArr.push(await this.getDataByID(value))
             }
             this.business_list = tempArr
-            console.log(this.business_list)
         },
         getDataByID: async function (
             business_id: String
