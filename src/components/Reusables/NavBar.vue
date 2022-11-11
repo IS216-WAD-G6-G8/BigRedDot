@@ -2,15 +2,17 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
-import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { UserService } from '../../services/userService'
 import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
 import ProfileDropDown from './ProfileDropDown.vue'
 import { auth } from '../../main'
 import { EmailLoginData, EmailCreateData } from '../../types/types'
+import { useToast } from "vue-toastification"
 
 const userService = new UserService()
+const toast = useToast()
 
 export default {
     name: 'NavBar',
@@ -41,6 +43,10 @@ export default {
                             userService.createUser(authResult.user)
                         }
                         this.getBookmarks(authResult.user.uid)
+                        toast.success(
+                            `Successfully signed in! Welcome back, ${authResult.user.displayName}.`,
+                            { timeout: 5000 }
+                        )
                         return true
                     },
                 },
@@ -59,6 +65,12 @@ export default {
                 this.$store.dispatch('commitUser')
             }
         })
+
+        const { search } = window.location
+        const loggedOut = (new URLSearchParams(search)).get('loggedOut')
+        if (loggedOut === '1') {
+            toast.success("You have signed out successfully.", { timeout: 5000 })
+        }
     },
     destroyed() {
         window.removeEventListener('scroll', this.handleScroll)
@@ -86,11 +98,10 @@ export default {
             signOut(auth)
                 .then(() => {
                     window.sessionStorage.clear()
-                    alert('You have been logged out')
-                    location.reload()
+                    window.location.href = window.location.pathname + '?loggedOut=1'
                 })
                 .catch((error) => {
-                    alert(`Sign Out Error: ${error}`)
+                    toast.error("Unable to sign out, please try again.", { timeout: 5000 })
                 })
         },
         openlogin(): void {
@@ -106,10 +117,16 @@ export default {
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     userService.createUserFromEmail(userCredential.user.uid, data.name)
+
+                    var user = firebase.auth().currentUser
+                    user.updateProfile({displayName: data.name})
+
                     this.showModal()
+                    toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
                 })
                 .catch((error) => {
                     console.log(error)
+                    toast.error("Error! Account not created.", { timeout: 5000 })
                 })
         },
         loginUser(data: EmailLoginData) {
@@ -119,9 +136,11 @@ export default {
                     // then we retrieve the favourites from the user entity 
                     const userId = userCredential.user.uid
                     this.getBookmarks(userId)
+                    toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
                 })
                 .catch((error) => {
                     console.log(error)
+                    toast.error("Error! Unable to sign in!", { timeout: 5000 })
                 })
         },
         getBookmarks: async function (userId: string): Promise<void> {

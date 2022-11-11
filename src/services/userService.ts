@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { MultiFactorInfo } from 'firebase/auth'
 
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+
 export class UserService {
     baseUrl: string
 
@@ -55,7 +59,13 @@ export class UserService {
         try {
             let res = await axios.put(updateBookmarkUrl, bookmarks)
             console.log(res)
+            if (res.status === 200) {
+                toast.success('Bookmarked successfully!', { timeout: 5000 })
+            }
         } catch (err) {
+            toast.error('Bookmark not saved, please try again later.', {
+                timeout: 5000,
+            })
             throw err
         }
     }

@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import axios from 'axios';
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 export class UserService {
     constructor() {
         this.baseUrl =
@@ -64,8 +66,14 @@ export class UserService {
             try {
                 let res = yield axios.put(updateBookmarkUrl, bookmarks);
                 console.log(res);
+                if (res.status === 200) {
+                    toast.success('Bookmarked successfully!', { timeout: 5000 });
+                }
             }
             catch (err) {
+                toast.error('Bookmark not saved, please try again later.', {
+                    timeout: 5000,
+                });
                 throw err;
             }
         });
