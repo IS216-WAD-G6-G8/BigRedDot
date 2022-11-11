@@ -116,11 +116,9 @@ export default defineComponent({
             }
         },
         submitRating() {
-            console.log(this.final_value, this.final_review)
             const user = this.$store.getters.getUser.multiFactor.user
-            console.log(user)
-
             firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value, this.final_review)
+
         }
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },
@@ -243,7 +241,7 @@ export default defineComponent({
                             </div>
                         </div>
                         <!-- Ratings -->
-                        <div v-if="Object.keys(businessData.ratings).length > 0" class="pt-4 pb-4 border-b">
+                        <div v-if="businessData.ratings !== undefined" class="pt-4 pb-4 border-b">
                             <div class="flex flex-col md:flex-row">
                                 <div
                                     class="flex flex-col justify-center items-baseline md:items-center pb-4 md:pb-0">
@@ -298,7 +296,7 @@ export default defineComponent({
                         </div>
                         <!-- Reviews -->
                         <div class="flex text-left flex-col pt-4 pb-4">
-                            <div v-if="Object.keys(businessData.ratings).length > 0">
+                            <div v-if="businessData.ratings !== undefined">
                                 <h1
                                     class="text-gray-900 dark:text-white text-2xl font-semibold pb-4">
                                     Reviews ({{
