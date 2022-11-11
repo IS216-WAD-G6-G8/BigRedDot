@@ -55,6 +55,11 @@ export default defineComponent({
             this.findSum()
         }
     },
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.getUser
+        }
+    },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
             this.businessData = await firebaseService.getDataByID(
@@ -110,6 +115,13 @@ export default defineComponent({
                 this.rating_obj[value['ratingscore'] - 1] += 1
             }
         },
+        submitRating() {
+            console.log(this.final_value, this.final_review)
+            const user = this.$store.getters.getUser.multiFactor.user
+            console.log(user)
+
+            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value, this.final_review)
+        }
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },
 })
@@ -352,7 +364,9 @@ export default defineComponent({
                                                 class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
                                             <button
                                                 type="submit"
-                                                class="w-full md:w-auto rounded bg-emerald-500 px-10 py-4 font-bold text-white">
+                                                class="w-full md:w-auto rounded bg-emerald-500 px-10 py-4 font-bold text-white"
+                                                :disabled="!isLoggedIn"
+                                                @click="submitRating">
                                                 Submit
                                             </button>
                                         </div>

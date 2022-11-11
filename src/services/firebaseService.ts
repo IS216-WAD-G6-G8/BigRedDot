@@ -52,4 +52,29 @@ export class FirebaseService {
             throw err
         }
     }
+
+    async updateRating(
+        bid: number,
+        uid: string,
+        name: string,
+        rating: number,
+        review: string
+    ): Promise<void> {
+        const updateRatingUrl =
+            this.businessUrl + '/' + bid + '/ratings/' + uid + '.json'
+        console.log(updateRatingUrl)
+
+        const tempRatingEntity = {
+            name: name,
+            ratingscore: rating,
+            reviewtext: review,
+        }
+
+        try {
+            let res = await axios.put(updateRatingUrl, tempRatingEntity)
+            console.log(res)
+        } catch (err) {
+            throw err
+        }
+    }
 }
