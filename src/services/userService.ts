@@ -41,7 +41,6 @@ export class UserService {
 
     async getBookmarks(uid: string): Promise<void | number[]> {
         const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
-
         try {
             let res = await axios.get(getBookmarkUrl)
             let data = res.data
@@ -49,11 +48,11 @@ export class UserService {
         } catch (err) {
             throw err
         }
+
     }
 
     async updateBookmarks(uid: string, bookmarks: number[]): Promise<void> {
         const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
-
         try {
             let res = await axios.put(updateBookmarkUrl, bookmarks)
             console.log(res)
