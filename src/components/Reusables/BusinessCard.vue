@@ -62,11 +62,11 @@ export default {
             if (bookmarksArray.includes(business_id)) {
                 // if it has been bookmarked
                 bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
-                userService.updateBookmarks(uid, bookmarksArray)
+                userService.updateBookmarks(uid, bookmarksArray, 'remove')
             } else {
                 // if it is not already bookmarked
                 bookmarksArray.push(business_id)
-                userService.updateBookmarks(uid, bookmarksArray)
+                userService.updateBookmarks(uid, bookmarksArray, 'add')
             }
             // lazy method of updating, will improve if time permits
             this.$store.dispatch('commitUserBookmarks', bookmarksArray)

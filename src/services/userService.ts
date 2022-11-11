@@ -54,13 +54,23 @@ export class UserService {
         }
     }
 
-    async updateBookmarks(uid: string, bookmarks: number[]): Promise<void> {
+    async updateBookmarks(
+        uid: string,
+        bookmarks: number[],
+        updateType: string
+    ): Promise<void> {
         const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
         try {
             let res = await axios.put(updateBookmarkUrl, bookmarks)
             console.log(res)
             if (res.status === 200) {
-                toast.success('Bookmarked successfully!', { timeout: 5000 })
+                if (updateType === 'add') {
+                    toast.success('Bookmarked successfully!', { timeout: 5000 })
+                } else if (updateType === 'remove') {
+                    toast.success('Bookmark removed successfully!', {
+                        timeout: 5000,
+                    })
+                }
             }
         } catch (err) {
             toast.error('Bookmark not saved, please try again later.', {
