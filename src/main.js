@@ -5,6 +5,8 @@ import router from './router';
 import store from './store';
 import firebase from 'firebase/compat/app';
 import { getAuth } from 'firebase/auth';
+import Toast from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
 const firebaseConfig = {
     apiKey: 'AIzaSyAipvvlbfDtRMXnN_UDeHl67l-XbgWc_CU',
     authDomain: 'is216-bigreddot.firebaseapp.com',
@@ -17,4 +19,4 @@ const firebaseConfig = {
 };
 const app = firebase.initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-createApp(App).use(router).use(store).mount('#app');
+createApp(App).use(router).use(store).use(Toast).mount('#app');
