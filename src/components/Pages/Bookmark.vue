@@ -120,7 +120,7 @@ export default {
             </div>
         </div>
         <div
-            class="bg-white h-screen dark:bg-slate-900 px-8 lg:px-16 py-5 w-full">
+            class="bg-white dark:bg-slate-900 px-8 lg:px-16 py-5 w-full">
             <div v-for="(business, index) in business_list"
                 class="w-full flex flex-col md:flex-row justify-center p-3 border-gray-300"
                 :class="{ 'border-b' : (Number(index) !== business_list.length - 1)}">
