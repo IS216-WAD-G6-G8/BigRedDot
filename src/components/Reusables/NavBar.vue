@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
-import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { UserService } from '../../services/userService'
 import SignUpModal from './SignUpModal.vue'
 import LogInModal from './LogInModal.vue'
@@ -106,6 +106,10 @@ export default {
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     userService.createUserFromEmail(userCredential.user.uid, data.name)
+                    var user = firebase.auth().currentUser
+                    user.updateProfile({
+                        displayName: data.name
+                    })
                     this.showModal()
                 })
                 .catch((error) => {

@@ -59,7 +59,6 @@ export class FirebaseService {
     updateRating(bid, uid, name, rating, review) {
         return __awaiter(this, void 0, void 0, function* () {
             const updateRatingUrl = this.businessUrl + '/' + bid + '/ratings/' + uid + '.json';
-            console.log(updateRatingUrl);
             const tempRatingEntity = {
                 name: name,
                 ratingscore: rating,

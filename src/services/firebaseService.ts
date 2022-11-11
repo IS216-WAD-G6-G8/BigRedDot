@@ -62,7 +62,6 @@ export class FirebaseService {
     ): Promise<void> {
         const updateRatingUrl =
             this.businessUrl + '/' + bid + '/ratings/' + uid + '.json'
-        console.log(updateRatingUrl)
 
         const tempRatingEntity = {
             name: name,
