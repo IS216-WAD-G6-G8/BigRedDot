@@ -50,10 +50,10 @@ export default defineComponent({
         this.getDataByID(this.business_id)
     },
     mounted() {
-        // if (Object.keys(this.businessData.ratings).length > 0) {
-        //     this.getRating()
-        //     this.findSum()
-        // }
+        if (Object.keys(this.businessData.ratings).length > 0) {
+            this.getRating()
+            this.findSum()
+        }
     },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
@@ -231,7 +231,7 @@ export default defineComponent({
                             </div>
                         </div>
                         <!-- Ratings -->
-                        <!-- <div v-if="Object.keys(businessData.ratings).length > 0" class="pt-4 pb-4 border-b">
+                        <div v-if="Object.keys(businessData.ratings).length > 0" class="pt-4 pb-4 border-b">
                             <div class="flex flex-col md:flex-row">
                                 <div
                                     class="flex flex-col justify-center items-baseline md:items-center pb-4 md:pb-0">
@@ -283,9 +283,9 @@ export default defineComponent({
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <!-- Reviews -->
-                        <!-- <div class="flex text-left flex-col pt-4 pb-4">
+                        <div class="flex text-left flex-col pt-4 pb-4">
                             <div v-if="Object.keys(businessData.ratings).length > 0">
                                 <h1
                                     class="text-gray-900 dark:text-white text-2xl font-semibold pb-4">
@@ -359,7 +359,7 @@ export default defineComponent({
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="w-full md:relative md:block md:w-1/4 md:ml-4">

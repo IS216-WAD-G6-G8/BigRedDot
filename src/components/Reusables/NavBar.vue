@@ -83,15 +83,15 @@ export default {
             this.profile = !this.profile
         },
         logout(): void {
-            // signOut(auth)
-            //     .then(() => {
-            //         window.sessionStorage.clear()
-            //         alert('You have been logged out')
-            //         location.reload()
-            //     })
-            //     .catch((error) => {
-            //         alert(`Sign Out Error: ${error}`)
-            //     })
+            signOut(auth)
+                .then(() => {
+                    window.sessionStorage.clear()
+                    alert('You have been logged out')
+                    location.reload()
+                })
+                .catch((error) => {
+                    alert(`Sign Out Error: ${error}`)
+                })
         },
         openlogin(): void {
             this.showModal()
@@ -103,26 +103,26 @@ export default {
         },
         createUser(data: EmailCreateData): void {
             // once user is created it will auto log in
-            // createUserWithEmailAndPassword(auth, data.email, data.password)
-            //     .then((userCredential) => {
-            //         userService.createUserFromEmail(userCredential.user.uid, data.name)
-            //         this.showModal()
-            //     })
-            //     .catch((error) => {
-            //         console.log(error)
-            //     })
+            createUserWithEmailAndPassword(auth, data.email, data.password)
+                .then((userCredential) => {
+                    userService.createUserFromEmail(userCredential.user.uid, data.name)
+                    this.showModal()
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         },
         loginUser(data: EmailLoginData) {
-            // signInWithEmailAndPassword(auth, data.email, data.password)
-            //     .then((userCredential) => {
-            //         this.closelogin()
-            //         // then we retrieve the favourites from the user entity 
-            //         const userId = userCredential.user.uid
-            //         this.getBookmarks(userId)
-            //     })
-            //     .catch((error) => {
-            //         console.log(error)
-            //     })
+            signInWithEmailAndPassword(auth, data.email, data.password)
+                .then((userCredential) => {
+                    this.closelogin()
+                    // then we retrieve the favourites from the user entity 
+                    const userId = userCredential.user.uid
+                    this.getBookmarks(userId)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         },
         getBookmarks: async function (userId: string): Promise<void> {
             this.userBookmarks = await userService.getBookmarks(userId)
