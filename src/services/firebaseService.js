@@ -56,4 +56,22 @@ export class FirebaseService {
             }
         });
     }
+    updateRating(bid, uid, name, rating, review, datetime) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updateRatingUrl = this.businessUrl + '/' + bid + '/ratings/' + uid + '.json';
+            const tempRatingEntity = {
+                name: name,
+                ratingscore: rating,
+                reviewtext: review,
+                datetime: datetime,
+            };
+            try {
+                let res = yield axios.put(updateRatingUrl, tempRatingEntity);
+                console.log(res);
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
 }

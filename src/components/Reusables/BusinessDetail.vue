@@ -55,6 +55,11 @@ export default defineComponent({
             this.findSum()
         }
     },
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.getUser
+        }
+    },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
             this.businessData = await firebaseService.getDataByID(
@@ -110,6 +115,11 @@ export default defineComponent({
                 this.rating_obj[value['ratingscore'] - 1] += 1
             }
         },
+        submitRating() {
+            const user = this.$store.getters.getUser.multiFactor.user
+            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value + 1, this.final_review, Date.now())
+            location.reload()
+        }
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },
 })
@@ -231,7 +241,7 @@ export default defineComponent({
                             </div>
                         </div>
                         <!-- Ratings -->
-                        <div v-if="Object.keys(businessData.ratings).length > 0" class="pt-4 pb-4 border-b">
+                        <div v-if="businessData.ratings !== undefined" class="pt-4 pb-4 border-b">
                             <div class="flex flex-col md:flex-row">
                                 <div
                                     class="flex flex-col justify-center items-baseline md:items-center pb-4 md:pb-0">
@@ -286,7 +296,7 @@ export default defineComponent({
                         </div>
                         <!-- Reviews -->
                         <div class="flex text-left flex-col pt-4 pb-4">
-                            <div v-if="Object.keys(businessData.ratings).length > 0">
+                            <div v-if="businessData.ratings !== undefined">
                                 <h1
                                     class="text-gray-900 dark:text-white text-2xl font-semibold pb-4">
                                     Reviews ({{
@@ -309,8 +319,14 @@ export default defineComponent({
                                     class="w-full rounded-2xl border-2 border-gray-100 p-8">
                                     <div class="flex flex-col items-center">
                                         <h3
-                                            class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight">
+                                            class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
+                                            v-if="businessData.ratings === undefined">
                                             Be the first to leave a review!
+                                        </h3>
+                                        <h3
+                                            class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
+                                            v-else>
+                                            Leave your review now!
                                         </h3>
                                         <div class="flex items-center">
                                             <div class="flex items-center">
@@ -352,7 +368,9 @@ export default defineComponent({
                                                 class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
                                             <button
                                                 type="submit"
-                                                class="w-full md:w-auto rounded bg-emerald-500 px-10 py-4 font-bold text-white">
+                                                class="w-full md:w-auto rounded bg-emerald-500 px-10 py-4 font-bold text-white"
+                                                :disabled="!isLoggedIn"
+                                                @click="submitRating">
                                                 Submit
                                             </button>
                                         </div>
