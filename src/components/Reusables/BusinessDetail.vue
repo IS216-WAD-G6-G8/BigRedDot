@@ -9,9 +9,11 @@ import SwiperCore, { Navigation, Pagination, A11y } from 'swiper'
 import 'swiper/swiper.min.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { useToast } from 'vue-toastification'
 
 SwiperCore.use([Navigation, Pagination, A11y])
 const firebaseService = new FirebaseService()
+const toast = useToast()
 
 export default defineComponent({
     name: 'BusinessDetail',
@@ -53,6 +55,13 @@ export default defineComponent({
         if (Object.keys(this.businessData.ratings).length > 0) {
             this.getRating()
             this.findSum()
+        }
+
+        const { search } = window.location
+        const updated = (new URLSearchParams(search)).get('updated')
+        if (updated === '1') {
+            toast.success("Review added successfully.", { timeout: 5000 })
+            console.log('toast')
         }
     },
     computed: {
@@ -118,7 +127,6 @@ export default defineComponent({
         submitRating() {
             const user = this.$store.getters.getUser.multiFactor.user
             firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value + 1, this.final_review, Date.now())
-            location.reload()
         }
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },

@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import axios from 'axios';
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 export class FirebaseService {
     constructor() {
         this.baseUrl =
@@ -68,8 +70,15 @@ export class FirebaseService {
             try {
                 let res = yield axios.put(updateRatingUrl, tempRatingEntity);
                 console.log(res);
+                if (res.status === 200) {
+                    toast.success('Review added successfully!', { timeout: 5000 });
+                }
+                window.location.href = window.location.pathname + '?updated=1';
             }
             catch (err) {
+                toast.error('Unable to add review, try again later.', {
+                    timeout: 5000,
+                });
                 throw err;
             }
         });
