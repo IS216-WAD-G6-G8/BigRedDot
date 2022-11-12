@@ -46,6 +46,7 @@ export default defineComponent({
             final_review: '',
             rating_obj: { 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 },
             rating_sum: 0,
+            error: false,
         }
     },
     beforeMount() {
@@ -58,16 +59,16 @@ export default defineComponent({
         }
 
         const { search } = window.location
-        const updated = (new URLSearchParams(search)).get('updated')
+        const updated = new URLSearchParams(search).get('updated')
         if (updated === '1') {
-            toast.success("Review added successfully.", { timeout: 5000 })
+            toast.success('Review added successfully.', { timeout: 5000 })
             console.log('toast')
         }
     },
     computed: {
         isLoggedIn() {
             return this.$store.getters.getUser
-        }
+        },
     },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
@@ -125,9 +126,21 @@ export default defineComponent({
             }
         },
         submitRating() {
-            const user = this.$store.getters.getUser.multiFactor.user
-            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value + 1, this.final_review, Date.now())
-        }
+            if (!this.isLoggedIn) {
+                this.error = true
+            } else {
+                this.error = false
+                const user = this.$store.getters.getUser.multiFactor.user
+                firebaseService.updateRating(
+                    this.business_id - 1,
+                    user.uid,
+                    user.displayName,
+                    this.final_value + 1,
+                    this.final_review,
+                    Date.now()
+                )
+            }
+        },
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },
 })
@@ -177,7 +190,7 @@ export default defineComponent({
             </div>
             <!-- Name + Desc -->
             <div
-                class="flex flex-col md:flex-row mt-6 pb-10 md:gap-12 px-10 lg:px-14 bg-white dark:bg-slate-900">
+                class="flex flex-col md:flex-row mt-6 pb-10 md:gap-12 px-5 md:px-10 lg:px-14 bg-white dark:bg-slate-900">
                 <div class="w-full md:w-3/4 flex flex-col items-start">
                     <h1
                         class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
@@ -249,7 +262,9 @@ export default defineComponent({
                             </div>
                         </div>
                         <!-- Ratings -->
-                        <div v-if="businessData.ratings !== undefined" class="pt-4 pb-4 border-b">
+                        <div
+                            v-if="businessData.ratings !== undefined"
+                            class="pt-4 pb-4 border-b">
                             <div class="flex flex-col md:flex-row">
                                 <div
                                     class="flex flex-col justify-center items-baseline md:items-center pb-4 md:pb-0">
@@ -328,7 +343,10 @@ export default defineComponent({
                                     <div class="flex flex-col items-center">
                                         <h3
                                             class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
-                                            v-if="businessData.ratings === undefined">
+                                            v-if="
+                                                businessData.ratings ===
+                                                undefined
+                                            ">
                                             Be the first to leave a review!
                                         </h3>
                                         <h3
@@ -368,16 +386,34 @@ export default defineComponent({
                                             <label
                                                 for="large-input"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
-                                            <input
+                                            <textarea
                                                 v-model="final_review"
                                                 placeholder="Leave your review"
                                                 type="text"
                                                 id="large-input"
-                                                class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
+                                                wrap="soft"
+                                                class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"></textarea>
+                                            <div v-if="error"
+                                                class="flex w-full mt-2 mb-4 text-sm text-red-700 rounded-lg"
+                                                role="alert">
+                                                <svg
+                                                    aria-hidden="true"
+                                                    class="flex-shrink-0 inline w-5 h-5 mr-1"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        fill-rule="evenodd"
+                                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                <div>
+                                                    Please sign up or sign in to leave a review!
+                                                </div>
+                                            </div>
                                             <button
                                                 type="submit"
                                                 class="w-full md:w-auto rounded bg-emerald-500 px-10 py-4 font-bold text-white"
-                                                :disabled="!isLoggedIn"
                                                 @click="submitRating">
                                                 Submit
                                             </button>
@@ -390,7 +426,7 @@ export default defineComponent({
                 </div>
                 <div class="w-full md:relative md:block md:w-1/4 md:ml-4">
                     <div
-                        class="sticky top-12 max-w-sm rounded-2xl border overflow-hidden">
+                        class="sticky top-12 md:max-w-sm rounded-2xl border overflow-hidden">
                         <div class="px-6 py-4">
                             <div
                                 class="text-gray-900 dark:text-white text-base flex flex-col">
@@ -406,12 +442,22 @@ export default defineComponent({
                                             class="w-[35px] mb-3 lg:mb-0"
                                             :src="elem.url" />
                                         <div
-                                            class="text-xs text-left lg:text-sm pl-3 break-all md:text-center lg:text-left text-gray-900 dark:text-white font-semibold">
+                                            v-if="
+                                                businessData.socialmedia[
+                                                    elem.name
+                                                ] !== 'null'
+                                            "
+                                            class="text-xs text-left lg:text-sm pl-3 md:pl-0 lg:pl-3 break-all md:text-center lg:text-left text-gray-900 dark:text-white font-semibold">
                                             {{
                                                 businessData.socialmedia[
                                                     elem.name
                                                 ]
                                             }}
+                                        </div>
+                                        <div
+                                            v-else
+                                            class="text-xs text-left lg:text-sm pl-3 md:pl-0 lg:pl-3 break-all md:text-center lg:text-left text-gray-900 dark:text-white font-semibold">
+                                            Not Stated
                                         </div>
                                     </div>
                                 </div>
