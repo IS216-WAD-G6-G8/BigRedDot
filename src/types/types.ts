@@ -52,12 +52,13 @@ export interface Category {
     url: string
 }
 
-interface Rating {
+export interface Rating {
     name: string
     ratingscore: number
     reviewtext: string
+    datetime: number
 }
 
-interface RatingData {
+export interface RatingData {
     [key: string]: Rating
 }
