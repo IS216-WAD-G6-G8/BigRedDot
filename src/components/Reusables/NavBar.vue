@@ -95,14 +95,14 @@ export default {
             this.profile = !this.profile
         },
         logout(): void {
-            // signOut(auth)
-            //     .then(() => {
-            //         window.sessionStorage.clear()
-            //         window.location.href = window.location.pathname + '?loggedOut=1'
-            //     })
-            //     .catch((error) => {
-            //         toast.error("Unable to sign out, please try again.", { timeout: 5000 })
-            //     })
+            signOut(auth)
+                .then(() => {
+                    window.sessionStorage.clear()
+                    window.location.href = window.location.pathname + '?loggedOut=1'
+                })
+                .catch((error) => {
+                    toast.error("Unable to sign out, please try again.", { timeout: 5000 })
+                })
         },
         openlogin(): void {
             this.showModal()
@@ -114,34 +114,34 @@ export default {
         },
         createUser(data: EmailCreateData): void {
             // once user is created it will auto log in
-            // createUserWithEmailAndPassword(auth, data.email, data.password)
-            //     .then((userCredential) => {
-            //         userService.createUserFromEmail(userCredential.user.uid, data.name)
-            //         var user = firebase.auth().currentUser
-            //         user.updateProfile({
-            //             displayName: data.name
-            //         })
-            //         this.showModal()
-            //         toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
-            //     })
-            //     .catch((error) => {
-            //         console.log(error)
-            //         toast.error("Error! Account not created.", { timeout: 5000 })
-            //     })
+            createUserWithEmailAndPassword(auth, data.email, data.password)
+                .then((userCredential) => {
+                    userService.createUserFromEmail(userCredential.user.uid, data.name)
+                    var user = firebase.auth().currentUser
+                    user.updateProfile({
+                        displayName: data.name
+                    })
+                    this.showModal()
+                    toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
+                })
+                .catch((error) => {
+                    console.log(error)
+                    toast.error("Error! Account not created.", { timeout: 5000 })
+                })
         },
         loginUser(data: EmailLoginData) {
-            // signInWithEmailAndPassword(auth, data.email, data.password)
-            //     .then((userCredential) => {
-            //         this.closelogin()
-            //         // then we retrieve the favourites from the user entity 
-            //         const userId = userCredential.user.uid
-            //         this.getBookmarks(userId)
-            //         toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
-            //     })
-            //     .catch((error) => {
-            //         console.log(error)
-            //         toast.error("Error! Unable to sign in!", { timeout: 5000 })
-            //     })
+            signInWithEmailAndPassword(auth, data.email, data.password)
+                .then((userCredential) => {
+                    this.closelogin()
+                    // then we retrieve the favourites from the user entity 
+                    const userId = userCredential.user.uid
+                    this.getBookmarks(userId)
+                    toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
+                })
+                .catch((error) => {
+                    console.log(error)
+                    toast.error("Error! Unable to sign in!", { timeout: 5000 })
+                })
         },
         getBookmarks: async function (userId: string): Promise<void> {
             this.userBookmarks = await userService.getBookmarks(userId)
