@@ -1,4 +1,5 @@
 <script lang="ts">
+import { submit } from 'dom7'
 import { DeliveryOptionsEnum } from '../../types/types'
 
 export default {
@@ -14,36 +15,42 @@ export default {
             price_range: ['$', '$$', '$$$'] as string[],
             deliveryOptions: DeliveryOptionsEnum,
             selected_price: '' as string,
-            selected_rating: '' as string
+            selected_rating: '' as string,
+            selected_mode: [] as Array<string>,
         }
     },
     methods: {
         close(): void {
             this.$emit('close')
         },
-        setNewRange(): void {
-            if (this.max < this.min) {
-                let temp = this.max
-                this.max = this.min
-                this.min = temp
-            }
-        },
-        checkPrice(input: MouseEvent): void {
-            const target = input.target as HTMLButtonElement
-            if (this.selected_price == target.value) {
+        checkPrice(price): void {
+            if (this.selected_price.length == price) {
                 this.selected_price = ''
             } else {
-                this.selected_price = target.value
+                this.selected_price = price.length
             }
-            console.log(this.selected_price)
         },
-        checkRating(input: MouseEvent): void {
-            const target = input.target as HTMLButtonElement
-            if (this.selected_rating == target.value) {
+        checkRating(star): void {
+            if (this.selected_rating == star) {
                 this.selected_rating = ''
             } else {
-                this.selected_rating = target.value
+                this.selected_rating = star
             }
+        },
+        checkMode(mode): void {
+            if (!this.selected_mode.includes(mode)) {
+                this.selected_mode.push(mode)
+                console.log(this.selected_mode)
+            } else {
+                var index = this.selected_mode.indexOf(mode)
+                if (index !== -1) {
+                    this.selected_mode.splice(index, 1)
+                }
+                console.log(this.selected_mode)
+            }
+        },
+        submit(): void {
+            close()
         },
     },
 }
@@ -71,7 +78,7 @@ export default {
                     <div class="w-full md:w-auto" v-for="price in price_range">
                         <button
                             :value="price"
-                            @click="checkPrice($event)"
+                            @click="checkPrice(price)"
                             class="w-full md:w-auto md:min-w-[115px] hover:bg-gray-50 font-semibold focus:outline-none py-2 px-5 rounded-lg border-2 border-gray-200 cursor-pointer"
                             :class="{
                                 'bg-transparent border-blue-500':
@@ -92,11 +99,11 @@ export default {
                     <li>
                         <input
                             type="checkbox"
-                            id="react-option"
-                            value=""
+                            id="physical"
                             class="hidden peer" />
                         <label
-                            for="react-option"
+                            @click="checkMode('physical')"
+                            for="physical"
                             class="inline-flex justify-between items-center text-gray-500 px-7 py-3 w-full bg-white rounded-lg border-2 border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-gray-700 hover:bg-gray-50">
                             <div class="block">
                                 <div class="w-full text-lg font-semibold">
@@ -111,11 +118,11 @@ export default {
                     <li>
                         <input
                             type="checkbox"
-                            id="flowbite-option"
-                            value=""
+                            id="online"
                             class="hidden peer" />
                         <label
-                            for="flowbite-option"
+                            @click="checkMode('online')"
+                            for="online"
                             class="inline-flex justify-between items-center text-gray-500 px-7 py-3 w-full bg-white rounded-lg border-2 border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-gray-700 hover:bg-gray-50">
                             <div class="block">
                                 <div class="w-full text-lg font-semibold">
@@ -137,7 +144,7 @@ export default {
                     <div class="w-full md:w-auto" v-for="star in stars">
                         <button
                             :value="star"
-                            @click="checkRating($event)"
+                            @click="checkRating(star)"
                             class="flex items-center w-full md:w-auto md:min-w-[60px] hover:bg-gray-50 font-semibold focus:outline-none py-2 px-5 rounded-lg border-2 border-gray-200 cursor-pointer"
                             :class="{
                                 'bg-transparent border-blue-500':
@@ -145,7 +152,10 @@ export default {
                                 'bg-transparent text-gray-500 ':
                                     star !== selected_rating,
                             }">
-                            {{ star }}<span><img class="ml-4" src="/assets/star.svg"/></span>
+                            {{ star
+                            }}<span
+                                ><img class="ml-4" src="/assets/star.svg"
+                            /></span>
                         </button>
                     </div>
                 </div>
@@ -153,7 +163,7 @@ export default {
             <!-- search -->
             <div class="my-10 text-center px-12">
                 <button
-                    @click="close"
+                    @click="submit()"
                     id="searchBtn"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded w-full">
                     Search
