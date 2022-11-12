@@ -7,9 +7,11 @@ import 'swiper/swiper.min.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { UserService } from '../../services/userService'
+import { FirebaseService } from '../../services/firebaseService'
 
 SwiperCore.use([Navigation, Pagination, A11y])
 const userService = new UserService()
+const firebaseService = new FirebaseService()
 
 export default {
     name: 'BusinessCard',
@@ -30,6 +32,7 @@ export default {
                 type: 'bullets',
             },
             bookmark_list: Object,
+            rating: 0
         }
     },
     components: {
@@ -53,6 +56,9 @@ export default {
             }
         },
     },
+    created(){
+        this.findSum()
+    },
     methods: {
         addFav(): void {
             const business_id = this.data.id
@@ -70,6 +76,22 @@ export default {
             }
             // lazy method of updating, will improve if time permits
             this.$store.dispatch('commitUserBookmarks', bookmarksArray)
+        },
+        async findSum() {
+            var indiv_business: Business = await this.getDataByID(this.data.id)
+            var sum = 0
+            var counter = 0
+            for (let [key, value] of Object.entries(indiv_business.ratings)) {
+                sum += value.ratingscore
+                counter ++
+            }
+            this.rating = (sum/counter).toFixed(2)
+        },
+        getDataByID: async function (
+            business_id: String
+        ): Promise<void | Business[]> {
+            const res = await firebaseService.getDataByID(Number(business_id))
+            return res
         },
     },
 }
@@ -113,9 +135,9 @@ export default {
                         <div
                             class="mb-4 flex justify-between text-l text-left font-bold tracking-tight text-gray-900 dark:text-white">
                             <span>{{ this.data.name }}</span>
-                            <div class="text-right flex">
-                                <img class="pr-3" src="/assets/star.svg" />
-                                <span>{{ this.data.ratingdata }}</span>
+                            <div class="text-right flex items-center">
+                                <img class="pr-2" src="/assets/star.svg" />
+                                <span>{{ rating }}</span>
                                 <div></div>
                             </div>
                         </div>

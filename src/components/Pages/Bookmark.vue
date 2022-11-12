@@ -76,7 +76,6 @@ export default {
                 tempArr.push(await this.getDataByID(value))
             }
             this.business_list = tempArr
-            console.log(this.business_list)
         },
         getDataByID: async function (
             business_id: String
@@ -104,77 +103,84 @@ export default {
                         My Favourite
                     </div>
                 </div>
-                <!-- <div class="flex items-center px-3 flex-1">
-                    <button
-                        id="cat_button"
-                        class="bg-white mr-5 flex flex-col items-center border-solid border-2 hover:border-blue-700 focus:border-blue-700 border-blue-400 rounded-2xl">
-                        <span class="text-xs text-gray-700 md:text-sm">
-                            all
-                        </span>
-                    </button>
-                    <div v-for="category in categories">
-                        <button
-                            id="cat_button"
-                            class="bg-white mr-5 flex flex-col items-center border-solid border-2 hover:border-blue-700 focus:border-blue-700 border-blue-400 rounded-2xl">
-                            <span class="text-xs text-gray-700 md:text-sm">{{
-                                category.name
-                            }}</span>
-                        </button>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div class="bg-white h-screen dark:bg-slate-900 w-full">
-            <div
-                v-for="(business, index) in business_list"
-                class="w-full bg-white dark:bg-slate-900 px-8 lg:px-16 py-5 flex flex-col md:flex-row justify-center p-3 border-gray-300"
-                :class="{
-                    'border-b': Number(index) !== business_list.length - 1,
-                }">
-                <RouterLink
-                    class="flex flex-col md:flex-row flex-1"
-                    :to="{
-                        name: 'BusinessDetail',
-                        params: { business_id: business['id'] },
+            <template v-if="this.$store.getters.getUserBookmarks.length > 0">
+                <div
+                    v-for="(business, index) in business_list"
+                    class="w-full bg-white dark:bg-slate-900 px-8 lg:px-16 py-5 flex flex-col md:flex-row justify-center p-3 border-gray-300"
+                    :class="{
+                        'border-b': Number(index) !== business_list.length - 1,
                     }">
-                    <img
-                        class="m-3 rounded-2xl flex-initial basis-1/4 max-w-none md:w-14 min-h-[200px] max-h-52 object-cover"
-                        :src="business['images'][0]" />
-                    <div
-                        class="p-4 w-full text-left flex-col self-center justify-between leading-normal">
-                        <div class="mb-4 flex text-left justify-between">
-                            <div class="flex-wrap flex">
-                                <div
-                                    class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
-                                    {{ business['category'] }}
+                    <RouterLink
+                        class="flex flex-col md:flex-row flex-1"
+                        :to="{
+                            name: 'BusinessDetail',
+                            params: { business_id: business['id'] },
+                        }">
+                        <img
+                            class="m-3 rounded-2xl flex-initial basis-1/4 max-w-none md:w-14 min-h-[200px] max-h-52 object-cover"
+                            :src="business['images'][0]" />
+                        <div
+                            class="p-4 w-full text-left flex-col self-center justify-between leading-normal">
+                            <div class="mb-4 flex text-left justify-between">
+                                <div class="flex-wrap flex">
+                                    <div
+                                        class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
+                                        {{ business['category'] }}
+                                    </div>
+                                    <div
+                                        class="inline py-1 px-3 text-xs border-solid border-2 border-rose-300 rounded-2xl text-gray-700 dark:text-white">
+                                        {{ business['mode'] }}
+                                    </div>
                                 </div>
+                                <img
+                                    @click="addFav(business['id'])"
+                                    class="block md:hidden w-[20px]"
+                                    :src="imageSource" />
+                            </div>
+                            <div class="mb-8">
+                                <p
+                                    class="text-sm text-gray-600 flex items-center"></p>
                                 <div
-                                    class="inline py-1 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
-                                    {{ business['mode'] }}
+                                    class="text-gray-900 font-bold text-xl mb-2">
+                                    {{ business['name'] }}
                                 </div>
+                                <p
+                                    class="text-gray-700 dark:text-white text-base">
+                                    {{ business['description'] }}
+                                </p>
                             </div>
-                            <img
-                                @click="addFav(business['id'])"
-                                class="block md:hidden w-[20px]"
-                                :src="imageSource"/>
                         </div>
-                        <div class="mb-8">
-                            <p
-                                class="text-sm text-gray-600 flex items-center"></p>
-                            <div class="text-gray-900 font-bold text-xl mb-2">
-                                {{ business['name'] }}
-                            </div>
-                            <p class="text-gray-700 dark:text-white text-base">
-                                {{ business['description'] }}
-                            </p>
-                        </div>
+                    </RouterLink>
+                    <div>
+                        <img
+                            @click="addFav(business['id'])"
+                            class="hidden md:block w-[30px] pt-10"
+                            :src="imageSource" />
                     </div>
-                </RouterLink>
-                <div>
-                    <img
-                        @click="addFav(business['id'])"
-                        class="hidden md:block w-[30px] pt-10"
-                        :src="imageSource" />
+                </div>
+            </template>
+            <div
+                class="bg-white dark:bg-slate-900 flex flex-col items-center"
+                v-else>
+                <img
+                    v-if="!this.$store.getters.getDarkMode"
+                    class="min-w-[25rem]"
+                    src="/assets/shop_placeholder.svg" />
+                <img
+                    v-else
+                    class="min-w-[25rem]"
+                    src="/assets/shopdark_placeholder.svg" />
+                <div
+                    class="font-bold mb-5 text-sm md:text-xl text-gray-700 dark:text-gray-200">
+                    Nothing Saved Yet
+                </div>
+                <div class="w-96 font-normal text-gray-700 dark:text-gray-200">
+                    When you find something you like, click the heart icon to
+                    save it. Share with your friends your favourite bookmarked
+                    businesses!
                 </div>
             </div>
         </div>
