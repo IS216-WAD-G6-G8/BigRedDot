@@ -165,9 +165,9 @@ export default {
                 <router-link to="/Home" class="flex">
                     <a class="flex items-center md:px-3">
                         <img
-                            src="https://flowbite.com/docs/images/logo.svg"
-                            class="mr-3 h-6 sm:h-9"
-                            alt="Flowbite Logo" />
+                            src="/assets/logo.png"
+                            class="mr-3 h-8 sm:h-9"
+                            alt="BigRedDot Logo" />
                         <span
                             class="self-center text-xl font-semibold whitespace-nowrap text-gray-500 dark:text-white">
                             BigRedDot

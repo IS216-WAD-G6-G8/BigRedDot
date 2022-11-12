@@ -1,17 +1,15 @@
 <script lang="ts">
-import { Category } from '../../types/types';
-
 export default {
     name: 'LandingCategory',
     data() {
         return {
             categories: [
-                { name: 'services', url: '/assets/services.jpg' },
-                { name: 'fnb', url: '/assets/f&b.jpg' },
-                { name: 'fashion', url: '/assets/fashion.jpg' },
-                { name: 'crafts', url: '/assets/crafts.jpg' },
-                { name: 'experiences', url: '/assets/experiences.jpeg' },
-            ] as Category[],
+                { name: 'services', url: '/assets/services.jpg', text: 'Manicure & massage & hairstyling'},
+                { name: 'fnb', url: '/assets/f&b.jpg', text: 'Our favourite local brand desserts' },
+                { name: 'fashion', url: '/assets/fashion.jpg', text: 'Dress up Fashion up'},
+                { name: 'crafts', url: '/assets/crafts.jpg', text: 'Find your favourite handicrafts here' },
+                { name: 'experiences', url: '/assets/experiences.jpeg', text: 'Time to experience some thrills' },
+            ],
         }
     },
     methods: {
@@ -23,14 +21,29 @@ export default {
 </script>
 
 <template>
-    <div class="relative carousel_container">
+    <div class="absolute top-8 left-12 z-50">
+        <div class="flex items-center md:px-3">
+            <img
+                src="/assets/logo.png"
+                class="mr-3 h-8 sm:h-9"
+                alt="BigRedDot Logo" />
+            <span
+                class="self-center text-xl font-semibold whitespace-nowrap text-white">
+                BigRedDot
+            </span>
+        </div>
+    </div>
+    <div class="carousel_container">
         <div v-for="category of categories" class="carousel_box">
-            <button 
+            <button
                 @click="
                     this.$store.dispatch('commitCat', category.name),
                         routePage()
                 ">
-                <p class="carousel_text">{{ category.name }}</p>
+                <p class="carousel_text">
+                    <div>{{ category.name }}</div>
+                    <div class="pt-4 text-lg font-light">{{category.text}}</div>
+                </p>
                 <img class="carousel_img" :src="category.url" />
             </button>
         </div>
