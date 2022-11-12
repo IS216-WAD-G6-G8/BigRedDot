@@ -34,9 +34,9 @@ export default {
                 <div class="flex items-center md:px-3">
                     <a>
                         <img
-                            src="https://flowbite.com/docs/images/logo.svg"
+                            src="/assets/logo.png"
                             class="mr-3 h-6 sm:h-9"
-                            alt="Flowbite Logo" />
+                            alt="BigRedDot Logo" />
                     </a>
                     <h1
                         class="text-xl font-semibold whitespace-nowrap text-gray-500 dark:text-white">
