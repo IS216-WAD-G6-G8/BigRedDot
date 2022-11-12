@@ -57,7 +57,7 @@ export default {
                         <RouterLink to="/MyList">
                             <button
                                 type="button"
-                                class="w-full border mb-4 border-gray-400 text-gray-700 dark:text-gray-400 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none focus:outline-none focus:shadow-outline">
+                                class="w-full border mb-4 border-gray-400 text-gray-700 dark:text-gray-400 rounded-md px-4 py-2 transition duration-500 ease select-none focus:outline-none focus:shadow-outline">
                                 BOOKMARKED BUSINESSES
                         </button>
                         </RouterLink>
