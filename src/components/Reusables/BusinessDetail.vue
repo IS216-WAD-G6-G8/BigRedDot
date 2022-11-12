@@ -380,12 +380,13 @@ export default defineComponent({
                                             <label
                                                 for="large-input"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
-                                            <input
+                                            <textarea
                                                 v-model="final_review"
                                                 placeholder="Leave your review"
                                                 type="text"
                                                 id="large-input"
-                                                class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" />
+                                                wrap="soft"
+                                                class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"></textarea>
                                             <button
                                                 type="submit"
                                                 class="w-full md:w-auto rounded bg-emerald-500 px-10 py-4 font-bold text-white"
