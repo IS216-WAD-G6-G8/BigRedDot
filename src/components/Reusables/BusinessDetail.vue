@@ -46,6 +46,7 @@ export default defineComponent({
             final_review: '',
             rating_obj: { 4: 0, 3: 0, 2: 0, 1: 0, 0: 0 },
             rating_sum: 0,
+            error: false,
         }
     },
     beforeMount() {
@@ -125,15 +126,20 @@ export default defineComponent({
             }
         },
         submitRating() {
-            const user = this.$store.getters.getUser.multiFactor.user
-            firebaseService.updateRating(
-                this.business_id - 1,
-                user.uid,
-                user.displayName,
-                this.final_value + 1,
-                this.final_review,
-                Date.now()
-            )
+            if (!this.isLoggedIn) {
+                this.error = true
+            } else {
+                this.error = false
+                const user = this.$store.getters.getUser.multiFactor.user
+                firebaseService.updateRating(
+                    this.business_id - 1,
+                    user.uid,
+                    user.displayName,
+                    this.final_value + 1,
+                    this.final_review,
+                    Date.now()
+                )
+            }
         },
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },
@@ -387,10 +393,27 @@ export default defineComponent({
                                                 id="large-input"
                                                 wrap="soft"
                                                 class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"></textarea>
+                                            <div v-if="error"
+                                                class="flex w-full mt-2 mb-4 text-sm text-red-700 rounded-lg"
+                                                role="alert">
+                                                <svg
+                                                    aria-hidden="true"
+                                                    class="flex-shrink-0 inline w-5 h-5 mr-1"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        fill-rule="evenodd"
+                                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                <div>
+                                                    Please sign up or sign in to leave a review!
+                                                </div>
+                                            </div>
                                             <button
                                                 type="submit"
                                                 class="w-full md:w-auto rounded bg-emerald-500 px-10 py-4 font-bold text-white"
-                                                :disabled="!isLoggedIn"
                                                 @click="submitRating">
                                                 Submit
                                             </button>
