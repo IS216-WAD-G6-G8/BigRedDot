@@ -126,11 +126,11 @@ export default {
                             <div class="mb-4 flex text-left justify-between">
                                 <div class="flex-wrap flex">
                                     <div
-                                        class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
+                                        class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white transition duration-500 ease">
                                         {{ business['category'] }}
                                     </div>
                                     <div
-                                        class="inline py-1 px-3 text-xs border-solid border-2 border-rose-300 rounded-2xl text-gray-700 dark:text-white">
+                                        class="inline py-1 px-3 text-xs border-solid border-2 border-rose-300 rounded-2xl text-gray-700 dark:text-white transition duration-500 ease">
                                         {{ business['mode'] }}
                                     </div>
                                 </div>
@@ -143,11 +143,11 @@ export default {
                                 <p
                                     class="text-sm text-gray-600 flex items-center"></p>
                                 <div
-                                    class="text-gray-900 font-bold text-xl mb-2">
+                                    class="text-gray-900 dark:text-white transition duration-500 ease font-bold text-xl mb-2">
                                     {{ business['name'] }}
                                 </div>
                                 <p
-                                    class="text-gray-700 dark:text-white text-base">
+                                    class="text-gray-700 dark:text-white transition duration-500 ease text-base">
                                     {{ business['description'] }}
                                 </p>
                             </div>

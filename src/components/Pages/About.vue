@@ -74,13 +74,13 @@ export default {
         <div class="initial md:absolute bottom-28 left-20 z-10">
             <div class="md:max-w-sm w-full">
                 <div
-                    class="md:rounded-2xl bg-white p-6 flex flex-col justify-between leading-normal dark:bg-slate-900">
+                    class="md:rounded-2xl bg-white p-6 flex flex-col justify-between leading-normal transition duration-500 ease dark:bg-slate-900">
                     <div class="mb-4">
                         <div
-                            class="text-gray-900 dark:text-white font-bold text-xl mb-2">
+                            class="text-gray-900 dark:text-white transition duration-500 ease font-bold text-xl mb-2">
                             Support Singapore's local businesses
                         </div>
-                        <p class="text-gray-700 dark:text-white text-base">
+                        <p class="text-gray-700 dark:text-white transition duration-500 ease text-base">
                             Tired of the same old big chain stores, and the same old products? Why not shop #SGLocal? Find local businesses near you, offering unique and high-quality products and services that you will love!
                         </p>
                     </div>
@@ -104,11 +104,11 @@ export default {
         <div class="bg-white dark:bg-slate-900 overflow-auto h-screen pb-6 px-10 pt-2 lg:px-14">
             <div id="purpose" class="purpose">
                 <h1
-                    class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
+                    class="text-gray-900 dark:text-white transition duration-500 ease font-bold text-2xl lg:text-4xl pb-2">
                     Why #SGLocal?
                 </h1>
                 <div
-                    class="text-gray-900 dark:text-white text-sm w-full lg:text-lg pb-4">
+                    class="text-gray-900 dark:text-white transition duration-500 ease text-sm w-full lg:text-lg pb-4">
                     Why you should start shopping local today!
                 </div>
                 <div class="flex flex-wrap justify-evenly gap-10 pb-6 md:pb-0">
@@ -120,12 +120,12 @@ export default {
                         <div class="p-5">
                             <a href="#">
                                 <h5
-                                    class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    class="mb-2 text-2xl font-bold tracking-tight transition duration-500 ease text-gray-900 dark:text-white">
                                     {{purpose.title}}
                                 </h5>
                             </a>
                             <p
-                                class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                class="mb-3 font-normal text-gray-700 transition duration-500 ease dark:text-gray-400">
                                 {{purpose.desc}}
                             </p>
                         </div>

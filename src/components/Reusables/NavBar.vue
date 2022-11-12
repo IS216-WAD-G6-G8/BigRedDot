@@ -160,7 +160,7 @@ export default {
 
 <template>
     <div :class="{ dark: this.$store.getters.getDarkMode }" id="app">
-        <nav class="bg-white w-full py-2 px-5 dark:bg-slate-900">
+        <nav class="bg-white w-full py-2 px-5 dark:bg-slate-900 transition duration-200 ease">
             <div class="container flex flex-wrap justify-between mx-auto">
                 <router-link to="/Home" class="flex">
                     <a class="flex items-center md:px-3">
@@ -276,7 +276,7 @@ export default {
                         <li
                             v-if="$store.state.user"
                             class="w-full md:hidden md:w-auto mb-1 md:mb-0">
-                            <router-link to="/About">
+                            <router-link to="/Profile">
                                 <a
                                     class="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-sky-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                     Profile Settings

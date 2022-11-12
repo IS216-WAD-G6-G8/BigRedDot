@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-    <div class="carousel_container">
+    <div class="relative carousel_container">
         <div v-for="category of categories" class="carousel_box">
             <button 
                 @click="

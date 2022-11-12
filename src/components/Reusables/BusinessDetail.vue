@@ -193,11 +193,11 @@ export default defineComponent({
                 class="flex flex-col md:flex-row mt-6 pb-10 md:gap-12 px-5 md:px-10 lg:px-14 bg-white dark:bg-slate-900">
                 <div class="w-full md:w-3/4 flex flex-col items-start">
                     <h1
-                        class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
+                        class="text-gray-900 dark:text-white transition duration-500 ease font-bold text-2xl lg:text-4xl pb-2">
                         {{ businessData.name }}
                     </h1>
                     <div
-                        class="text-gray-900 dark:text-white text-sm border-b pb-4 w-full lg:text-lg text-left">
+                        class="text-gray-900 dark:text-white transition duration-500 ease text-sm border-b pb-4 w-full lg:text-lg text-left">
                         {{ businessData.description }}
                     </div>
                     <!-- Extra information -->
@@ -214,7 +214,7 @@ export default defineComponent({
                                 class="w-[35px]"
                                 src="/assets/categoryIcon.svg" />
                             <div
-                                class="pl-4 text-gray-900 dark:text-white font-semibold">
+                                class="pl-4 text-gray-900 dark:text-white transition duration-500 ease font-semibold">
                                 {{ businessData.mode }}
                             </div>
                         </div>
@@ -230,7 +230,7 @@ export default defineComponent({
                                 class="w-[35px] bg-transparent"
                                 src="/assets/productIcon.svg" />
                             <div
-                                class="pl-4 text-gray-900 dark:text-white font-semibold">
+                                class="pl-4 text-gray-900 dark:text-white transition duration-500 ease font-semibold">
                                 {{ businessData.products }}
                             </div>
                         </div>
@@ -246,17 +246,17 @@ export default defineComponent({
                                 class="w-[35px]"
                                 src="/assets/priceIcon.svg" />
                             <div
-                                class="pl-4 text-gray-900 dark:text-white font-semibold"
+                                class="pl-4 text-gray-900 dark:text-white transition duration-500 ease font-semibold"
                                 v-if="businessData.pricerange == 3">
                                 $100 to $1000
                             </div>
                             <div
-                                class="pl-4 text-gray-900 dark:text-white font-semibold"
+                                class="pl-4 text-gray-900 dark:text-white transition duration-500 ease font-semibold"
                                 v-if="businessData.pricerange == 2">
                                 $10 to $100
                             </div>
                             <div
-                                class="pl-4 text-gray-900 dark:text-white font-semibold"
+                                class="pl-4 text-gray-900 dark:text-white transition duration-500 ease font-semibold"
                                 v-if="businessData.pricerange == 1">
                                 $0 to $10
                             </div>
@@ -273,7 +273,7 @@ export default defineComponent({
                                             class="w-[35px]"
                                             src="/assets/star2.svg" />
                                         <h1
-                                            class="pl-4 md:pl-4 text-gray-900 dark:text-white text-2xl font-semibold flex">
+                                            class="pl-4 md:pl-4 text-gray-900 dark:text-white transition duration-500 ease text-2xl font-semibold flex">
                                             Overall Ratings
                                         </h1>
                                     </div>
@@ -321,7 +321,7 @@ export default defineComponent({
                         <div class="flex text-left flex-col pt-4 pb-4">
                             <div v-if="businessData.ratings !== undefined">
                                 <h1
-                                    class="text-gray-900 dark:text-white text-2xl font-semibold pb-4">
+                                    class="text-gray-900 dark:text-white transition duration-500 ease text-2xl font-semibold pb-4">
                                     Reviews ({{
                                         Object.keys(businessData.ratings)
                                             .length
@@ -332,7 +332,7 @@ export default defineComponent({
                             </div>
                             <div v-else>
                                 <h1
-                                    class="text-gray-900 dark:text-white text-2xl font-semibold pb-4">
+                                    class="text-gray-900 dark:text-white transition duration-500 ease text-2xl font-semibold pb-4">
                                     No Reviews (yet)
                                 </h1>
                             </div>
@@ -342,7 +342,7 @@ export default defineComponent({
                                     class="w-full rounded-2xl border-2 border-gray-100 p-8">
                                     <div class="flex flex-col items-center">
                                         <h3
-                                            class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
+                                            class="text-gray-900 dark:text-white transition duration-500 ease max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
                                             v-if="
                                                 businessData.ratings ===
                                                 undefined
@@ -350,7 +350,7 @@ export default defineComponent({
                                             Be the first to leave a review!
                                         </h3>
                                         <h3
-                                            class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
+                                            class="text-gray-900 dark:text-white transition duration-500 ease max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
                                             v-else>
                                             Leave your review now!
                                         </h3>
@@ -385,14 +385,14 @@ export default defineComponent({
                                             class="w-full flex flex-col items-end">
                                             <label
                                                 for="large-input"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"></label>
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 transition duration-500 ease"></label>
                                             <textarea
                                                 v-model="final_review"
                                                 placeholder="Leave your review"
                                                 type="text"
                                                 id="large-input"
                                                 wrap="soft"
-                                                class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"></textarea>
+                                                class="block focus-visible:outline-0 mb-4 md:min-h-[8rem] p-4 w-full text-gray-900 transition duration-500 ease bg-gray-50 rounded-lg border border-gray-300 sm:text-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"></textarea>
                                             <div v-if="error"
                                                 class="flex w-full mt-2 mb-4 text-sm text-red-700 rounded-lg"
                                                 role="alert">
