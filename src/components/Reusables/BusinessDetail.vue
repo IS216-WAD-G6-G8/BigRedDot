@@ -77,6 +77,7 @@ export default defineComponent({
         },
         findPercentage(input): string {
             var percent = (input / this.rating_sum) * 100
+            console.log(percent)
             return 'width: ' + percent + '%'
         },
         findSum() {
