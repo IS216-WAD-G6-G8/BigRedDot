@@ -26,16 +26,16 @@ export default {
             </div>
             <div class="flex items-center">
                 <div v-for="index in elem['ratingscore']">
-                <img class="w-5 h-5" src="/assets/star2.svg"/>
+                <img class="w-3 h-3 md:w-5 md:h-5" src="/assets/star2.svg"/>
             </div>
             <div v-for="index in (5 - elem['ratingscore'])">
-                <img class="w-5 h-5" src="/assets/star_empty.svg"/>
+                <img class="w-3 h-3 md:w-5 md:h-5" src="/assets/star_empty.svg"/>
             </div>
             </div>
             
         </div>
         <div class="flex item-center">
-            <div class="text-gray-700 text-sm dark:text-white font-semibold">{{this.dateString(elem['datetime'])}}</div>
+            <div class="text-gray-700 text-xs md:text-sm dark:text-white">{{this.dateString(elem['datetime'])}}</div>
         </div>
         <div class="mt-5">
             <p class="text-gray-700 dark:text-white">

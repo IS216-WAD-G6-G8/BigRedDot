@@ -58,16 +58,16 @@ export default defineComponent({
         }
 
         const { search } = window.location
-        const updated = (new URLSearchParams(search)).get('updated')
+        const updated = new URLSearchParams(search).get('updated')
         if (updated === '1') {
-            toast.success("Review added successfully.", { timeout: 5000 })
+            toast.success('Review added successfully.', { timeout: 5000 })
             console.log('toast')
         }
     },
     computed: {
         isLoggedIn() {
             return this.$store.getters.getUser
-        }
+        },
     },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
@@ -126,8 +126,15 @@ export default defineComponent({
         },
         submitRating() {
             const user = this.$store.getters.getUser.multiFactor.user
-            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value + 1, this.final_review, Date.now())
-        }
+            firebaseService.updateRating(
+                this.business_id - 1,
+                user.uid,
+                user.displayName,
+                this.final_value + 1,
+                this.final_review,
+                Date.now()
+            )
+        },
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },
 })
@@ -177,7 +184,7 @@ export default defineComponent({
             </div>
             <!-- Name + Desc -->
             <div
-                class="flex flex-col md:flex-row mt-6 pb-10 md:gap-12 px-10 lg:px-14 bg-white dark:bg-slate-900">
+                class="flex flex-col md:flex-row mt-6 pb-10 md:gap-12 px-5 md:px-10 lg:px-14 bg-white dark:bg-slate-900">
                 <div class="w-full md:w-3/4 flex flex-col items-start">
                     <h1
                         class="text-gray-900 dark:text-white font-bold text-2xl lg:text-4xl pb-2">
@@ -249,7 +256,9 @@ export default defineComponent({
                             </div>
                         </div>
                         <!-- Ratings -->
-                        <div v-if="businessData.ratings !== undefined" class="pt-4 pb-4 border-b">
+                        <div
+                            v-if="businessData.ratings !== undefined"
+                            class="pt-4 pb-4 border-b">
                             <div class="flex flex-col md:flex-row">
                                 <div
                                     class="flex flex-col justify-center items-baseline md:items-center pb-4 md:pb-0">
@@ -328,7 +337,10 @@ export default defineComponent({
                                     <div class="flex flex-col items-center">
                                         <h3
                                             class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
-                                            v-if="businessData.ratings === undefined">
+                                            v-if="
+                                                businessData.ratings ===
+                                                undefined
+                                            ">
                                             Be the first to leave a review!
                                         </h3>
                                         <h3
@@ -390,7 +402,7 @@ export default defineComponent({
                 </div>
                 <div class="w-full md:relative md:block md:w-1/4 md:ml-4">
                     <div
-                        class="sticky top-12 max-w-sm rounded-2xl border overflow-hidden">
+                        class="sticky top-12 md:max-w-sm rounded-2xl border overflow-hidden">
                         <div class="px-6 py-4">
                             <div
                                 class="text-gray-900 dark:text-white text-base flex flex-col">
@@ -406,12 +418,22 @@ export default defineComponent({
                                             class="w-[35px] mb-3 lg:mb-0"
                                             :src="elem.url" />
                                         <div
-                                            class="text-xs text-left lg:text-sm pl-3 break-all md:text-center lg:text-left text-gray-900 dark:text-white font-semibold">
+                                            v-if="
+                                                businessData.socialmedia[
+                                                    elem.name
+                                                ] !== 'null'
+                                            "
+                                            class="text-xs text-left lg:text-sm pl-3 md:pl-0 lg:pl-3 break-all md:text-center lg:text-left text-gray-900 dark:text-white font-semibold">
                                             {{
                                                 businessData.socialmedia[
                                                     elem.name
                                                 ]
                                             }}
+                                        </div>
+                                        <div
+                                            v-else
+                                            class="text-xs text-left lg:text-sm pl-3 md:pl-0 lg:pl-3 break-all md:text-center lg:text-left text-gray-900 dark:text-white font-semibold">
+                                            Not Stated
                                         </div>
                                     </div>
                                 </div>
