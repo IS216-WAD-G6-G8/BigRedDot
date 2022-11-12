@@ -117,10 +117,10 @@ export default {
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
                     userService.createUserFromEmail(userCredential.user.uid, data.name)
-
                     var user = firebase.auth().currentUser
-                    user.updateProfile({displayName: data.name})
-
+                    user.updateProfile({
+                        displayName: data.name
+                    })
                     this.showModal()
                     toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
                 })

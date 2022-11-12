@@ -1,5 +1,8 @@
 import axios from 'axios'
 import { Business, CategoryEnum } from '../types/types'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 export class FirebaseService {
     baseUrl: string
@@ -49,6 +52,39 @@ export class FirebaseService {
             let data = res.data
             return data
         } catch (err) {
+            throw err
+        }
+    }
+
+    async updateRating(
+        bid: number,
+        uid: string,
+        name: string,
+        rating: number,
+        review: string,
+        datetime: number
+    ): Promise<void> {
+        const updateRatingUrl =
+            this.businessUrl + '/' + bid + '/ratings/' + uid + '.json'
+
+        const tempRatingEntity = {
+            name: name,
+            ratingscore: rating,
+            reviewtext: review,
+            datetime: datetime,
+        }
+
+        try {
+            let res = await axios.put(updateRatingUrl, tempRatingEntity)
+            console.log(res)
+            if (res.status === 200) {
+                toast.success('Review added successfully!', { timeout: 5000 })
+            }
+            window.location.href = window.location.pathname + '?updated=1'
+        } catch (err) {
+            toast.error('Unable to add review, try again later.', {
+                timeout: 5000,
+            })
             throw err
         }
     }
