@@ -58,16 +58,16 @@ export default defineComponent({
         }
 
         const { search } = window.location
-        const updated = (new URLSearchParams(search)).get('updated')
+        const updated = new URLSearchParams(search).get('updated')
         if (updated === '1') {
-            toast.success("Review added successfully.", { timeout: 5000 })
+            toast.success('Review added successfully.', { timeout: 5000 })
             console.log('toast')
         }
     },
     computed: {
         isLoggedIn() {
             return this.$store.getters.getUser
-        }
+        },
     },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
@@ -76,9 +76,10 @@ export default defineComponent({
             )
         },
         findPercentage(input): string {
-            var percent = (input / this.rating_sum) * 100
-            console.log(percent)
-            return 'width: ' + percent + '%'
+            if (this.rating_sum != 0) {
+                var percent = (input / this.rating_sum) * 100
+                return 'width: ' + percent.toFixed(0) + '%'
+            }
         },
         findSum() {
             for (let [key, value] of Object.entries(this.rating_obj)) {
@@ -127,8 +128,15 @@ export default defineComponent({
         },
         submitRating() {
             const user = this.$store.getters.getUser.multiFactor.user
-            firebaseService.updateRating(this.business_id-1, user.uid, user.displayName, this.final_value + 1, this.final_review, Date.now())
-        }
+            firebaseService.updateRating(
+                this.business_id - 1,
+                user.uid,
+                user.displayName,
+                this.final_value + 1,
+                this.final_review,
+                Date.now()
+            )
+        },
     },
     components: { NavBar, Swiper, SwiperSlide, ReviewCard },
 })
@@ -250,7 +258,9 @@ export default defineComponent({
                             </div>
                         </div>
                         <!-- Ratings -->
-                        <div v-if="businessData.ratings !== undefined" class="pt-4 pb-4 border-b">
+                        <div
+                            v-if="businessData.ratings !== undefined"
+                            class="pt-4 pb-4 border-b">
                             <div class="flex flex-col md:flex-row">
                                 <div
                                     class="flex flex-col justify-center items-baseline md:items-center pb-4 md:pb-0">
@@ -329,7 +339,10 @@ export default defineComponent({
                                     <div class="flex flex-col items-center">
                                         <h3
                                             class="text-gray-900 dark:text-white max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight"
-                                            v-if="businessData.ratings === undefined">
+                                            v-if="
+                                                businessData.ratings ===
+                                                undefined
+                                            ">
                                             Be the first to leave a review!
                                         </h3>
                                         <h3
