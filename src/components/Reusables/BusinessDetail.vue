@@ -48,8 +48,8 @@ export default defineComponent({
             rating_sum: 0,
         }
     },
-    beforeMount() {
-        this.getDataByID(this.business_id)
+   async beforeMount() {
+        await this.getDataByID(this.business_id)
     },
     mounted() {
         if (Object.keys(this.businessData.ratings).length > 0) {
@@ -77,7 +77,6 @@ export default defineComponent({
         findPercentage(input): string {
             if (this.rating_sum != 0) {
                 var percent = (input / this.rating_sum) * 100
-                console.log(percent)
                 return 'width: ' + percent.toFixed(0) + '%'
             }
         },
@@ -125,7 +124,6 @@ export default defineComponent({
             for (let value of Object.values(this.businessData.ratings)) {
                 this.rating_obj[value['ratingscore'] - 1] += 1
             }
-            console.log(this.rating_obj)
             this.findSum()
         },
         submitRating() {
