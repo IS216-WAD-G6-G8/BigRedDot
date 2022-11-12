@@ -95,14 +95,14 @@ export default {
             this.profile = !this.profile
         },
         logout(): void {
-            signOut(auth)
-                .then(() => {
-                    window.sessionStorage.clear()
-                    window.location.href = window.location.pathname + '?loggedOut=1'
-                })
-                .catch((error) => {
-                    toast.error("Unable to sign out, please try again.", { timeout: 5000 })
-                })
+            // signOut(auth)
+            //     .then(() => {
+            //         window.sessionStorage.clear()
+            //         window.location.href = window.location.pathname + '?loggedOut=1'
+            //     })
+            //     .catch((error) => {
+            //         toast.error("Unable to sign out, please try again.", { timeout: 5000 })
+            //     })
         },
         openlogin(): void {
             this.showModal()
@@ -114,34 +114,34 @@ export default {
         },
         createUser(data: EmailCreateData): void {
             // once user is created it will auto log in
-            createUserWithEmailAndPassword(auth, data.email, data.password)
-                .then((userCredential) => {
-                    userService.createUserFromEmail(userCredential.user.uid, data.name)
-                    var user = firebase.auth().currentUser
-                    user.updateProfile({
-                        displayName: data.name
-                    })
-                    this.showModal()
-                    toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
-                })
-                .catch((error) => {
-                    console.log(error)
-                    toast.error("Error! Account not created.", { timeout: 5000 })
-                })
+            // createUserWithEmailAndPassword(auth, data.email, data.password)
+            //     .then((userCredential) => {
+            //         userService.createUserFromEmail(userCredential.user.uid, data.name)
+            //         var user = firebase.auth().currentUser
+            //         user.updateProfile({
+            //             displayName: data.name
+            //         })
+            //         this.showModal()
+            //         toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
+            //     })
+            //     .catch((error) => {
+            //         console.log(error)
+            //         toast.error("Error! Account not created.", { timeout: 5000 })
+            //     })
         },
         loginUser(data: EmailLoginData) {
-            signInWithEmailAndPassword(auth, data.email, data.password)
-                .then((userCredential) => {
-                    this.closelogin()
-                    // then we retrieve the favourites from the user entity 
-                    const userId = userCredential.user.uid
-                    this.getBookmarks(userId)
-                    toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
-                })
-                .catch((error) => {
-                    console.log(error)
-                    toast.error("Error! Unable to sign in!", { timeout: 5000 })
-                })
+            // signInWithEmailAndPassword(auth, data.email, data.password)
+            //     .then((userCredential) => {
+            //         this.closelogin()
+            //         // then we retrieve the favourites from the user entity 
+            //         const userId = userCredential.user.uid
+            //         this.getBookmarks(userId)
+            //         toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
+            //     })
+            //     .catch((error) => {
+            //         console.log(error)
+            //         toast.error("Error! Unable to sign in!", { timeout: 5000 })
+            //     })
         },
         getBookmarks: async function (userId: string): Promise<void> {
             this.userBookmarks = await userService.getBookmarks(userId)
@@ -160,7 +160,7 @@ export default {
 
 <template>
     <div :class="{ dark: this.$store.getters.getDarkMode }" id="app">
-        <nav class="bg-white w-full py-2 px-5 dark:bg-slate-900">
+        <nav class="bg-white w-full py-2 px-5 dark:bg-slate-900 transition duration-200 ease">
             <div class="container flex flex-wrap justify-between mx-auto">
                 <router-link to="/Home" class="flex">
                     <a class="flex items-center md:px-3">
@@ -276,7 +276,7 @@ export default {
                         <li
                             v-if="$store.state.user"
                             class="w-full md:hidden md:w-auto mb-1 md:mb-0">
-                            <router-link to="/About">
+                            <router-link to="/Profile">
                                 <a
                                     class="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-sky-300 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                     Profile Settings

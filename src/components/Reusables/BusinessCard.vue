@@ -133,7 +133,7 @@ export default {
                 <div class="flex flex-col">
                     <div class="py-5 px-5 flex flex-col">
                         <div
-                            class="mb-4 flex justify-between text-l text-left font-bold tracking-tight text-gray-900 dark:text-white">
+                            class="mb-4 flex justify-between text-l text-left font-bold tracking-tight transition duration-500 ease text-gray-900 dark:text-white">
                             <span>{{ this.data.name }}</span>
                             <div class="text-right flex items-center">
                                 <img class="pr-2" src="/assets/star.svg" />
@@ -143,16 +143,16 @@ export default {
                         </div>
                         <div class="mb-4 text-left">
                             <div
-                                class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl text-gray-700 dark:text-white">
+                                class="inline py-1 mr-2 px-3 text-xs border-solid border-2 border-blue-400 rounded-2xl transition duration-500 ease text-gray-700 dark:text-white">
                                 {{ this.data.category }}
                             </div>
                             <div
-                                class="inline py-1 px-3 text-xs border-solid border-2 border-rose-300 rounded-2xl text-gray-700 dark:text-white">
+                                class="inline py-1 px-3 text-xs border-solid border-2 border-rose-300 rounded-2xl transition duration-500 ease text-gray-700 dark:text-white">
                                 {{ this.data.mode }}
                             </div>
                         </div>
                         <div
-                            class="text-left w-64 text-sm line-clamp-2 font-normal text-gray-700 dark:text-gray-200">
+                            class="text-left w-64 text-sm line-clamp-2 font-normal transition duration-500 ease text-gray-700 dark:text-gray-200">
                             {{ this.data.description }}
                         </div>
                     </div>

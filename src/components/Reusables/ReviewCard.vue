@@ -22,7 +22,7 @@ export default {
         <div class="flex items-center justify-between">
             <div class="flex items-center">
                 <img class="w-10 h-10 pr-3" src="/assets/profileIcon.svg"/>
-                <div class="text-gray-700 dark:text-white font-semibold">{{elem["name"]}}</div>
+                <div class="text-gray-700 dark:text-white transition duration-500 ease font-semibold">{{elem["name"]}}</div>
             </div>
             <div class="flex items-center">
                 <div v-for="index in elem['ratingscore']">
@@ -35,10 +35,10 @@ export default {
             
         </div>
         <div class="flex item-center">
-            <div class="text-gray-700 text-xs md:text-sm dark:text-white">{{this.dateString(elem['datetime'])}}</div>
+            <div class="text-gray-700 text-xs md:text-sm dark:text-white transition duration-500 ease">{{this.dateString(elem['datetime'])}}</div>
         </div>
         <div class="mt-5">
-            <p class="text-gray-700 dark:text-white">
+            <p class="text-gray-700 dark:text-white transition duration-500 ease">
                 {{elem["reviewtext"]}}
             </p>
         </div>

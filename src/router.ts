@@ -4,6 +4,7 @@ import LandingPage from './components/Pages/LandingPage.vue'
 import MyList from './components/Pages/Bookmark.vue'
 import About from './components/Pages/About.vue'
 import BusinessDetail from './components/Reusables/BusinessDetail.vue'
+import Profile from './components/Pages/Profile.vue'
 
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
   {
     path: '/About',
     component: About
+  },
+  {
+    path: '/Profile',
+    component: Profile
   },
   {
     path: '/BusinessDetail/:business_id',
