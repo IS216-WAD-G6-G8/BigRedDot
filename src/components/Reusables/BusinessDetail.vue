@@ -77,9 +77,9 @@ export default defineComponent({
             )
         },
         findPercentage(input): string {
-            console.log(input, this.rating_sum, this.rating_obj)
+            // console.log(input, this.rating_sum, this.rating_obj)
             var percent = (input / this.rating_sum) * 100
-            console.log(percent)
+            // console.log(percent)
             return 'width: ' + percent + '%'
         },
         findSum() {
@@ -123,7 +123,9 @@ export default defineComponent({
             }
         },
         getRating() {
+            console.log(this.businessData.ratings)
             for (let value of Object.values(this.businessData.ratings)) {
+                console.log(value)
                 this.rating_obj[value['ratingscore'] - 1] += 1
             }
         },
