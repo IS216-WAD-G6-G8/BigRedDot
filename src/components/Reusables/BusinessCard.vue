@@ -82,7 +82,7 @@ export default {
             var sum = 0
             var counter = 0
 
-            if (Object.entries(indiv_business.ratings).length > 0) {
+            if (indiv_business.ratings) {
                 for (let [key, value] of Object.entries(indiv_business.ratings)) {
                     sum += value.ratingscore
                     counter ++
