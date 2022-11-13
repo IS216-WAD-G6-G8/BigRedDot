@@ -15,15 +15,18 @@ export class UserService {
         this.baseUrl =
             'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/users';
     }
-    createUser(user) {
+    createUser(user, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const createUserUrl = this.baseUrl + '/' + user.uid + '.json';
+            console.log(token);
             const tempUserEntity = {
                 uid: user.uid,
                 name: user.displayName,
             };
             try {
-                let res = yield axios.put(createUserUrl, tempUserEntity);
+                let res = yield axios.put(createUserUrl, tempUserEntity, {
+                    params: { auth: token },
+                });
                 console.log(res);
             }
             catch (err) {
@@ -34,7 +37,6 @@ export class UserService {
     createUserFromEmail(uid, name, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const createUserUrl = this.baseUrl + '/' + uid + '.json';
-            console.log(token);
             const tempUserEntity = {
                 uid: uid,
                 name: name,

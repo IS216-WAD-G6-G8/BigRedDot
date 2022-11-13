@@ -13,15 +13,19 @@ export class UserService {
             'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/users'
     }
 
-    async createUser(user: MultiFactorInfo): Promise<void> {
+    async createUser(user: MultiFactorInfo, token: string): Promise<void> {
         const createUserUrl = this.baseUrl + '/' + user.uid + '.json'
+
+        console.log(token)
 
         const tempUserEntity = {
             uid: user.uid,
             name: user.displayName,
         }
         try {
-            let res = await axios.put(createUserUrl, tempUserEntity)
+            let res = await axios.put(createUserUrl, tempUserEntity, {
+                params: { auth: token },
+            })
             console.log(res)
         } catch (err) {
             throw err

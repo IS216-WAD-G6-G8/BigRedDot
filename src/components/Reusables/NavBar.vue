@@ -40,7 +40,10 @@ export default {
                         const isNewUser: boolean =
                             authResult.additionalUserInfo.isNewUser
                         if (isNewUser) {
-                            userService.createUser(authResult.user)
+                            authResult.user.getIdToken()
+                                .then((token: string) => {
+                                    userService.createUser(authResult.user, token)
+                                })
                         }
                         this.getBookmarks(authResult.user.uid)
                         toast.success(
