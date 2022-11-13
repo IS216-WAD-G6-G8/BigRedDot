@@ -38,6 +38,7 @@ export default {
     methods: {
         getAllData: async function (): Promise<void> {
             this.businessData = await firebaseService.getAll()
+            this.filteredData = null
         },
         getByCategory: async function (
             categories: CategoryEnum[]
@@ -45,6 +46,7 @@ export default {
             this.businessData = await firebaseService.getDataByCategory(
                 categories
             )
+            this.filteredData = null
         },
         showFilter(): void {
             this.filterVisible = true
