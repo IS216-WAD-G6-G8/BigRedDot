@@ -81,11 +81,16 @@ export default {
             var indiv_business: Business = await this.getDataByID(this.data.id)
             var sum = 0
             var counter = 0
-            for (let [key, value] of Object.entries(indiv_business.ratings)) {
-                sum += value.ratingscore
-                counter ++
+
+            if (indiv_business.ratings) {
+                for (let [key, value] of Object.entries(indiv_business.ratings)) {
+                    sum += value.ratingscore
+                    counter ++
+                }
+                this.rating = (sum/counter).toFixed(2)
+            } else {
+                this.rating = '-'
             }
-            this.rating = (sum/counter).toFixed(2)
         },
         getDataByID: async function (
             business_id: String
