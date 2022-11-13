@@ -40,9 +40,12 @@ export default {
                         const isNewUser: boolean =
                             authResult.additionalUserInfo.isNewUser
                         if (isNewUser) {
-                            userService.createUser(authResult.user)
+                            authResult.user.getIdToken()
+                                .then((token: string) => {
+                                    userService.createUser(authResult.user, token)
+                                    this.getBookmarks(authResult.user.uid, token)
+                                })
                         }
-                        this.getBookmarks(authResult.user.uid)
                         toast.success(
                             `Successfully signed in! Welcome back, ${authResult.user.displayName}.`,
                             { timeout: 5000 }
@@ -116,8 +119,11 @@ export default {
             // once user is created it will auto log in
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
-                    userService.createUserFromEmail(userCredential.user.uid, data.name)
                     var user = firebase.auth().currentUser
+                    user.getIdToken()
+                        .then((token) => {
+                            userService.createUserFromEmail(userCredential.user.uid, data.name, token)
+                        })
                     user.updateProfile({
                         displayName: data.name
                     })
@@ -125,7 +131,6 @@ export default {
                     toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
                 })
                 .catch((error) => {
-                    console.log(error)
                     toast.error("Error! Account not created.", { timeout: 5000 })
                 })
         },
@@ -134,17 +139,18 @@ export default {
                 .then((userCredential) => {
                     this.closelogin()
                     // then we retrieve the favourites from the user entity 
-                    const userId = userCredential.user.uid
-                    this.getBookmarks(userId)
+                    userCredential.user.getIdToken()
+                        .then((token) => {
+                            this.getBookmarks(userCredential.user.uid, token)
+                        })
                     toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
                 })
                 .catch((error) => {
-                    console.log(error.message)
                     toast.error("Error! Unable to sign in! Please check your login credentials.", { timeout: 5000 })
                 })
         },
-        getBookmarks: async function (userId: string): Promise<void> {
-            this.userBookmarks = await userService.getBookmarks(userId)
+        getBookmarks: async function (userId: string, token: string): Promise<void> {
+            this.userBookmarks = await userService.getBookmarks(userId, token)
             if (this.userBookmarks) {
                 this.$store.dispatch("commitUserBookmarks", this.userBookmarks)
             }

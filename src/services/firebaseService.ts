@@ -62,7 +62,8 @@ export class FirebaseService {
         name: string,
         rating: number,
         review: string,
-        datetime: number
+        datetime: number,
+        token: string
     ): Promise<void> {
         const updateRatingUrl =
             this.businessUrl + '/' + bid + '/ratings/' + uid + '.json'
@@ -75,8 +76,9 @@ export class FirebaseService {
         }
 
         try {
-            let res = await axios.put(updateRatingUrl, tempRatingEntity)
-            console.log(res)
+            let res = await axios.put(updateRatingUrl, tempRatingEntity, {
+                params: { auth: token },
+            })
             if (res.status === 200) {
                 toast.success('Review added successfully!', { timeout: 5000 })
             }

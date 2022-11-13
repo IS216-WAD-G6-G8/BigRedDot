@@ -2,12 +2,18 @@
   "rules": {
     "businesses": {
       ".read": true,
-      ".write": false
+      "$business_id": {
+        "ratings": {
+          "$user_id": {
+            ".write": "$user_id === auth.uid"
+          }
+        }
+      }
     },
-    "reviews": {
-      ".read": true,
-      "$uid": {
-        ".write": "auth !== null && auth.uid === $uid"
+    "users": {
+      "$user_id": {
+        ".read": "$user_id === auth.uid",
+        ".write": "$user_id === auth.uid"
       }
     }
   }

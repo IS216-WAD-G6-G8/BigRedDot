@@ -10,6 +10,7 @@ import 'swiper/swiper.min.css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { useToast } from 'vue-toastification'
+import firebase from 'firebase/compat/app'
 
 SwiperCore.use([Navigation, Pagination, A11y])
 const firebaseService = new FirebaseService()
@@ -129,15 +130,19 @@ export default defineComponent({
                 this.error = true
             } else {
                 this.error = false
-                const user = this.$store.getters.getUser.multiFactor.user
-                firebaseService.updateRating(
-                    this.business_id - 1,
-                    user.uid,
-                    user.displayName,
-                    this.final_value + 1,
-                    this.final_review,
-                    Date.now()
-                )
+                const user = firebase.auth().currentUser
+                user.getIdToken()
+                    .then((token) => {
+                        firebaseService.updateRating(
+                        this.business_id - 1,
+                        user.uid,
+                        user.displayName,
+                        this.final_value + 1,
+                        this.final_review,
+                        Date.now(),
+                        token
+                        )
+                    })
             }
         },
     },

@@ -15,7 +15,7 @@ export class UserService {
         this.baseUrl =
             'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/users';
     }
-    createUser(user) {
+    createUser(user, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const createUserUrl = this.baseUrl + '/' + user.uid + '.json';
             const tempUserEntity = {
@@ -23,15 +23,16 @@ export class UserService {
                 name: user.displayName,
             };
             try {
-                let res = yield axios.put(createUserUrl, tempUserEntity);
-                console.log(res);
+                let res = yield axios.put(createUserUrl, tempUserEntity, {
+                    params: { auth: token },
+                });
             }
             catch (err) {
                 throw err;
             }
         });
     }
-    createUserFromEmail(uid, name) {
+    createUserFromEmail(uid, name, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const createUserUrl = this.baseUrl + '/' + uid + '.json';
             const tempUserEntity = {
@@ -39,19 +40,22 @@ export class UserService {
                 name: name,
             };
             try {
-                let res = yield axios.put(createUserUrl, tempUserEntity);
-                console.log(res);
+                let res = yield axios.put(createUserUrl, tempUserEntity, {
+                    params: { auth: token },
+                });
             }
             catch (err) {
                 throw err;
             }
         });
     }
-    getBookmarks(uid) {
+    getBookmarks(uid, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json';
             try {
-                let res = yield axios.get(getBookmarkUrl);
+                let res = yield axios.get(getBookmarkUrl, {
+                    params: { auth: token },
+                });
                 let data = res.data;
                 return data;
             }
@@ -60,12 +64,13 @@ export class UserService {
             }
         });
     }
-    updateBookmarks(uid, bookmarks, updateType) {
+    updateBookmarks(uid, bookmarks, updateType, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json';
             try {
-                let res = yield axios.put(updateBookmarkUrl, bookmarks);
-                console.log(res);
+                let res = yield axios.put(updateBookmarkUrl, bookmarks, {
+                    params: { auth: token },
+                });
                 if (res.status === 200) {
                     if (updateType === 'add') {
                         toast.success('Bookmarked successfully!', { timeout: 5000 });

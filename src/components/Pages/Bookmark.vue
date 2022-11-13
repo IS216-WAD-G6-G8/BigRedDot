@@ -4,6 +4,7 @@ import { Category } from '../../types/types'
 import { UserService } from '../../services/userService'
 import { FirebaseService } from '../../services/firebaseService'
 import { Business } from '../../types/types'
+import firebase from 'firebase/compat/app'
 
 const userService = new UserService()
 const firebaseService = new FirebaseService()
@@ -34,7 +35,7 @@ export default {
         addFav(input): void {
             this.businessID = input
             var bookmarksArray: number[] = this.$store.state.userBookmarks
-            const uid = this.$store.state.user.multiFactor.user.uid
+            const user = firebase.auth().currentUser
 
             if (bookmarksArray.includes(this.businessID)) {
                 // if it has been bookmarked
@@ -42,11 +43,17 @@ export default {
                     bookmarksArray.indexOf(this.businessID),
                     1
                 )
-                userService.updateBookmarks(uid, bookmarksArray, 'remove')
+                user.getIdToken()
+                    .then((token) => {
+                        userService.updateBookmarks(user.uid, bookmarksArray, 'remove', token)
+                    })
             } else {
                 // if it is not already bookmarked
                 bookmarksArray.push(this.business_id)
-                userService.updateBookmarks(uid, bookmarksArray, 'add')
+                user.getIdToken()
+                    .then((token) => {
+                        userService.updateBookmarks(user.uid, bookmarksArray, 'add', token)
+                    })
             }
             // lazy method of updating, will improve if time permits
             this.$store.dispatch('commitUserBookmarks', bookmarksArray)

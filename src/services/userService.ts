@@ -13,22 +13,26 @@ export class UserService {
             'https://is216-bigreddot-default-rtdb.asia-southeast1.firebasedatabase.app/users'
     }
 
-    async createUser(user: MultiFactorInfo): Promise<void> {
+    async createUser(user: MultiFactorInfo, token: string): Promise<void> {
         const createUserUrl = this.baseUrl + '/' + user.uid + '.json'
-
         const tempUserEntity = {
             uid: user.uid,
             name: user.displayName,
         }
         try {
-            let res = await axios.put(createUserUrl, tempUserEntity)
-            console.log(res)
+            let res = await axios.put(createUserUrl, tempUserEntity, {
+                params: { auth: token },
+            })
         } catch (err) {
             throw err
         }
     }
 
-    async createUserFromEmail(uid: string, name: string): Promise<void> {
+    async createUserFromEmail(
+        uid: string,
+        name: string,
+        token: string
+    ): Promise<void> {
         const createUserUrl = this.baseUrl + '/' + uid + '.json'
 
         const tempUserEntity = {
@@ -36,17 +40,20 @@ export class UserService {
             name: name,
         }
         try {
-            let res = await axios.put(createUserUrl, tempUserEntity)
-            console.log(res)
+            let res = await axios.put(createUserUrl, tempUserEntity, {
+                params: { auth: token },
+            })
         } catch (err) {
             throw err
         }
     }
 
-    async getBookmarks(uid: string): Promise<void | number[]> {
+    async getBookmarks(uid: string, token: string): Promise<void | number[]> {
         const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
         try {
-            let res = await axios.get(getBookmarkUrl)
+            let res = await axios.get(getBookmarkUrl, {
+                params: { auth: token },
+            })
             let data = res.data
             return data
         } catch (err) {
@@ -57,12 +64,14 @@ export class UserService {
     async updateBookmarks(
         uid: string,
         bookmarks: number[],
-        updateType: string
+        updateType: string,
+        token: string
     ): Promise<void> {
         const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
         try {
-            let res = await axios.put(updateBookmarkUrl, bookmarks)
-            console.log(res)
+            let res = await axios.put(updateBookmarkUrl, bookmarks, {
+                params: { auth: token },
+            })
             if (res.status === 200) {
                 if (updateType === 'add') {
                     toast.success('Bookmarked successfully!', { timeout: 5000 })

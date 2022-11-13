@@ -40,7 +40,6 @@ export default {
         checkMode(mode): void {
             if (!this.selected_mode.includes(mode)) {
                 this.selected_mode.push(mode)
-                console.log(this.selected_mode)
             } else {
                 var index = this.selected_mode.indexOf(mode)
                 if (index !== -1) {
@@ -49,7 +48,6 @@ export default {
             }
         },
         submit(): void {
-            console.log(this.selected_mode)
             let mode = ''
             if (this.selected_mode.length == 1) {
                 if (this.selected_mode[0] == 'physical') {
