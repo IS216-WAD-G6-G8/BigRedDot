@@ -169,21 +169,21 @@ export default {
                 </div>
             </template>
             <div
-                class="bg-white dark:bg-slate-900 flex flex-col items-center"
+                class="bg-white dark:bg-slate-900 w-full flex flex-col items-center flex-wrap"
                 v-else>
                 <img
                     v-if="!this.$store.getters.getDarkMode"
-                    class="min-w-[25rem]"
+                    class="max-w-[15rem] sm:max-w-none sm:min-w-[25rem]"
                     src="/assets/shop_placeholder.svg" />
                 <img
                     v-else
-                    class="min-w-[25rem]"
+                    class="max-w-[15rem] sm:max-w-none sm:min-w-[25rem]"
                     src="/assets/shopdark_placeholder.svg" />
                 <div
-                    class="font-bold mb-5 text-sm md:text-xl text-gray-700 dark:text-gray-200">
+                    class="w-full font-bold mb-5 text-sm md:text-xl text-gray-700 dark:text-gray-200">
                     Nothing Saved Yet
                 </div>
-                <div class="w-96 font-normal text-gray-700 dark:text-gray-200">
+                <div class="w-full px-3 md:px-0 md:w-96 font-normal text-gray-700 dark:text-gray-200">
                     When you find something you like, click the heart icon to
                     save it. Share with your friends your favourite bookmarked
                     businesses!
