@@ -447,11 +447,11 @@ export default defineComponent({
                                                 ] !== 'null'
                                             "
                                             class="text-xs text-left lg:text-sm pl-3 md:pl-0 lg:pl-3 break-all md:text-center lg:text-left text-gray-900 dark:text-white font-semibold">
-                                            {{
+                                            <a :href="businessData.socialmedia[elem.name]">{{
                                                 businessData.socialmedia[
                                                     elem.name
                                                 ]
-                                            }}
+                                            }}</a>
                                         </div>
                                         <div
                                             v-else
