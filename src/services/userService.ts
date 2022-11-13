@@ -53,10 +53,12 @@ export class UserService {
         }
     }
 
-    async getBookmarks(uid: string): Promise<void | number[]> {
+    async getBookmarks(uid: string, token: string): Promise<void | number[]> {
         const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
         try {
-            let res = await axios.get(getBookmarkUrl)
+            let res = await axios.get(getBookmarkUrl, {
+                params: { auth: token },
+            })
             let data = res.data
             return data
         } catch (err) {

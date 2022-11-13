@@ -52,11 +52,13 @@ export class UserService {
             }
         });
     }
-    getBookmarks(uid) {
+    getBookmarks(uid, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const getBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json';
             try {
-                let res = yield axios.get(getBookmarkUrl);
+                let res = yield axios.get(getBookmarkUrl, {
+                    params: { auth: token },
+                });
                 let data = res.data;
                 return data;
             }
