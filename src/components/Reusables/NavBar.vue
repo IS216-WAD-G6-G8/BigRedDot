@@ -101,7 +101,7 @@ export default {
             signOut(auth)
                 .then(() => {
                     window.sessionStorage.clear()
-                    window.location.href = window.location.pathname + '?loggedOut=1'
+                    window.location.href = '/Home?loggedOut=1'
                 })
                 .catch((error) => {
                     toast.error("Unable to log out, please try again later.", { timeout: 5000 })
