@@ -43,7 +43,7 @@ Run the following command to setup and run a local copy of the project.
 
 ```bash
 # clone the project
-git clone https://github.com/SMU-IS216G6T10/smumods-frontend.git
+git clone https://github.com/IS216-WAD-G6-G8/BigRedDot.git
 ```
 
 ```bash
@@ -51,13 +51,10 @@ git clone https://github.com/SMU-IS216G6T10/smumods-frontend.git
 npm install
 ```
 
-```bash
-# build the app
-npm run build
-```
+### Run application locally
 
 ```bash
-# launch development environment
+# launch development environment (authentication features may not be available)
 npm run dev
 ```
 
