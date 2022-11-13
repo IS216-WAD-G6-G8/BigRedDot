@@ -83,7 +83,7 @@ export default {
                     bookmarksArray.push(business_id)
                     user.getIdToken()
                         .then((token) => {
-                            userService.updateBookmarks(user.uid, bookmarksArray, 'remove', token)
+                            userService.updateBookmarks(user.uid, bookmarksArray, 'add', token)
                         })
                 }
                 // lazy method of updating, will improve if time permits
