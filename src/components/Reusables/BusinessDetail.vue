@@ -50,7 +50,7 @@ export default defineComponent({
         }
     },
     beforeMount() {
-        this.getDataByID(this.business_id)
+        this.businessData = this.getDataByID(this.business_id)
     },
     mounted() {
         if (Object.keys(this.businessData.ratings).length > 0) {
