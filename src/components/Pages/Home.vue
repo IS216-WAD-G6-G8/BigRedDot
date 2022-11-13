@@ -1,7 +1,7 @@
 <script lang="ts">
 import {defineAsyncComponent} from 'vue'
 import NavBar from '../Reusables/NavBar.vue'
-import { Business, CategoryEnum } from '../../types/types'
+import { Business, CategoryEnum, FilterFields } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
 import FilterModal from '../Reusables/FilterModal.vue'
 import { Category } from '../../types/types'
@@ -48,6 +48,10 @@ export default {
         },
         closeFilter(): void {
             this.filterVisible = false
+        },
+        filterData(filterFields: FilterFields): void {
+            console.log('filter')
+            console.log(filterFields)
         }
     },
     components: { NavBar, FilterModal, lazyPictureLoad },
@@ -107,6 +111,7 @@ export default {
             </div>
             <FilterModal
                 @close="closeFilter"
+                @filter-push="filterData"
                 v-if="filterVisible"></FilterModal>
             <div
                 class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
