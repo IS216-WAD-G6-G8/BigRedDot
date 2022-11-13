@@ -51,8 +51,10 @@ export default defineComponent({
     },
     beforeMount() {
         this.businessData = this.getDataByID(this.business_id)
+        console.log(this.businessData)
     },
     mounted() {
+        console.log(this.businessData)
         if (Object.keys(this.businessData.ratings).length > 0) {
             this.getRating()
             this.findSum()
