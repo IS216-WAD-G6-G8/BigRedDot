@@ -101,7 +101,7 @@ export default {
                     window.location.href = window.location.pathname + '?loggedOut=1'
                 })
                 .catch((error) => {
-                    toast.error("Unable to sign out, please try again.", { timeout: 5000 })
+                    toast.error("Unable to log out, please try again later.", { timeout: 5000 })
                 })
         },
         openlogin(): void {
@@ -139,8 +139,8 @@ export default {
                     toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
                 })
                 .catch((error) => {
-                    console.log(error)
-                    toast.error("Error! Unable to sign in!", { timeout: 5000 })
+                    console.log(error.message)
+                    toast.error("Error! Unable to sign in! Please check your login credentials.", { timeout: 5000 })
                 })
         },
         getBookmarks: async function (userId: string): Promise<void> {
