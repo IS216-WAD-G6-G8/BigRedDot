@@ -18,7 +18,6 @@ export class UserService {
     createUser(user, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const createUserUrl = this.baseUrl + '/' + user.uid + '.json';
-            console.log(token);
             const tempUserEntity = {
                 uid: user.uid,
                 name: user.displayName,
@@ -27,7 +26,6 @@ export class UserService {
                 let res = yield axios.put(createUserUrl, tempUserEntity, {
                     params: { auth: token },
                 });
-                console.log(res);
             }
             catch (err) {
                 throw err;
@@ -45,7 +43,6 @@ export class UserService {
                 let res = yield axios.put(createUserUrl, tempUserEntity, {
                     params: { auth: token },
                 });
-                console.log(res);
             }
             catch (err) {
                 throw err;
@@ -74,7 +71,6 @@ export class UserService {
                 let res = yield axios.put(updateBookmarkUrl, bookmarks, {
                     params: { auth: token },
                 });
-                console.log(res);
                 if (res.status === 200) {
                     if (updateType === 'add') {
                         toast.success('Bookmarked successfully!', { timeout: 5000 });

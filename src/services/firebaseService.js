@@ -71,7 +71,6 @@ export class FirebaseService {
                 let res = yield axios.put(updateRatingUrl, tempRatingEntity, {
                     params: { auth: token },
                 });
-                console.log(res);
                 if (res.status === 200) {
                     toast.success('Review added successfully!', { timeout: 5000 });
                 }

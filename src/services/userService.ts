@@ -15,9 +15,6 @@ export class UserService {
 
     async createUser(user: MultiFactorInfo, token: string): Promise<void> {
         const createUserUrl = this.baseUrl + '/' + user.uid + '.json'
-
-        console.log(token)
-
         const tempUserEntity = {
             uid: user.uid,
             name: user.displayName,
@@ -26,7 +23,6 @@ export class UserService {
             let res = await axios.put(createUserUrl, tempUserEntity, {
                 params: { auth: token },
             })
-            console.log(res)
         } catch (err) {
             throw err
         }
@@ -47,7 +43,6 @@ export class UserService {
             let res = await axios.put(createUserUrl, tempUserEntity, {
                 params: { auth: token },
             })
-            console.log(res)
         } catch (err) {
             throw err
         }
@@ -77,7 +72,6 @@ export class UserService {
             let res = await axios.put(updateBookmarkUrl, bookmarks, {
                 params: { auth: token },
             })
-            console.log(res)
             if (res.status === 200) {
                 if (updateType === 'add') {
                     toast.success('Bookmarked successfully!', { timeout: 5000 })

@@ -129,11 +129,8 @@ export default {
                     })
                     this.showModal()
                     toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
-
-                    console.log(userCredential)
                 })
                 .catch((error) => {
-                    console.log(error)
                     toast.error("Error! Account not created.", { timeout: 5000 })
                 })
         },
@@ -149,7 +146,6 @@ export default {
                     toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
                 })
                 .catch((error) => {
-                    console.log(error.message)
                     toast.error("Error! Unable to sign in! Please check your login credentials.", { timeout: 5000 })
                 })
         },
