@@ -1,12 +1,102 @@
-# Vue 3 + Vite
+<a name="readme-top"></a>
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+    <img src="public/assets/logo.png" width="80" height="80">
+  <h3 align="center">BigRedDot</h3>
+</div>
 
-## Recommended IDE Setup
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+<!-- ABOUT THE PROJECT -->
 
-## how to run project
+## About The Project
 
-- npm run ratio: to compile and run locally.
-- npm run slay: compiles and deploys to firebase, use https://is216-bigreddot.web.app/ to access.
+BigRedDot serves as an one-stop platform for users to explore the myriad of products and services Singapore's small businesses have to offer.
+
+### Built With
+
+-   Vue.js + Vite
+-   Tailwind CSS
+-   Swiperjs
+-   GSAP
+-   Vuex
+-   Vue-Toastification
+-   Firebase
+
+### Objectives
+
+-   Showcase local talents - By promoting local businesses, this highlights Singapore fair share of creative and talented individuals with unique products to offer.
+
+-   Sustainability - Shopping locally reduces the reliance on the global supply chain, reducing carbon emissions
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+Run the following command to setup and run a local copy of the project.
+
+### Recommended IDE Setup
+
+-   VSCode + Volar
+
+### Installation
+
+```bash
+# clone the project
+git clone https://github.com/SMU-IS216G6T10/smumods-frontend.git
+```
+
+```bash
+# install dependencies
+npm install
+```
+
+```bash
+# launch development environment
+npm run dev
+```
+
+### Deployment
+
+This project is deployed automatically via [Firebase](https://firebase.google.com/) on push to the `main` branch.
+
+Access the deployed website through https://is216-bigreddot.web.app/
+
+To mimic a production deployment, run:
+
+```bash
+# build the app
+npm run build
+```
+
+```bash
+# compiles and deploys to firebase
+npm run slay
+```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
