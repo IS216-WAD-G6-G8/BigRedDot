@@ -52,6 +52,11 @@ npm install
 ```
 
 ```bash
+# build the app
+npm run build
+```
+
+```bash
 # launch development environment
 npm run dev
 ```
@@ -62,15 +67,4 @@ This project is deployed automatically via [Firebase](https://firebase.google.co
 
 Access the deployed website through https://is216-bigreddot.web.app/
 
-To mimic a production deployment, run:
-
-```bash
-# build the app
-npm run build
-```
-
-```bash
-# compiles and deploys to firebase
-npm run slay
-```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
