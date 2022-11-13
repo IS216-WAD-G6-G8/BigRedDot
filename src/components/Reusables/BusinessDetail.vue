@@ -53,12 +53,6 @@ export default defineComponent({
         this.getDataByID(this.business_id)
     },
     mounted() {
-        console.log("after mount: ", this.businessData)
-        if (Object.keys(this.businessData.ratings).length > 0) {
-            this.getRating()
-            this.findSum()
-        }
-
         const { search } = window.location
         const updated = new URLSearchParams(search).get('updated')
         if (updated === '1') {
@@ -77,6 +71,11 @@ export default defineComponent({
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
+
+            if (Object.keys(this.businessData.ratings).length > 0) {
+            this.getRating()
+            this.findSum()
+        }
             console.log(this.businessData)
         },
         findPercentage(input): string {
