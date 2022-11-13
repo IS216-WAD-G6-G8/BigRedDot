@@ -73,6 +73,7 @@ export default defineComponent({
     },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
+            console.log(business_id)
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
