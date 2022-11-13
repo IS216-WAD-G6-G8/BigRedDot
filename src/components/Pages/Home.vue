@@ -24,6 +24,7 @@ export default {
             ] as Category[],
             CategoryEnum,
             businessData: null as Business[] | null,
+            filteredData: null as Business[] | null,
             filterVisible: false as boolean,
         }
     },
@@ -51,22 +52,23 @@ export default {
         },
         filterData(filterFields: FilterFields): void {
             // filter by mode
+            this.filteredData = this.businessData
             if (filterFields.mode !== '') {
-                this.businessData = this.businessData.filter((business: Business) => {
+                this.filteredData = this.filteredData.filter((business: Business) => {
                     return business.mode == filterFields.mode
                 })
             }
 
             // filter by price
             if (filterFields.price !== 0) {
-                this.businessData = this.businessData.filter((business: Business) => {
+                this.filteredData = this.filteredData.filter((business: Business) => {
                     return business.pricerange == filterFields.price
                 })
             }
 
             // filter by rating
             if (filterFields.rating !== ''){
-                this.businessData = this.businessData.filter((business: Business) => {
+                this.filteredData = this.filteredData.filter((business: Business) => {
                     if (business.ratings) {
                         let sum = 0
                         // get the average ratings
@@ -142,7 +144,10 @@ export default {
                 v-if="filterVisible"></FilterModal>
             <div
                 class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
-                <div v-for="business of businessData">
+                <div v-if="filteredData" v-for="business of filteredData">
+                    <lazyPictureLoad :data="business"></lazyPictureLoad>
+                </div>
+                <div v-else v-for="business of businessData">
                     <lazyPictureLoad :data="business"></lazyPictureLoad>
                 </div>
             </div>
