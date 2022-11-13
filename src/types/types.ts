@@ -66,5 +66,5 @@ export interface RatingData {
 export interface FilterFields {
     price: number
     rating: string
-    mode: string[]
+    mode: string
 }

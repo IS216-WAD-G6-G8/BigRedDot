@@ -50,8 +50,10 @@ export default {
             this.filterVisible = false
         },
         filterData(filterFields: FilterFields): void {
-            console.log('filter')
             console.log(filterFields)
+            this.getAllData()
+            console.log(this.businessData)
+
         }
     },
     components: { NavBar, FilterModal, lazyPictureLoad },

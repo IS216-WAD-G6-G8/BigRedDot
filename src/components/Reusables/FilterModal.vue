@@ -1,6 +1,6 @@
 <script lang="ts">
 import { submit } from 'dom7'
-import { DeliveryOptionsEnum, FilterFields } from '../../types/types'
+import { DeliveryOptionsEnum, FilterFields, ModeEnum } from '../../types/types'
 
 export default {
     name: 'Filter',
@@ -49,9 +49,21 @@ export default {
             }
         },
         submit(): void {
+            console.log(this.selected_mode)
+            let mode = ''
+            if (this.selected_mode.length == 1) {
+                if (this.selected_mode[0] == 'physical') {
+                    mode = ModeEnum.physical
+                } else {
+                    mode = ModeEnum.online
+                }
+            } else if (this.selected_mode.length == 2) {
+                mode = ModeEnum.both
+            }
+
             const filterFields: FilterFields = {
                 price: this.selected_price,
-                mode: this.selected_mode,
+                mode: mode,
                 rating: this.selected_rating
             }
 
