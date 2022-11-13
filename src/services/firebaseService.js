@@ -58,7 +58,7 @@ export class FirebaseService {
             }
         });
     }
-    updateRating(bid, uid, name, rating, review, datetime) {
+    updateRating(bid, uid, name, rating, review, datetime, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const updateRatingUrl = this.businessUrl + '/' + bid + '/ratings/' + uid + '.json';
             const tempRatingEntity = {
@@ -68,7 +68,9 @@ export class FirebaseService {
                 datetime: datetime,
             };
             try {
-                let res = yield axios.put(updateRatingUrl, tempRatingEntity);
+                let res = yield axios.put(updateRatingUrl, tempRatingEntity, {
+                    params: { auth: token },
+                });
                 console.log(res);
                 if (res.status === 200) {
                     toast.success('Review added successfully!', { timeout: 5000 });
