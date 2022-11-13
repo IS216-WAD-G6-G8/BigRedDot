@@ -54,6 +54,7 @@ export default defineComponent({
     },
     mounted() {
         console.log(this.businessData)
+        console.log(this.businessData.ratings)
         if (Object.keys(this.businessData.ratings).length > 0) {
             this.getRating()
             this.findSum()
@@ -73,11 +74,9 @@ export default defineComponent({
     },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
-            console.log(business_id)
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
-            console.log(this.businessData)
         },
         findPercentage(input): string {
             // console.log(input, this.rating_sum, this.rating_obj)
