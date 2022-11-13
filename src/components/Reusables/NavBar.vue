@@ -116,13 +116,18 @@ export default {
             // once user is created it will auto log in
             createUserWithEmailAndPassword(auth, data.email, data.password)
                 .then((userCredential) => {
-                    userService.createUserFromEmail(userCredential.user.uid, data.name)
                     var user = firebase.auth().currentUser
+                    user.getIdToken()
+                        .then((token) => {
+                            userService.createUserFromEmail(userCredential.user.uid, data.name, token)
+                        })
                     user.updateProfile({
                         displayName: data.name
                     })
                     this.showModal()
                     toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
+
+                    console.log(userCredential)
                 })
                 .catch((error) => {
                     console.log(error)

@@ -28,7 +28,11 @@ export class UserService {
         }
     }
 
-    async createUserFromEmail(uid: string, name: string): Promise<void> {
+    async createUserFromEmail(
+        uid: string,
+        name: string,
+        token: string
+    ): Promise<void> {
         const createUserUrl = this.baseUrl + '/' + uid + '.json'
 
         const tempUserEntity = {
@@ -36,7 +40,9 @@ export class UserService {
             name: name,
         }
         try {
-            let res = await axios.put(createUserUrl, tempUserEntity)
+            let res = await axios.put(createUserUrl, tempUserEntity, {
+                params: { auth: token },
+            })
             console.log(res)
         } catch (err) {
             throw err

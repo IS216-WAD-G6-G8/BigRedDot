@@ -31,15 +31,18 @@ export class UserService {
             }
         });
     }
-    createUserFromEmail(uid, name) {
+    createUserFromEmail(uid, name, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const createUserUrl = this.baseUrl + '/' + uid + '.json';
+            console.log(token);
             const tempUserEntity = {
                 uid: uid,
                 name: name,
             };
             try {
-                let res = yield axios.put(createUserUrl, tempUserEntity);
+                let res = yield axios.put(createUserUrl, tempUserEntity, {
+                    params: { auth: token },
+                });
                 console.log(res);
             }
             catch (err) {
