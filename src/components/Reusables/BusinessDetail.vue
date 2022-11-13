@@ -19,7 +19,7 @@ export default defineComponent({
     name: 'BusinessDetail',
     props: {
         data: Object as PropType<Business>,
-        business_id: Number,
+        business_id: String,
     },
     data() {
         return {
@@ -50,8 +50,7 @@ export default defineComponent({
         }
     },
     beforeMount() {
-        this.businessData = this.getDataByID(this.business_id)
-        console.log(this.businessData)
+        this.getDataByID(this.business_id)
     },
     mounted() {
         console.log(this.businessData)
@@ -77,6 +76,7 @@ export default defineComponent({
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
+            console.log(this.businessData)
         },
         findPercentage(input): string {
             // console.log(input, this.rating_sum, this.rating_obj)
