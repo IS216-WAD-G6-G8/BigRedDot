@@ -67,11 +67,13 @@ export class UserService {
             }
         });
     }
-    updateBookmarks(uid, bookmarks, updateType) {
+    updateBookmarks(uid, bookmarks, updateType, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json';
             try {
-                let res = yield axios.put(updateBookmarkUrl, bookmarks);
+                let res = yield axios.put(updateBookmarkUrl, bookmarks, {
+                    params: { auth: token },
+                });
                 console.log(res);
                 if (res.status === 200) {
                     if (updateType === 'add') {

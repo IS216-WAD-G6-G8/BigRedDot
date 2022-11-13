@@ -69,11 +69,14 @@ export class UserService {
     async updateBookmarks(
         uid: string,
         bookmarks: number[],
-        updateType: string
+        updateType: string,
+        token: string
     ): Promise<void> {
         const updateBookmarkUrl = this.baseUrl + '/' + uid + '/bookmarks.json'
         try {
-            let res = await axios.put(updateBookmarkUrl, bookmarks)
+            let res = await axios.put(updateBookmarkUrl, bookmarks, {
+                params: { auth: token },
+            })
             console.log(res)
             if (res.status === 200) {
                 if (updateType === 'add') {
