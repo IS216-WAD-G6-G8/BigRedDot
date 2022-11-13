@@ -8,9 +8,8 @@ export default {
         rating: Object as PropType<RatingData>,
     },
     methods: {
-        dateString(datetime) {
+        dateString(datetime: number) {
             const value = new Date(datetime).toLocaleString()
-            console.log(value)
             return value
         }
     }

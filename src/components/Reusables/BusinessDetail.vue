@@ -53,18 +53,22 @@ export default defineComponent({
         this.getDataByID(this.business_id)
     },
     mounted() {
-        console.log(this.businessData)
-        console.log(this.businessData.ratings)
-        if (Object.keys(this.businessData.ratings).length > 0) {
-            this.getRating()
-            this.findSum()
-        }
-
         const { search } = window.location
         const updated = new URLSearchParams(search).get('updated')
         if (updated === '1') {
             toast.success('Review added successfully.', { timeout: 5000 })
             console.log('toast')
+        }
+
+        
+    },
+    updated() {
+        this.getDataByID(this.business_id)
+        console.log(this.businessData)
+        console.log(this.businessData.ratings)
+        if (Object.keys(this.businessData.ratings).length > 0) {
+            this.getRating()
+            this.findSum()
         }
     },
     computed: {
