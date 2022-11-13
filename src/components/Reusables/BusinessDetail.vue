@@ -49,7 +49,7 @@ export default defineComponent({
             error: false,
         }
     },
-    beforeMount() {
+    created() {
         this.getDataByID(this.business_id)
     },
     mounted() {
