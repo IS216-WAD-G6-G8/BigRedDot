@@ -19,7 +19,7 @@ export default defineComponent({
     name: 'BusinessDetail',
     props: {
         data: Object as PropType<Business>,
-        business_id: String,
+        business_id: Number,
     },
     data() {
         return {
