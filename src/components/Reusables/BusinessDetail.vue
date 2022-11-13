@@ -53,16 +53,10 @@ export default defineComponent({
         this.getDataByID(this.business_id)
     },
     mounted() {
-        if (Object.keys(this.businessData.ratings).length > 0) {
-            this.getRating()
-            this.findSum()
-        }
-
         const { search } = window.location
         const updated = new URLSearchParams(search).get('updated')
         if (updated === '1') {
             toast.success('Review added successfully.', { timeout: 5000 })
-            console.log('toast')
         }
     },
     computed: {
@@ -75,6 +69,11 @@ export default defineComponent({
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
+
+            if (Object.keys(this.businessData.ratings).length > 0) {
+                this.getRating()
+                this.findSum()
+            }
         },
         findPercentage(input): string {
             var percent = (input / this.rating_sum) * 100
