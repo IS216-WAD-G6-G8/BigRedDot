@@ -1,6 +1,6 @@
 <script lang="ts">
 import { submit } from 'dom7'
-import { DeliveryOptionsEnum } from '../../types/types'
+import { DeliveryOptionsEnum, FilterFields, ModeEnum } from '../../types/types'
 
 export default {
     name: 'Filter',
@@ -14,9 +14,9 @@ export default {
             stars: ['1', '2', '3', '4', '5'] as string[],
             price_range: ['$', '$$', '$$$'] as string[],
             deliveryOptions: DeliveryOptionsEnum,
-            selected_price: '' as string,
+            selected_price: 0 as number,
             selected_rating: '' as string,
-            selected_mode: [] as Array<string>,
+            selected_mode: [] as string[],
         }
     },
     methods: {
@@ -25,7 +25,7 @@ export default {
         },
         checkPrice(price): void {
             if (this.selected_price.length == price) {
-                this.selected_price = ''
+                this.selected_price = 0
             } else {
                 this.selected_price = price.length
             }
@@ -46,11 +46,29 @@ export default {
                 if (index !== -1) {
                     this.selected_mode.splice(index, 1)
                 }
-                console.log(this.selected_mode)
             }
         },
         submit(): void {
-            close()
+            console.log(this.selected_mode)
+            let mode = ''
+            if (this.selected_mode.length == 1) {
+                if (this.selected_mode[0] == 'physical') {
+                    mode = ModeEnum.physical
+                } else {
+                    mode = ModeEnum.online
+                }
+            } else if (this.selected_mode.length == 2) {
+                mode = ModeEnum.both
+            }
+
+            const filterFields: FilterFields = {
+                price: this.selected_price,
+                mode: mode,
+                rating: this.selected_rating
+            }
+
+            this.$emit('filter-push', filterFields)
+            this.close()
         },
     },
 }
@@ -82,9 +100,9 @@ export default {
                             class="w-full md:w-auto md:min-w-[115px] hover:bg-gray-50 font-semibold focus:outline-none py-2 px-5 rounded-lg border-2 border-gray-200 cursor-pointer"
                             :class="{
                                 'bg-transparent border-blue-500':
-                                    price === selected_price,
+                                    price.length === selected_price,
                                 'bg-transparent text-gray-500 ':
-                                    price !== selected_price,
+                                    price.length !== selected_price,
                             }">
                             {{ price }}
                         </button>

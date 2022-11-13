@@ -62,3 +62,9 @@ export interface Rating {
 export interface RatingData {
     [key: string]: Rating
 }
+
+export interface FilterFields {
+    price: number
+    rating: string
+    mode: string
+}

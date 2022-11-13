@@ -1,7 +1,7 @@
 <script lang="ts">
 import {defineAsyncComponent} from 'vue'
 import NavBar from '../Reusables/NavBar.vue'
-import { Business, CategoryEnum } from '../../types/types'
+import { Business, CategoryEnum, FilterFields } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
 import FilterModal from '../Reusables/FilterModal.vue'
 import { Category } from '../../types/types'
@@ -48,6 +48,37 @@ export default {
         },
         closeFilter(): void {
             this.filterVisible = false
+        },
+        filterData(filterFields: FilterFields): void {
+            // filter by mode
+            if (filterFields.mode !== '') {
+                this.businessData = this.businessData.filter((business: Business) => {
+                    return business.mode == filterFields.mode
+                })
+            }
+
+            // filter by price
+            if (filterFields.price !== 0) {
+                this.businessData = this.businessData.filter((business: Business) => {
+                    return business.pricerange == filterFields.price
+                })
+            }
+
+            // filter by rating
+            if (filterFields.rating !== ''){
+                this.businessData = this.businessData.filter((business: Business) => {
+                    if (business.ratings) {
+                        let sum = 0
+                        // get the average ratings
+                        for (const index in business.ratings) {
+                            sum += business.ratings[index].ratingscore
+                        }
+                        const avg = sum / Object.keys(business.ratings).length
+
+                        return avg >= Number(filterFields.rating)
+                    }
+                })
+            }
         }
     },
     components: { NavBar, FilterModal, lazyPictureLoad },
@@ -107,6 +138,7 @@ export default {
             </div>
             <FilterModal
                 @close="closeFilter"
+                @filter-push="filterData"
                 v-if="filterVisible"></FilterModal>
             <div
                 class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
