@@ -27,23 +27,6 @@ export default {
         }
     },
     components: { NavBar },
-    computed: {
-        imageSource(): string {
-            if (this.$store.state.userBookmarks) {
-                if (
-                    Object.values(this.$store.state.userBookmarks).includes(
-                        this.businessID
-                    )
-                ) {
-                    return '/assets/confirm.svg'
-                } else {
-                    return '/assets/love.svg'
-                }
-            } else {
-                return '/assets/love.svg'
-            }
-        },
-    },
     mounted() {
         this.getList()
     },
@@ -72,7 +55,9 @@ export default {
             this.businesses = this.$store.getters.getUserBookmarks
             let tempArr = []
             for (let value of this.businesses) {
-                tempArr.push(await this.getDataByID(value))
+                if (value !== null) {
+                    tempArr.push(await this.getDataByID(value))
+                }
             }
             this.business_list = tempArr
         },
@@ -81,6 +66,21 @@ export default {
         ): Promise<void | Business[]> {
             const res = await firebaseService.getDataByID(Number(business_id))
             return res
+        },
+        imageSource(business_id): string {
+            if (this.$store.state.userBookmarks) {
+                if (
+                    Object.values(this.$store.state.userBookmarks).includes(
+                        business_id
+                    )
+                ) {
+                    return '/assets/confirm.svg'
+                } else {
+                    return '/assets/love.svg'
+                }
+            } else {
+                return '/assets/love.svg'
+            }
         },
     },
 }
@@ -137,7 +137,7 @@ export default {
                                 <img
                                     @click="addFav(business['id'])"
                                     class="block md:hidden w-[20px]"
-                                    :src="imageSource" />
+                                    :src="imageSource(business['id'])" />
                             </div>
                             <div class="mb-8">
                                 <p
@@ -157,7 +157,7 @@ export default {
                         <img
                             @click="addFav(business['id'])"
                             class="hidden md:block w-[30px] pt-10"
-                            :src="imageSource" />
+                            :src="imageSource(business['id'])" />
                     </div>
                 </div>
             </template>
