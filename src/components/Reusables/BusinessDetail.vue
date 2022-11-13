@@ -57,7 +57,6 @@ export default defineComponent({
         const updated = new URLSearchParams(search).get('updated')
         if (updated === '1') {
             toast.success('Review added successfully.', { timeout: 5000 })
-            console.log('toast')
         }
     },
     computed: {
@@ -67,12 +66,9 @@ export default defineComponent({
     },
     methods: {
         getDataByID: async function (business_id: String): Promise<void> {
-            console.log(this.business_id)
             this.businessData = await firebaseService.getDataByID(
                 Number(business_id)
             )
-
-            console.log(this.businessData)
 
             if (Object.keys(this.businessData.ratings).length > 0) {
                 this.getRating()
