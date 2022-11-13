@@ -1,5 +1,5 @@
 <script lang="ts">
-import {defineAsyncComponent} from 'vue'
+import { defineAsyncComponent } from 'vue'
 import NavBar from '../Reusables/NavBar.vue'
 import { Business, CategoryEnum, FilterFields } from '../../types/types'
 import { FirebaseService } from '../../services/firebaseService'
@@ -7,8 +7,8 @@ import FilterModal from '../Reusables/FilterModal.vue'
 import { Category } from '../../types/types'
 
 const firebaseService = new FirebaseService()
-const lazyPictureLoad = defineAsyncComponent(() => 
-    import('../Reusables/BusinessCard.vue')
+const lazyPictureLoad = defineAsyncComponent(
+    () => import('../Reusables/BusinessCard.vue')
 )
 
 export default {
@@ -39,7 +39,9 @@ export default {
         getAllData: async function (): Promise<void> {
             this.businessData = await firebaseService.getAll()
         },
-        getByCategory: async function (categories: CategoryEnum[]): Promise<void> {
+        getByCategory: async function (
+            categories: CategoryEnum[]
+        ): Promise<void> {
             this.businessData = await firebaseService.getDataByCategory(
                 categories
             )
@@ -54,34 +56,41 @@ export default {
             // filter by mode
             this.filteredData = this.businessData
             if (filterFields.mode !== '') {
-                this.filteredData = this.filteredData.filter((business: Business) => {
-                    return business.mode == filterFields.mode
-                })
+                this.filteredData = this.filteredData.filter(
+                    (business: Business) => {
+                        return business.mode == filterFields.mode
+                    }
+                )
             }
 
             // filter by price
             if (filterFields.price !== 0) {
-                this.filteredData = this.filteredData.filter((business: Business) => {
-                    return business.pricerange == filterFields.price
-                })
+                this.filteredData = this.filteredData.filter(
+                    (business: Business) => {
+                        return business.pricerange == filterFields.price
+                    }
+                )
             }
 
             // filter by rating
-            if (filterFields.rating !== ''){
-                this.filteredData = this.filteredData.filter((business: Business) => {
-                    if (business.ratings) {
-                        let sum = 0
-                        // get the average ratings
-                        for (const index in business.ratings) {
-                            sum += business.ratings[index].ratingscore
-                        }
-                        const avg = sum / Object.keys(business.ratings).length
+            if (filterFields.rating !== '') {
+                this.filteredData = this.filteredData.filter(
+                    (business: Business) => {
+                        if (business.ratings) {
+                            let sum = 0
+                            // get the average ratings
+                            for (const index in business.ratings) {
+                                sum += business.ratings[index].ratingscore
+                            }
+                            const avg =
+                                sum / Object.keys(business.ratings).length
 
-                        return avg >= Number(filterFields.rating)
+                            return avg >= Number(filterFields.rating)
+                        }
                     }
-                })
+                )
             }
-        }
+        },
     },
     components: { NavBar, FilterModal, lazyPictureLoad },
 }
@@ -143,12 +152,28 @@ export default {
                 @filter-push="filterData"
                 v-if="filterVisible"></FilterModal>
             <div
-                class="bg-white px-8 h-auto md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
+                :class="{
+                    'h-screen': filteredData && filteredData.length <= 4 && filteredData.length > 0,
+                }"
+                class="bg-white px-8 md:px-20 py-8 w-full grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 dark:bg-slate-900">
                 <div v-if="filteredData" v-for="business of filteredData">
                     <lazyPictureLoad :data="business"></lazyPictureLoad>
                 </div>
                 <div v-else v-for="business of businessData">
                     <lazyPictureLoad :data="business"></lazyPictureLoad>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 flex flex-col items-center h-screen" v-if="filteredData && filteredData.length == 0">
+                <img
+                    v-if="!this.$store.getters.getDarkMode"
+                    class="max-w-[15rem] sm:max-w-none sm:min-w-[25rem]"
+                    src="/assets/question_light.svg" />
+                <img
+                    v-else
+                    class="max-w-[15rem] sm:max-w-none sm:min-w-[25rem]"
+                    src="/assets/question_dark.svg" />
+                <div class="font-bold mb-5 text-sm md:text-xl text-gray-700 dark:text-gray-200">
+                    No search result. Please try again.
                 </div>
             </div>
         </div>

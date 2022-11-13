@@ -98,14 +98,14 @@ export default {
             this.profile = !this.profile
         },
         logout(): void {
-            signOut(auth)
-                .then(() => {
-                    window.sessionStorage.clear()
-                    window.location.href = window.location.pathname + '?loggedOut=1'
-                })
-                .catch((error) => {
-                    toast.error("Unable to log out, please try again later.", { timeout: 5000 })
-                })
+            // signOut(auth)
+            //     .then(() => {
+            //         window.sessionStorage.clear()
+            //         window.location.href = window.location.pathname + '?loggedOut=1'
+            //     })
+            //     .catch((error) => {
+            //         toast.error("Unable to log out, please try again later.", { timeout: 5000 })
+            //     })
         },
         openlogin(): void {
             this.showModal()
@@ -117,37 +117,37 @@ export default {
         },
         createUser(data: EmailCreateData): void {
             // once user is created it will auto log in
-            createUserWithEmailAndPassword(auth, data.email, data.password)
-                .then((userCredential) => {
-                    var user = firebase.auth().currentUser
-                    user.getIdToken()
-                        .then((token) => {
-                            userService.createUserFromEmail(userCredential.user.uid, data.name, token)
-                        })
-                    user.updateProfile({
-                        displayName: data.name
-                    })
-                    this.showModal()
-                    toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
-                })
-                .catch((error) => {
-                    toast.error("Error! Account not created.", { timeout: 5000 })
-                })
+            // createUserWithEmailAndPassword(auth, data.email, data.password)
+            //     .then((userCredential) => {
+            //         var user = firebase.auth().currentUser
+            //         user.getIdToken()
+            //             .then((token) => {
+            //                 userService.createUserFromEmail(userCredential.user.uid, data.name, token)
+            //             })
+            //         user.updateProfile({
+            //             displayName: data.name
+            //         })
+            //         this.showModal()
+            //         toast.success(`Successfully created account! Welcome to BigRedDot, ${data.name}.`, { timeout: 5000 })
+            //     })
+            //     .catch((error) => {
+            //         toast.error("Error! Account not created.", { timeout: 5000 })
+            //     })
         },
         loginUser(data: EmailLoginData) {
-            signInWithEmailAndPassword(auth, data.email, data.password)
-                .then((userCredential) => {
-                    this.closelogin()
-                    // then we retrieve the favourites from the user entity 
-                    userCredential.user.getIdToken()
-                        .then((token) => {
-                            this.getBookmarks(userCredential.user.uid, token)
-                        })
-                    toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
-                })
-                .catch((error) => {
-                    toast.error("Error! Unable to sign in! Please check your login credentials.", { timeout: 5000 })
-                })
+            // signInWithEmailAndPassword(auth, data.email, data.password)
+            //     .then((userCredential) => {
+            //         this.closelogin()
+            //         // then we retrieve the favourites from the user entity 
+            //         userCredential.user.getIdToken()
+            //             .then((token) => {
+            //                 this.getBookmarks(userCredential.user.uid, token)
+            //             })
+            //         toast.success(`Successfully signed in! Welcome back, ${userCredential.user.displayName}.`, { timeout: 5000 })
+            //     })
+            //     .catch((error) => {
+            //         toast.error("Error! Unable to sign in! Please check your login credentials.", { timeout: 5000 })
+            //     })
         },
         getBookmarks: async function (userId: string, token: string): Promise<void> {
             this.userBookmarks = await userService.getBookmarks(userId, token)
