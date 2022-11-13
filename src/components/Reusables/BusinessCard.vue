@@ -8,6 +8,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { UserService } from '../../services/userService'
 import { FirebaseService } from '../../services/firebaseService'
+import { useToast } from 'vue-toastification'
 
 SwiperCore.use([Navigation, Pagination, A11y])
 const userService = new UserService()
@@ -61,7 +62,8 @@ export default {
     },
     methods: {
         addFav(): void {
-            const business_id = this.data.id
+            if(this.$store.getters.getUser){
+                const business_id = this.data.id
             var bookmarksArray: number[] = this.$store.state.userBookmarks
             const uid = this.$store.state.user.multiFactor.user.uid
 
@@ -76,6 +78,9 @@ export default {
             }
             // lazy method of updating, will improve if time permits
             this.$store.dispatch('commitUserBookmarks', bookmarksArray)
+            }else{
+                alert("error goes here")
+            }
         },
         async findSum() {
             var indiv_business: Business = await this.getDataByID(this.data.id)
