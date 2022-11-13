@@ -50,10 +50,35 @@ export default {
             this.filterVisible = false
         },
         filterData(filterFields: FilterFields): void {
-            console.log(filterFields)
-            this.getAllData()
-            console.log(this.businessData)
+            // filter by mode
+            if (filterFields.mode !== '') {
+                this.businessData = this.businessData.filter((business: Business) => {
+                    return business.mode == filterFields.mode
+                })
+            }
 
+            // filter by price
+            if (filterFields.price !== 0) {
+                this.businessData = this.businessData.filter((business: Business) => {
+                    return business.pricerange == filterFields.price
+                })
+            }
+
+            // filter by rating
+            if (filterFields.rating !== ''){
+                this.businessData = this.businessData.filter((business: Business) => {
+                    if (business.ratings) {
+                        let sum = 0
+                        // get the average ratings
+                        for (const index in business.ratings) {
+                            sum += business.ratings[index].ratingscore
+                        }
+                        const avg = sum / Object.keys(business.ratings).length
+
+                        return avg >= Number(filterFields.rating)
+                    }
+                })
+            }
         }
     },
     components: { NavBar, FilterModal, lazyPictureLoad },
