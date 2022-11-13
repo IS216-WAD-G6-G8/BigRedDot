@@ -8,10 +8,13 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { UserService } from '../../services/userService'
 import { FirebaseService } from '../../services/firebaseService'
+import { useToast } from 'vue-toastification'
 
 SwiperCore.use([Navigation, Pagination, A11y])
 const userService = new UserService()
 const firebaseService = new FirebaseService()
+
+const toast = useToast()
 
 export default {
     name: 'BusinessCard',
@@ -61,21 +64,25 @@ export default {
     },
     methods: {
         addFav(): void {
-            const business_id = this.data.id
-            var bookmarksArray: number[] = this.$store.state.userBookmarks
-            const uid = this.$store.state.user.multiFactor.user.uid
+            if (this.$store.getters.getUser) {
+                const business_id = this.data.id
+                var bookmarksArray: number[] = this.$store.state.userBookmarks
+                const uid = this.$store.state.user.multiFactor.user.uid
 
-            if (bookmarksArray.includes(business_id)) {
-                // if it has been bookmarked
-                bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
-                userService.updateBookmarks(uid, bookmarksArray, 'remove')
-            } else {
-                // if it is not already bookmarked
-                bookmarksArray.push(business_id)
-                userService.updateBookmarks(uid, bookmarksArray, 'add')
-            }
-            // lazy method of updating, will improve if time permits
-            this.$store.dispatch('commitUserBookmarks', bookmarksArray)
+                if (bookmarksArray.includes(business_id)) {
+                    // if it has been bookmarked
+                    bookmarksArray.splice(bookmarksArray.indexOf(business_id), 1)
+                    userService.updateBookmarks(uid, bookmarksArray, 'remove')
+                } else {
+                    // if it is not already bookmarked
+                    bookmarksArray.push(business_id)
+                    userService.updateBookmarks(uid, bookmarksArray, 'add')
+                }
+                // lazy method of updating, will improve if time permits
+                this.$store.dispatch('commitUserBookmarks', bookmarksArray)
+                } else {
+                    toast.error("Please log in to bookmark businesses.", { timeout: 5000 })
+                }
         },
         async findSum() {
             var indiv_business: Business = await this.getDataByID(this.data.id)
